@@ -1,0 +1,25 @@
+{
+  "name": "es6-babel-react",
+  "version": "1.0.0",
+  "description": "Webpack transpiler",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "start http://localhost:8080/ & webpack-dev-server",
+    "build": "webpack -p"
+  },
+  "author": "Neil Magee",
+  "license": "ISC",
+  "devDependencies": {
+    "path": "^0.12.7",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "2.4.2",
+    "babel-loader": "^6.4.1",
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "markdown-it": "^8.3.1",
+    "html-react-parser": "^0.3.3"
+  }
+}
