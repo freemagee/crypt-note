@@ -7,6 +7,9 @@ export default class NotesList extends React.Component {
   constructor(props) {
     super(props);
   }
+  setCurrentNote(source, index) {
+    this.props.setCurrentNote(source, index);
+  }
   render() {
     return (
       <ul className='NotesList'>
@@ -15,8 +18,5 @@ export default class NotesList extends React.Component {
         }, this) }
       </ul>
     );
-  }
-  setCurrentNote(source) {
-    this.props.setCurrentNote(source);
   }
 }

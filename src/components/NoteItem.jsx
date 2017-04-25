@@ -4,16 +4,6 @@ import ReactDOM from 'react-dom';
 import Helpers from '../helpers/Helpers.js';
 
 export default class NoteItem extends React.Component {
-  render() {
-    var createdDate = Helpers.convertTimestamp(this.props.note.created);
-
-    return (
-      <li className='NoteList__NoteItem'>
-        <p>{this.props.note.title} {createdDate}</p>
-        <button className='btn btn--open' onClick={this.openNote.bind(this)}>Open</button>
-      </li>
-    );
-  }
   openNote() {
     var headers = new Headers();
     var thisObj = this;
@@ -25,7 +15,18 @@ export default class NoteItem extends React.Component {
     }).then(function(response) {
       return response.text();
     }).then(function(markdown) {
-      thisObj.props.openNote(markdown);
+      thisObj.props.openNote(markdown, thisObj.props.index);
     });
+  }
+  render() {
+    let created = Helpers.convertTimestamp(this.props.note.created);
+    let updated = Helpers.convertTimestamp(this.props.note.updated);
+
+    return (
+      <li className='NoteList__NoteItem'>
+        <p>Title:{this.props.note.title}<br /> Created: {created}<br /> Last updated: {updated}</p>
+        <button className='btn NoteList__NoteOpen' onClick={this.openNote.bind(this)}>Open</button>
+      </li>
+    );
   }
 }

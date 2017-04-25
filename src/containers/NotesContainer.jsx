@@ -25,11 +25,12 @@ export default class NotesContainer extends React.Component {
     super(props);
     this.state = {
       currentNote: 'No note selected',
-      editMode: false
+      editMode: false,
+      index: null
     };
   }
-  setCurrentNote(currentNote) {
-    this.setState({currentNote});
+  setCurrentNote(currentNote, index) {
+    this.setState({currentNote, index});
   }
   setEditMode(editMode) {
     this.setState({editMode});
@@ -39,6 +40,7 @@ export default class NotesContainer extends React.Component {
     let changedTimestamp = Helpers.generateTimestamp();
     //To Do: Actually save to file
     this.setState({currentNote});
+    NOTES[this.state.index].updated = changedTimestamp;
   }
   render() {
     return (
