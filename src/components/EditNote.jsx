@@ -24,14 +24,11 @@ export default class EditNote extends React.Component {
     event.preventDefault();
   }
   saveNote(newVal) {
-    console.log(newVal);
+    this.props.saveNote(newVal);
   }
   render() {
-    //let originalContent = this.props.content;
-
     return (
       <form onSubmit={this.handleSubmit}>
-        {/*<textarea value={originalContent || this.state.value} onChange={this.handleChange}></textarea>*/}
         <textarea value={this.state.value} onChange={this.handleChange}></textarea>
         <input type="submit" value="Submit" />
       </form>

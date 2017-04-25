@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Helpers from '../helpers/Helpers.js';
 import NotesList from '../components/NotesList.jsx';
 import RenderedNote from '../components/RenderedNote.jsx';
 
@@ -27,21 +28,27 @@ export default class NotesContainer extends React.Component {
       editMode: false
     };
   }
+  setCurrentNote(currentNote) {
+    this.setState({currentNote});
+  }
+  setEditMode(editMode) {
+    this.setState({editMode});
+  }
+  saveNote(val) {
+    let currentNote = val;
+    let changedTimestamp = Helpers.generateTimestamp();
+    //To Do: Actually save to file
+    this.setState({currentNote});
+  }
   render() {
     return (
       <div className='NotesContainer'>
         <div className='NotesContainer__inner'>
           <h1>Notes</h1>
           <NotesList notes={NOTES} setCurrentNote={this.setCurrentNote.bind(this)} />
-          <RenderedNote source={this.state.currentNote} mode={this.state.editMode} setEditMode={this.setEditMode.bind(this)} />
+          <RenderedNote source={this.state.currentNote} mode={this.state.editMode} setEditMode={this.setEditMode.bind(this)} saveNote={this.saveNote.bind(this)} />
         </div>
       </div>
     );
-  }
-  setCurrentNote(currentNote) {
-    this.setState({currentNote});
-  }
-  setEditMode(editMode) {
-    this.setState({editMode});
   }
 }

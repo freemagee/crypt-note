@@ -26,5 +26,8 @@ module.exports = {
     time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
 
     return time;
+  },
+  generateTimestamp: function() {
+    return Math.round((new Date()).getTime() / 1000);
   }
 }
