@@ -1,5 +1,4 @@
-REACT
-=====
+# REACT
 
 Step 1: Learn react
 

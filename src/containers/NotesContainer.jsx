@@ -1,24 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// TO DO: load data dynamically from a db
+import NOTES from '../data.js';
+
 import Helpers from '../helpers/Helpers.js';
 import NotesList from '../components/NotesList.jsx';
 import RenderedNote from '../components/RenderedNote.jsx';
-
-const NOTES = [
-  {
-    title: 'Zen and the art of motorcycle maintenance',
-    source: './notes/zen.md',
-    created: 1491004800,
-    updated: 1492770458
-  },
-  {
-    title: 'React JS',
-    source: './notes/react.md',
-    created: 1491004800,
-    updated: 1492770458
-  }
-];
 
 export default class NotesContainer extends React.Component {
   constructor(props) {
