@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+.btn {
+  @include rem-font(14);
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  display: inline-block;
+  line-height: 30px;
+  padding: 0 20px;
+  cursor: pointer;
+  color: $color__mid;
+  border: 1px solid $color__light;
+  background: $color__off-white;
+  font-family: $font__main;
+  font-weight: normal;
+  transition: all 0.2s linear;
+  text-decoration: none;
+
+  &:visited {
+    color: $color__mid;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background: $color__light;
+    border: 1px solid $color__mid;
+    color: $color__dark;
+  }
+
+  &:active,
+  &:focus {
+    text-decoration: none;
+    color: $color__dark;
+    border: 1px solid $color__dark;
+    outline: 0;
+  }
+
+  &.disabled,
+  &[disabled] {
+    color: $color__light;
+    cursor: not-allowed;
+
+    &:hover {
+      background: $color__off-white;
+      border: 1px solid $color__light;
+      color: $color__light;
+    }
+  }
+}
+
+.btn-primary {
+  color: $color__off-white;
+  background: $color__mid;
+  border: 1px solid $color__dark;
+
+  &:hover {
+    color: #fff;
+    background: $color__darkest;
+  }
+
+  &:active,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.btn-large {
+  @include rem-font(20);
+  padding: 0.5em 1em;
+  height: auto;
+}
+
+.btn.full,
+.btn-primary.full {
+  width: 100%;
+}
+
+.btn--icon {
+  @include image-replace;
+}

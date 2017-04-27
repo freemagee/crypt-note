@@ -1,0 +1,25 @@
+.NoteItem {
+  @include clearfix;
+
+  & + .NoteItem {
+    margin-top: 10px;
+  }
+
+  &__title {
+    margin: 0 0 0.5em 0;
+    color: $color__dark;
+    font-weight: 700;
+    @include rem-font(18);
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__label {
+    margin-right: 5px;
+    font-weight: 700;
+  }
+
+  &__open {}
+}

@@ -1,3 +1,27 @@
-body {
-  margin: 0;
-}
+@charset 'UTF-8';
+
+// Configuration and helpers
+@import
+  'abstracts/variables',
+  'abstracts/mixins';
+
+// Vendors
+@import
+  'vendor/normalize';
+
+// Base stuff
+@import
+  'base/base',
+  'base/typography',
+  'base/helpers';
+
+// Layout-related sections
+@import
+  'layout/layout';
+
+// Components
+@import
+  'components/forms',
+  'components/buttons',
+  'components/notes-list',
+  'components/note-item';

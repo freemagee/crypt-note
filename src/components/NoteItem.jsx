@@ -23,9 +23,13 @@ export default class NoteItem extends React.Component {
     let updated = Helpers.convertTimestamp(this.props.note.updated);
 
     return (
-      <li className='NoteList__NoteItem'>
-        <p>Title:{this.props.note.title}<br /> Created: {created}<br /> Last updated: {updated}</p>
-        <button className='btn NoteList__NoteOpen' onClick={this.openNote.bind(this)}>Open</button>
+      <li className='NoteItem'>
+        <p className='NoteItem__title'>{this.props.note.title}</p>
+        <div className='NoteItem__meta'>
+          <p className='NoteItem__description'><span className='NoteItem__label'>Created</span>{created}</p>
+          <p className='NoteItem__description'><span className='NoteItem__label'>Last updated</span>{updated}</p>
+        </div>
+        <button className='btn NoteItem__open' onClick={this.openNote.bind(this)}>Open</button>
       </li>
     );
   }

@@ -18,7 +18,12 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loaders: ['style-loader', 'css-loader', 'sass-loader?sourceMap']
+      },
+      {
+        test: /\.(png|jpg|svg)$/,
+        include: path.join(__dirname, 'img'),
+        loader: 'url-loader?limit=30000&name=images/[name].[ext]'
       }
     ]
   },

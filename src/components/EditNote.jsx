@@ -28,9 +28,9 @@ export default class EditNote extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <textarea value={this.state.value} onChange={this.handleChange}></textarea>
-        <input type="submit" value="Submit" />
+      <form className='EditNote__form' onSubmit={this.handleSubmit}>
+        <textarea className='EditNote__content' value={this.state.value} onChange={this.handleChange}></textarea>
+        <button className='btn EditNote__btn' type='submit'>Save</button>
       </form>
     );
   }

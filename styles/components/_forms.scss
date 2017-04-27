@@ -1,0 +1,67 @@
+﻿input,
+select,
+textarea {
+    @include rem-font(14);
+    padding: 3px;
+    background-color: #fff;
+    border: 1px solid $color__border-default;
+
+    &:focus {
+        outline: 0;
+        border: 1px solid $color__dark;
+        color: #000;
+    }
+
+    &:disabled {
+        color: $color__light;
+        cursor: not-allowed;
+    }
+}
+
+.input,
+.select,
+.textarea {
+    display: inline-block;
+
+    &.error {
+        border: 1px solid $error-accent;
+    }
+}
+
+.input {
+    padding: 3px;
+    height: 32px;
+}
+
+.select {
+    padding: 6px 5px 5px 5px;
+    line-height: 14px;
+}
+
+input[type="radio"] {
+    margin: 0 10px 0 0;
+}
+
+input[type="image"] {
+    display: block;
+    padding: 0;
+}
+
+input[type="file"] {
+    border: 0;
+}
+
+.textarea {
+    min-height: 150px;
+}
+
+legend {
+    @include rem-font(18);
+    margin: 0 0 1em 0;
+}
+
+fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}

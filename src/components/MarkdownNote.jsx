@@ -11,7 +11,7 @@ export default class MarkdownNote extends React.Component {
     let result = md.render(this.props.content);
 
     return (
-      <div className='Note__Markdown'>
+      <div className='Note__markdown'>
         {Parser(result)}
       </div>
     );
