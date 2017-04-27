@@ -11,13 +11,16 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015', 'react']
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
-    }]
+    ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
