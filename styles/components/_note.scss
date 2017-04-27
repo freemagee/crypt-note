@@ -1,0 +1,19 @@
+.Note {
+  position: relative;
+  box-sizing: border-box;
+  height: 50vh;
+  padding: 20px;
+  overflow: auto;
+
+  &__markdown {
+    &[data-edit-mode='true'] {
+      display: none;
+    }
+  }
+
+  &__edit {
+    &[data-edit-mode='false'] {
+      display: none;
+    }
+  }
+}

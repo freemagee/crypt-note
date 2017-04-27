@@ -12,11 +12,13 @@ export default class NotesList extends React.Component {
   }
   render() {
     return (
-      <ul className='NotesList'>
-        { this.props.notes.map(function(note, index) {
-          return <NoteItem note={note} openNote={this.setCurrentNote.bind(this)} index={index} key={index} />
-        }, this) }
-      </ul>
+      <div className='Notes'>
+        <ul className='Notes__list'>
+          { this.props.notes.map(function(note, index) {
+            return <NoteItem note={note} openNote={this.setCurrentNote.bind(this)} index={index} key={index} />
+          }, this) }
+        </ul>
+      </div>
     );
   }
 }

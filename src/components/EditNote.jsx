@@ -28,10 +28,12 @@ export default class EditNote extends React.Component {
   }
   render() {
     return (
-      <form className='EditNote__form' onSubmit={this.handleSubmit}>
-        <textarea className='EditNote__content' value={this.state.value} onChange={this.handleChange}></textarea>
-        <button className='btn EditNote__btn' type='submit'>Save</button>
-      </form>
+      <div className='Note__edit' data-edit-mode={this.props.mode}>
+        <form className='EditNote__form' onSubmit={this.handleSubmit}>
+          <button className='btn EditNote__btn' type='submit'>Save</button>
+          <textarea className='EditNote__content' value={this.state.value} onChange={this.handleChange}></textarea>
+        </form>
+      </div>
     );
   }
 }

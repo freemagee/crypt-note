@@ -1,0 +1,20 @@
+.EditNote {
+  &__btn {
+    margin: 0 0 10px 0;
+  }
+
+  &__content {
+    position: absolute;
+    top: 72px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    box-sizing: border-box;
+    display: block;
+    width: calc(100% - 40px);
+    padding: 10px 20px 10px 10px;
+    font-family: $font__code;
+    border: 1px solid $color__off-white;
+    resize: none;
+  }
+}

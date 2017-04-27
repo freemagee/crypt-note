@@ -10,14 +10,14 @@ body {
 
 h1 {
     @include rem-font(28);
-    margin: 0 0 0.5em 0;
+    margin: 0 0 10px 0;
     color: $color__dark;
     font-weight: normal;
 }
 
 h2 {
     @include rem-font(20);
-    margin: 0 0 0.5em 0;
+    margin: 0 0 10px 0;
     color: $color__dark;
     font-family: $font__main;
     font-weight: normal;
@@ -25,7 +25,7 @@ h2 {
 
 h3 {
     @include rem-font(22);
-    margin: 0 0 0.5em 0;
+    margin: 0 0 10px 0;
     color: $color__dark;
     font-family: $font__main;
     font-weight: normal;
@@ -34,7 +34,7 @@ h3 {
 
 h4 {
     @include rem-font(18);
-    margin: 0 0 1em 0;
+    margin: 0 0 10px 0;
     font-family: $font__main;
     font-weight: normal;
 }
@@ -47,7 +47,7 @@ h5 {
 }
 
 p {
-    margin: 0 0 1em 0;
+    margin: 0 0 10px 0;
 
     &:empty {
         display: none;
