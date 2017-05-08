@@ -14,11 +14,19 @@ export default class NotesContainer extends React.Component {
     this.state = {
       currentNote: '',
       editMode: false,
-      index: null
+      index: null,
+      appMode: 'list'
     };
   }
+  setAppMode(appMode) {
+    this.setState({appMode});
+  }
   setCurrentNote(currentNote, index) {
-    this.setState({currentNote, index});
+    this.setState({
+      currentNote: currentNote,
+      index: index
+    });
+    this.setAppMode('note');
   }
   setEditMode(editMode) {
     this.setState({editMode});
@@ -27,20 +35,18 @@ export default class NotesContainer extends React.Component {
     let currentNote = val;
     let changedTimestamp = Helpers.generateTimestamp();
     //To Do: Actually save to file
-    this.setState(
-      {
+    this.setState({
         currentNote: currentNote,
         editMode: true
-      }
-    );
+    });
     NOTES[this.state.index].updated = changedTimestamp;
   }
   render() {
     return (
       <div className='NotesContainer'>
         <div className='NotesContainer__inner'>
-          <NotesList notes={NOTES} setCurrentNote={this.setCurrentNote.bind(this)} />
-          <RenderedNote source={this.state.currentNote} mode={this.state.editMode} setEditMode={this.setEditMode.bind(this)} saveNote={this.saveNote.bind(this)} />
+          <NotesList notes={NOTES} appMode={this.state.appMode} setCurrentNote={this.setCurrentNote.bind(this)} />
+          <RenderedNote source={this.state.currentNote} returnToList={this.setAppMode.bind(this)} appMode={this.state.appMode} mode={this.state.editMode} setEditMode={this.setEditMode.bind(this)} saveNote={this.saveNote.bind(this)} />
         </div>
       </div>
     );

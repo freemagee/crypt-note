@@ -1,9 +1,20 @@
 .Note {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
-  height: 50vh;
+  height: 100vh;
+  width: 100%;
   padding: 20px;
   overflow: auto;
+
+  &[data-app-mode='list'] {
+    top: 100vh;
+    left: 0;
+  }
+
+  &[data-app-mode='note'] {
+    top: 0;
+    left: 0;
+  }
 
   &__markdown {
     &[data-edit-mode='true'] {

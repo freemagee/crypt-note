@@ -9,9 +9,9 @@ export default class EnableEditNote extends React.Component {
     let classVisible = '';
 
     if (this.props.content === '') {
-      classVisible = 'btn Note__edit u-hide';
+      classVisible = 'btn btn-primary Note__edit u-hide';
     } else {
-      classVisible = 'btn Note__edit';
+      classVisible = 'btn btn-primary Note__edit';
     }
 
     return (

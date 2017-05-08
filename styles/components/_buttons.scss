@@ -47,6 +47,10 @@
       color: $color__light;
     }
   }
+
+  & + .btn {
+    margin-left: 10px;
+  }
 }
 
 .btn-primary {
