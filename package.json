@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "webpack-dev-server --inline --hot --config webpack.dev.config.js --progress --open",
     "start:prod": "rimraf ./app/* && webpack --config webpack.prod.config.js --progress --profile --colors && http-server -a localhost -p 3000",
-    "build:prod": "webpack --config webpack.prod.config.js --progress --profile --colors",
+    "build:prod": "rimraf ./app/* && webpack --config webpack.prod.config.js --progress --profile --colors",
     "lint": "eslint src"
   },
   "author": "Neil Magee",
