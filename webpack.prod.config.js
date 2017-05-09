@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -9,15 +12,41 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'app'),
     publicPath: '/app/',
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader'
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader'
+          }, {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'compressed'
+            }
+          }],
+          // use style-loader in development
+          fallback: 'style-loader'
+        })
+      },
+      {
+        test: /\.(png|jpg|svg)$/,
+        include: path.join(__dirname, 'img'),
+        loader: 'url-loader?limit=30000&name=images/[name].[ext]'
+      }
+    ]
   },
   plugins: [
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:8].css'
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: function(module) {
@@ -51,6 +80,12 @@ module.exports = {
     }),
     new ManifestPlugin({
       fileName: 'app-manifest.json'
+    }),
+    new InlineManifestWebpackPlugin({
+      name: 'webpackManifest'
+    }),
+    new HtmlWebpackPlugin({
+      template: './index-template.ejs'
     })
   ]
 };
