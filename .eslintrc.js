@@ -1,4 +1,4 @@
-{
+module.exports = {
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -19,5 +19,8 @@
   "plugins": [
     "react"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
-}
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "globasl": [
+    "webpack": false
+  ]
+};
