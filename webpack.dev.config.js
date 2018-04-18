@@ -1,41 +1,46 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
 
 module.exports = {
+  mode: "development",
   entry: {
-    main: './src/index.jsx'
+    main: resolve('src/index.jsx')
   },
   output: {
-    path: path.resolve(__dirname, 'app'),
-    publicPath: '/app/',
-    filename: '[name].js'
+    path: resolve("app"),
+    publicPath : '/app/',
+    filename: "[name].js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader'
+        loader: "babel-loader"
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
               sourceMap: true
             }
@@ -44,24 +49,30 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|svg)$/,
-        include: path.join(__dirname, 'img'),
-        loader: 'url-loader?limit=30000&name=images/[name].[ext]'
+        include: path.join(__dirname, "img"),
+        loader: "url-loader?limit=30000&name=images/[name].[ext]"
       }
     ]
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: function(module) {
-        // this assumes your vendor imports exist in the node_modules directory
-        return module.context && module.context.indexOf('node_modules') !== -1;
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all"
+        }
       }
-    }),
-    //CommonChunksPlugin will now extract all the common modules from vendor and main bundles
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  devtool: 'cheap-module-eval-source-map'
+    },
+    runtimeChunk: {
+      name: "manifest",
+    },
+  },
+  resolve: {
+    modules: [resolve("app"), resolve("app/styles"), "node_modules"],
+  },
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin()
+  // ],
+  devtool: "cheap-module-eval-source-map"
 };
