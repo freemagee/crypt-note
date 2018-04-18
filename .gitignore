@@ -63,4 +63,4 @@ jspm_packages
 
 # Local
 backup
-app/*
+dist/*

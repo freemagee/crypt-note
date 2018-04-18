@@ -19,8 +19,5 @@ module.exports = {
   "plugins": [
     "react"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "globasl": [
-    "webpack": false
-  ]
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
 };

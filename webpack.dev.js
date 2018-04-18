@@ -1,20 +1,13 @@
 const path = require('path');
-const webpack = require('webpack');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-module.exports = {
+module.exports = merge(common, {
   mode: 'development',
-  entry: {
-    main: resolve('src/index.jsx')
-  },
-  output: {
-    path: resolve('app'),
-    publicPath: '/app/',
-    filename: '[name].js'
-  },
   module: {
     rules: [
       {
@@ -68,8 +61,5 @@ module.exports = {
       name: 'manifest'
     }
   },
-  resolve: {
-    modules: [resolve('app'), resolve('app/styles'), 'node_modules']
-  },
-  devtool: 'cheap-module-eval-source-map'
-};
+  devtool: 'inline-source-map'
+});
