@@ -1,29 +1,31 @@
-// const path = require('path');
-// const webpack = require('webpack');
-// const ManifestPlugin = require('webpack-manifest-plugin');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-// function resolve(dir) {
-//   return path.join(__dirname, dir);
-// }
-
+const common = require('./webpack.common.js');
+const webpack = require('webpack');
+const path = require('path');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const common = require('./webpack.common.js');
+//const ManifestPlugin = require('webpack-manifest-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+//const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
-module.exports = {
+const extractSass = new ExtractTextPlugin({
+  filename: '[name].css'
+});
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
+module.exports = merge(common, {
   mode: 'production',
-  entry: {
-    main: resolve('src/index.jsx')
-  },
-  output: {
-    path: resolve('app'),
-    publicPath: '/app/',
-    filename: '[name].[chunkhash:8].js',
-    chunkFilename: '[name].[chunkhash:8].chunk.js',
-  },
+  // entry: {
+  //   main: resolve('src/index.jsx')
+  // },
+  // output: {
+  //   path: resolve('app'),
+  //   publicPath: '/app/',
+  //   filename: '[name].[chunkhash:8].js',
+  //   chunkFilename: '[name].[chunkhash:8].chunk.js',
+  // },
   module: {
     rules: [
       {
@@ -32,20 +34,28 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
+        use: extractSass.extract({
+          fallback: 'style-loader',
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
             },
             {
               loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
             },
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
             }
           ],
-          // use style-loader in development
-          fallback: 'style-loader'
         })
       },
       {
@@ -55,30 +65,32 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    },
-    runtimeChunk: {
-      name: 'manifest'
-    },
-    minimize: {
-
-    }
-  },
-  resolve: {
-    modules: [resolve('app'), resolve('app/styles'), 'node_modules']
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name: 'vendors',
+  //         chunks: 'all'
+  //       }
+  //     }
+  //   },
+  //   runtimeChunk: {
+  //     name: 'manifest'
+  //   }
+  // },
+  devtool: 'source-map',
   plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash:8].css'
+    extractSass,
+    new UglifyJSPlugin({
+      sourceMap: true
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
+    // new ExtractTextPlugin({
+    //   filename: '[name].[contenthash:8].css'
+    // }),
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendor',
     //   minChunks: function(module) {
@@ -104,20 +116,17 @@ module.exports = {
     //     booleans: true,
     //   }
     // }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
-    new ManifestPlugin({
-      fileName: 'app-manifest.json'
-    }),
-    new InlineManifestWebpackPlugin({
-      name: 'webpackManifest'
-    }),
-    new HtmlWebpackPlugin({
-      template: './index-template.ejs'
-    })
+    // new webpack.optimize.AggressiveMergingPlugin(),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'NODE_ENV': JSON.stringify('production')
+    //   }
+    // }),
+    // new ManifestPlugin({
+    //   fileName: 'app-manifest.json'
+    // }),
+    // new InlineManifestWebpackPlugin({
+    //   name: 'webpackManifest'
+    // })
   ]
-};
+});
