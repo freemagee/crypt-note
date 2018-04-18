@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 //const ManifestPlugin = require('webpack-manifest-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 //const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
@@ -87,7 +88,10 @@ module.exports = merge(common, {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
-    })
+    }),
+    new CopyWebpackPlugin([
+        { from: 'public', to: 'public' }
+    ])
     // new ExtractTextPlugin({
     //   filename: '[name].[contenthash:8].css'
     // }),
