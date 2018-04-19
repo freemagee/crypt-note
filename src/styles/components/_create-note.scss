@@ -1,0 +1,22 @@
+$GOSSIP: #87D37C;
+
+.NoteCreate {
+  padding: 20px;
+
+  &[data-app-mode='note'] {
+    display: none;
+  }
+
+  &__create {
+    background-color: $GOSSIP;
+    border-color: darken($GOSSIP, 10%);
+
+    &:hover {
+      background-color: lighten($GOSSIP, 10%);
+    }
+
+    &[data-create-mode='true'] {
+      display: none;
+    }
+  }
+}

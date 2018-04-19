@@ -1,0 +1,29 @@
+.NoteCreateEditor {
+  &[data-create-mode='false'] {
+    display: none;
+  }
+
+  &__title {
+    box-sizing: border-box;
+    display: block;
+    margin: 20px 0;
+    padding: 10px;
+    font-family: $font__main;
+    border: 1px solid $color__off-white;
+  }
+
+  &__editor {
+    position: absolute;
+    top: 130px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    box-sizing: border-box;
+    display: block;
+    width: calc(100% - 40px);
+    padding: 10px 20px 10px 10px;
+    font-family: $font__code;
+    border: 1px solid $color__off-white;
+    resize: none;
+  }
+}
