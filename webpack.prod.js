@@ -4,13 +4,10 @@ const path = require('path');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 //const ManifestPlugin = require('webpack-manifest-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+//const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
-
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].css'
-});
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -18,15 +15,10 @@ function resolve(dir) {
 
 module.exports = merge(common, {
   mode: 'production',
-  // entry: {
-  //   main: resolve('src/index.jsx')
-  // },
-  // output: {
-  //   path: resolve('app'),
-  //   publicPath: '/app/',
-  //   filename: '[name].[chunkhash:8].js',
-  //   chunkFilename: '[name].[chunkhash:8].chunk.js',
-  // },
+  output: {
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
+  },
   module: {
     rules: [
       {
@@ -35,29 +27,18 @@ module.exports = merge(common, {
       },
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ],
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.(png|jpg|svg)$/,
@@ -80,18 +61,29 @@ module.exports = merge(common, {
   //     name: 'manifest'
   //   }
   // },
-  devtool: 'source-map',
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
+  },
+  //devtool: 'source-map',
   plugins: [
-    extractSass,
-    new UglifyJSPlugin({
-      sourceMap: true
-    }),
+    new UglifyJSPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new CopyWebpackPlugin([
-        { from: 'public', to: 'public' }
-    ])
+    new CopyWebpackPlugin([{ from: 'public', to: 'public' }]),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].css'
+    })
     // new ExtractTextPlugin({
     //   filename: '[name].[contenthash:8].css'
     // }),
