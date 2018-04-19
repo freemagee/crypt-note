@@ -14,12 +14,16 @@ I foresee the system having a login. The password would be one way hashed. That 
 
 ### Todo
 
-- Add ability to create a new note and save it
-- Look at js based encryption
+- Save new notes
+- Edit a title of an existing note
+- Save changes to existing notes
+- Look at JavaScript based encryption
 
 ### Nice to have
 
 - Move CSS into JSX files
+- Duplicate a note
+- Delete a note
 
 ## Credit
 
