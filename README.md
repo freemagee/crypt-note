@@ -1,10 +1,25 @@
 # Crypt-Note
 
-Store and edit encrypted notes in the easy to use Markdown format
+Store and edit ~encrypted~ notes in the easy to use markdown format
 
 ## Project status
 
-Currently WIP. Do not use.
+**Currently WIP. Do not use.**
+
+The intention of this project is to store notes in the markdown format as encrypted plain text. This project does not have a backend currently, so the files are currently stored as unencrypted .md files and served locally from the repo (static/notes).
+
+Eventually this project will simply be the front-end and make requests to an api for the files. No files will be stored on disk.
+
+I foresee the system having a login. The password would be one way hashed. That password could then act as the key to encrypt/decrypt the notes. I am new to the world of encryption, so I expect this to change.
+
+### Todo
+
+- Add ability to create a new note and save it
+- Look at js based encryption
+
+### Nice to have
+
+- Move CSS into JSX files
 
 ## Credit
 
