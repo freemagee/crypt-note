@@ -15,7 +15,7 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist/*.*', 'dist/public', 'dist']),
+    new CleanWebpackPlugin(['dist/*.*', 'dist/static', 'dist']),
     new HtmlWebpackPlugin({template: './src/index.html'})
   ],
 };

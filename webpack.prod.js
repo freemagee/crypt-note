@@ -16,8 +16,7 @@ function resolve(dir) {
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -69,6 +68,14 @@ module.exports = merge(common, {
           test: /\.css$/,
           chunks: 'all',
           enforce: true
+        },
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        },
+        runtimeChunk: {
+          name: 'manifest'
         }
       }
     }
@@ -79,7 +86,7 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new CopyWebpackPlugin([{ from: 'public', to: 'public' }]),
+    new CopyWebpackPlugin([{ from: 'static', to: 'static' }]),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].css'
