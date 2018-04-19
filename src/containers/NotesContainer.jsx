@@ -22,7 +22,6 @@ export default class NotesContainer extends React.Component {
   }
   setAppMode(appMode) {
     this.setState({appMode});
-    console.log(`App mode set to: ${appMode}`);
   }
   setCurrentNote(currentNote, index) {
     this.setState({
@@ -43,15 +42,16 @@ export default class NotesContainer extends React.Component {
   saveNote(val) {
     let currentNote = val;
     let changedTimestamp = Helpers.generateTimestamp();
-    // TODO: Actually save to file/back to source
     this.setState({
         currentNote: currentNote,
         editMode: true
     });
     NOTES[this.state.index].updated = changedTimestamp;
   }
-  saveNewNote(val) {
-    console.log("SAVE ME");
+  saveNewNote(noteObj) {
+    noteObj.created = Helpers.generateTimestamp();
+    noteObj.updated = Helpers.generateTimestamp();
+    console.log('Saving a new note...not really', noteObj);
   }
   render() {
     return (

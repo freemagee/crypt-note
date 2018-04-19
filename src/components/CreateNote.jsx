@@ -12,8 +12,8 @@ export default class EditNote extends React.Component {
     this.props.setCreateMode(false);
     this.props.returnToList('list');
   }
-  saveNewNote(val) {
-    this.props.saveNewNote(val);
+  saveNewNote(obj) {
+    this.props.saveNewNote(obj);
   }
   render() {
     return (

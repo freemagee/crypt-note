@@ -4,18 +4,29 @@ import ReactDOM from 'react-dom';
 export default class NoteCreateEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: 'Type your new note here'};
+    this.state = {
+      editor: 'Type your new note here',
+      title: 'Please enter a title'
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
   handleSubmit(event) {
-    //if (this.state.value !== this.props.content) {
-      this.saveNewNote(this.state.value);
-    //}
+    this.saveNewNote({
+      content: this.state.editor,
+      title: this.state.title
+    });
+
     event.preventDefault();
   }
   saveNewNote(newVal) {
@@ -30,7 +41,8 @@ export default class NoteCreateEditor extends React.Component {
         <form className='NoteCreateEditor__form' onSubmit={this.handleSubmit}>
           <button className='btn NoteCreate__cancel' type='button' onClick={this.cancelCreate.bind(this)}>Cancel and return to list</button>
           <button className='btn btn-primary NoteCreateEditor__save' type='submit'>Save new note</button>
-          <textarea className='NoteCreateEditor__editor' onChange={this.handleChange} value={this.state.value}></textarea>
+          <input className="NoteCreateEditor__title" type='text' value={this.state.title} name='title' onChange={this.handleChange} />
+          <textarea className='NoteCreateEditor__editor' name='editor' value={this.state.editor} onChange={this.handleChange}></textarea>
         </form>
       </div>
     );
