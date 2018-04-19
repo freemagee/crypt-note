@@ -4,10 +4,15 @@
   }
 
   &__save {
-    margin: 0 0 10px 0;
+
   }
 
   &__editor {
+    position: absolute;
+    top: 72px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
     box-sizing: border-box;
     display: block;
     width: calc(100% - 40px);
