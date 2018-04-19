@@ -7,8 +7,13 @@
   overflow: auto;
 
   &[data-app-mode='list'] {
-    top: 0;
+    top: 52px;
     left: 0;
+  }
+
+  &[data-app-mode='create'] {
+    opacity: 0;
+    visibility: hidden;
   }
 
   &[data-app-mode='note'] {

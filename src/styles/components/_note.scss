@@ -11,6 +11,10 @@
     left: 0;
   }
 
+  &[data-app-mode='create'] {
+    display: none;
+  }
+
   &[data-app-mode='note'] {
     top: 0;
     left: 0;
