@@ -3,7 +3,8 @@
 // -----------------------------------------------------------------------------
 
 // Common/repeated color
-$color__off-white: #f1f1f1 !default;
+$color__off-white: #f8f8f8 !default;
+$color__lightest: #ebebeb !default;
 $color__light: #ccc !default;
 $color__mid: #4c4c4c !default;
 $color__dark: #333 !default;
@@ -13,30 +14,12 @@ $color__text-default: $color__mid !default;
 
 $color__border-default: $color__light !default;
 
+// Named colors
+$GOSSIP: #87D37C !default;
+$CAPEHONEY: #FDE3A7 !default;
+$BURNTORANGE:#D35400 !default;
+
 // Fonts
-$font__main: 'Source Sans Pro', Arial, Helvetica, sans-serif !default;
-$font__code: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+$font__main: 'Ubuntu', sans-serif !default;
+$font__code: 'Ubuntu Mono', monospace !default;
 $font__line-height-body: 1.5 !default;
-
-// User Messages
-$error-bg: #ffe8ec !default;
-$error-accent: #ff9aac !default;
-$success-bg: #ccffc1 !default;
-$success-accent: #8bff73 !default;
-$warning-bg: #fff4c0 !default;
-$warning-accent: #ffda27 !default;
-
-// Settings
-$max-width: 1200px !default;
-$pad: 20px !default;
-
-/// Breakpoints map
-/// @prop {String} keys - Keys are identifiers mapped to a given length
-/// @prop {Map} values - Values are actual breakpoints expressed in pixels
-/// @see {mixin} respond-to
-$breakpoints: (
-  'small': (min-width: 320px),
-  'medium': (min-width: 768px),
-  'large': (min-width: 1024px),
-  'xl': (min-width: 1200px),
-) !default;

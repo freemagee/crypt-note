@@ -12,7 +12,6 @@
 // Base stuff
 @import
   'base/base',
-  'base/typography',
   'base/helpers';
 
 // Layout-related sections
@@ -21,10 +20,8 @@
 
 // Components
 @import
-  'components/forms',
-  'components/buttons',
-  'components/note',
   'components/notes',
+  'components/note',
   'components/note-item',
   'components/edit-note',
   'components/create-note',

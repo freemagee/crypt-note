@@ -1,6 +1,7 @@
 $GOSSIP: #87D37C;
 
 .NoteCreate {
+  height: 100vh;
   padding: 20px;
 
   &[data-app-mode='note'] {
@@ -8,15 +9,14 @@ $GOSSIP: #87D37C;
   }
 
   &__create {
-    background-color: $GOSSIP;
-    border-color: darken($GOSSIP, 10%);
-
-    &:hover {
-      background-color: lighten($GOSSIP, 10%);
-    }
+    @include primary-button;
 
     &[data-create-mode='true'] {
       display: none;
     }
+  }
+
+  &__cancel {
+    @include basic-button;
   }
 }
