@@ -18,7 +18,7 @@ export default class EditNote extends React.Component {
   render() {
     return (
       <div className='NoteCreate' data-app-mode={this.props.appMode}>
-        <button className='btn NoteCreate__create' onClick={this.setCreateMode.bind(this)} data-create-mode={this.props.mode}>Create new note</button>
+        <button className='NoteCreate__create' onClick={this.setCreateMode.bind(this)} data-create-mode={this.props.mode}>Create new note</button>
         <NoteCreateEditor mode={this.props.mode} cancelCreateMode={this.cancelCreateMode.bind(this)} saveNewNote={this.saveNewNote.bind(this)} />
       </div>
     );

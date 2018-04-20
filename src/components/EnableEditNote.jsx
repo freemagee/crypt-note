@@ -6,16 +6,16 @@ export default class EnableEditNote extends React.Component {
     this.props.editNote(true);
   }
   render() {
-    let classVisible = '';
+    // let classVisible = '';
 
-    if (this.props.content === '') {
-      classVisible = 'btn btn-primary Note__edit u-hide';
-    } else {
-      classVisible = 'btn btn-primary Note__edit';
-    }
+    // if (this.props.content === '') {
+    //   classVisible = 'MarkdownNote__edit';
+    // } else {
+    //   classVisible = 'Note__edit';
+    // }
 
     return (
-      <button className={classVisible} onClick={this.editNote.bind(this)}>Edit</button>
+      <button className='MarkdownNote__edit' onClick={this.editNote.bind(this)}>Edit</button>
     );
   }
 }
