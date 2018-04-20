@@ -57,9 +57,9 @@ export default class NotesContainer extends React.Component {
     return (
       <div className='NotesContainer'>
         <div className='NotesContainer__inner'>
+          <CreateNote mode={this.state.createMode} appMode={this.state.appMode} returnToList={this.setAppMode.bind(this)} setCreateMode={this.setCreateMode.bind(this)} createNewNote={this.createNewNote.bind(this)} saveNewNote={this.saveNewNote.bind(this)} />
           <NotesList notes={NOTES} appMode={this.state.appMode} setCurrentNote={this.setCurrentNote.bind(this)} />
           <RenderedNote mode={this.state.editMode} appMode={this.state.appMode} source={this.state.currentNote} returnToList={this.setAppMode.bind(this)} setEditMode={this.setEditMode.bind(this)} saveNote={this.saveNote.bind(this)} />
-          <CreateNote mode={this.state.createMode} appMode={this.state.appMode} returnToList={this.setAppMode.bind(this)} setCreateMode={this.setCreateMode.bind(this)} createNewNote={this.createNewNote.bind(this)} saveNewNote={this.saveNewNote.bind(this)} />
         </div>
       </div>
     );

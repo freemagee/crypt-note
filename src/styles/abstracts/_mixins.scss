@@ -37,15 +37,83 @@
   }
 }
 
-// Rem based font sizing
-@mixin rem-font($sizeValue: 16) {
-  font-size: $sizeValue * 1px;
-  font-size: ($sizeValue / 16) * 1rem;
-}
-
 // Image replace based on https://www.sitepoint.com/new-css-image-replacement-technique/
 @mixin image-replace() {
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
+}
+
+// Basic button
+@mixin basic-button() {
+  $self: &;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  display: inline-block;
+  line-height: 38px;
+  padding: 0 20px;
+  cursor: pointer;
+  color: $color__dark;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $color__mid;
+  background-color: $color__lightest;
+  font-family: $font__main;
+  font-weight: normal;
+  transition: border-color 0.2s linear, background-color 0.2s linear;
+  text-decoration: none;
+
+  &:visited {
+    color: $color__mid;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-color: #fff;
+    border-color: $color__dark;
+    color: $color__darkest;
+  }
+
+  &:active,
+  &:focus {
+    text-decoration: none;
+    color: $color__dark;
+    border-color: $color__dark;
+    outline: 0;
+  }
+
+  &.disabled,
+  &[disabled] {
+    color: $color__light;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $color__off-white;
+      border-color: $color__light;
+      color: $color__light;
+    }
+  }
+
+  + #{ $self } {
+    margin-left: 10px;
+  }
+}
+
+@mixin primary-button() {
+  @include basic-button;
+  color: $color__darkest;
+  background-color: $GOSSIP;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $color__mid;
+
+  &:hover {
+    background-color: lighten($GOSSIP, 10%);
+    border-color: $color__dark;
+  }
+
+  &:active,
+  &:focus {
+    border-color: $color__dark;
+  }
 }

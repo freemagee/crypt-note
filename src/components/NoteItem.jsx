@@ -29,7 +29,7 @@ export default class NoteItem extends React.Component {
           <p className='NoteItem__description'><span className='NoteItem__label'>Created</span>{created}</p>
           <p className='NoteItem__description'><span className='NoteItem__label'>Last updated</span>{updated}</p>
         </div>
-        <button className='btn NoteItem__open' onClick={this.openNote.bind(this)}>Open</button>
+        <button className='NoteItem__open' onClick={this.openNote.bind(this)}>Open</button>
       </li>
     );
   }

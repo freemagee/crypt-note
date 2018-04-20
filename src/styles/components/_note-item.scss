@@ -1,27 +1,50 @@
 .NoteItem {
-  padding: 10px 0;
-  border-top: 1px solid $color__light;
   @include clearfix;
+  padding: 20px 0;
+  font-family: $font__main;
+  border-top: 1px solid $color__light;
+  background-color: #fff;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover,
+  &:active {
+    background-color: $CAPEHONEY;
+  }
 
   &:last-child {
+    padding-bottom: 20px;
     border-bottom: 1px solid $color__light;
   }
 
   &__title {
-    margin: 0 0 0.5em 0;
+    margin: 0 0 10px 0;
     color: $color__dark;
     font-weight: 700;
-    @include rem-font(18);
+    font-size: 20px;
+  }
+
+  &__meta {
+    margin-bottom: 10px;
   }
 
   &__description {
+    $self: &;
     margin: 0;
+    color: $color__mid;
+    font-size: 16px;
+
+    + #{ $self } {
+      margin-top: 5px;
+    }
   }
 
   &__label {
-    margin-right: 5px;
+    margin-right: 10px;
     font-weight: 700;
+    color: $color__dark;
   }
 
-  &__open {}
+  &__open {
+    @include basic-button;
+  }
 }

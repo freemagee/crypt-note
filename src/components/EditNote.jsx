@@ -31,11 +31,15 @@ export default class EditNote extends React.Component {
   }
   render() {
     return (
-      <div className='Note__edit' data-edit-mode={this.props.mode}>
+      <div className='EditNote' data-edit-mode={this.props.mode}>
         <form className='EditNote__form' onSubmit={this.handleSubmit}>
-          <button className='btn EditNote__cancel' type='button' onClick={this.cancelEdit.bind(this)}>Cancel</button>
-          <button className='btn btn-primary EditNote__save' type='submit'>Save</button>
-          <textarea className='EditNote__content' value={this.state.value} onChange={this.handleChange}></textarea>
+          <div className='EditNote__actions'>
+            <button className='EditNote__cancel' type='button' onClick={this.cancelEdit.bind(this)}>Cancel</button>
+            <button className='EditNote__save' type='submit'>Save</button>
+          </div>
+          <div className='EditNote__control'>
+            <textarea className='EditNote__content' value={this.state.value} onChange={this.handleChange}></textarea>
+          </div>
         </form>
       </div>
     );

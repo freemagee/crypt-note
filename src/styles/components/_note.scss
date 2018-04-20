@@ -1,23 +1,15 @@
 .Note {
-  position: absolute;
-  box-sizing: border-box;
-  height: 100vh;
-  width: 100%;
+  height: 100%;
   padding: 20px;
-  overflow: auto;
 
-  &[data-app-mode='list'] {
-    top: 100vh;
-    left: 0;
-  }
-
+  &[data-app-mode='list'],
   &[data-app-mode='create'] {
     display: none;
   }
 
   &[data-app-mode='note'] {
-    top: 0;
-    left: 0;
+    // top: 0;
+    // left: 0;
   }
 
   &__markdown {
@@ -26,7 +18,14 @@
     }
   }
 
+  &__btn {
+    @include basic-button;
+  }
+
   &__edit {
+    @include primary-button;
+    margin-left: 10px;
+
     &[data-edit-mode='false'] {
       display: none;
     }
