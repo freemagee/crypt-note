@@ -21,6 +21,7 @@ I foresee the system having a login. The password would be one way hashed. That 
 
 ### Nice to have
 
+- Use redux for state management
 - Move CSS into JSX files
 - Duplicate a note
 - Delete a note
