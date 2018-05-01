@@ -17,8 +17,8 @@ export default class RenderedNote extends React.Component {
   render() {
     return (
       <div className='Note' data-app-mode={this.props.appMode} data-edit-mode={this.props.mode}>
-        <MarkdownNote content={this.props.source} appMode={this.props.appMode} returnToList={this.returnToList.bind(this)} mode={this.props.mode} editMode={this.editMode.bind(this)} />
-        <EditNote content={this.props.source} mode={this.props.mode} editMode={this.editMode.bind(this)} saveNote={this.saveNote.bind(this)} />
+        <MarkdownNote title={this.props.title} content={this.props.source} appMode={this.props.appMode} returnToList={this.returnToList.bind(this)} mode={this.props.mode} editMode={this.editMode.bind(this)} />
+        <EditNote title={this.props.title} content={this.props.source} mode={this.props.mode} editMode={this.editMode.bind(this)} saveNote={this.saveNote.bind(this)} />
       </div>
     );
   }

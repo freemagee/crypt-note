@@ -9,7 +9,7 @@
     display: grid;
     height: 100%;
     grid-template-columns: auto;
-    grid-template-rows: 40px auto;
+    grid-template-rows: 40px 40px auto;
     grid-gap: 20px;
   }
 
@@ -20,6 +20,34 @@
   &__save {
     @include primary-button;
     margin-left: 10px;
+  }
+
+  &__title {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: $font__code;
+    background-color: $color__off-white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color__lightest;
+    transition: border-color 0.2s ease-in-out;
+
+    &:hover {
+      border-color: $color__light;
+    }
+
+    &:focus {
+        outline: 0;
+        border-color: $color__dark;
+        color: $color__dark;
+    }
+
+    &:disabled {
+        color: $color__light;
+        cursor: not-allowed;
+    }
   }
 
   &__content {

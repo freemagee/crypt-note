@@ -24,6 +24,9 @@ export default class MarkdownNote extends React.Component {
           <button type='button' className='MarkdownNote__return' onClick={this.returnToList.bind(this)}>Return to list</button>
           <EnableEditNote content={this.props.content} editNote={this.editMode.bind(this)} />
         </div>
+        <div className='MarkdownNote__meta'>
+          <p className='MarkdownNote__title'>{this.props.title}</p>
+        </div>
         <div className='MarkdownNote__content'>
           {Parser(result)}
         </div>
