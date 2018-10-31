@@ -23,8 +23,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-plugin-react": "^7.11.1",
-    "prettier": "^1.14.3"
+    "html-react-parser": "^0.4.7",
+    "markdown-it": "^8.4.2",
+    "node-sass": "^4.9.4"
   }
 }
