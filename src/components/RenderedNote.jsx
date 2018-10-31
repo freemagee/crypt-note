@@ -1,8 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
 
-import EditNote from './EditNote.jsx';
-import MarkdownNote from './MarkdownNote.jsx';
+import EditNote from "./EditNote.jsx";
+import MarkdownNote from "./MarkdownNote.jsx";
 
 export default class RenderedNote extends React.Component {
   returnToList(appMode) {
@@ -16,9 +15,26 @@ export default class RenderedNote extends React.Component {
   }
   render() {
     return (
-      <div className='Note' data-app-mode={this.props.appMode} data-edit-mode={this.props.mode}>
-        <MarkdownNote title={this.props.title} content={this.props.source} appMode={this.props.appMode} returnToList={this.returnToList.bind(this)} mode={this.props.mode} editMode={this.editMode.bind(this)} />
-        <EditNote title={this.props.title} content={this.props.source} mode={this.props.mode} editMode={this.editMode.bind(this)} saveNote={this.saveNote.bind(this)} />
+      <div
+        className="Note"
+        data-app-mode={this.props.appMode}
+        data-edit-mode={this.props.mode}
+      >
+        <MarkdownNote
+          title={this.props.title}
+          content={this.props.source}
+          appMode={this.props.appMode}
+          returnToList={this.returnToList.bind(this)}
+          mode={this.props.mode}
+          editMode={this.editMode.bind(this)}
+        />
+        <EditNote
+          title={this.props.title}
+          content={this.props.source}
+          mode={this.props.mode}
+          editMode={this.editMode.bind(this)}
+          saveNote={this.saveNote.bind(this)}
+        />
       </div>
     );
   }

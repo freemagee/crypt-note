@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
 
 export default class EnableEditNote extends React.Component {
   editNote() {
@@ -15,7 +14,9 @@ export default class EnableEditNote extends React.Component {
     // }
 
     return (
-      <button className='MarkdownNote__edit' onClick={this.editNote.bind(this)}>Edit</button>
+      <button className="MarkdownNote__edit" onClick={this.editNote.bind(this)}>
+        Edit
+      </button>
     );
   }
 }

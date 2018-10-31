@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
 
 export default class EditNote extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ export default class EditNote extends React.Component {
     if (this.props !== nextProps) {
       this.setState({
         content: nextProps.content,
-        title: nextProps.title,
+        title: nextProps.title
       });
     }
   }
@@ -43,17 +42,36 @@ export default class EditNote extends React.Component {
   }
   render() {
     return (
-      <div className='EditNote' data-edit-mode={this.props.mode}>
-        <form className='EditNote__form' onSubmit={this.handleSubmit}>
-          <div className='EditNote__actions'>
-            <button className='EditNote__cancel' type='button' onClick={this.cancelEdit.bind(this)}>Cancel</button>
-            <button className='EditNote__save' type='submit'>Save</button>
+      <div className="EditNote" data-edit-mode={this.props.mode}>
+        <form className="EditNote__form" onSubmit={this.handleSubmit}>
+          <div className="EditNote__actions">
+            <button
+              className="EditNote__cancel"
+              type="button"
+              onClick={this.cancelEdit.bind(this)}
+            >
+              Cancel
+            </button>
+            <button className="EditNote__save" type="submit">
+              Save
+            </button>
           </div>
-          <div className='EditNote__control'>
-            <input className="EditNote__title" type='text' value={this.state.title} name='title' onChange={this.handleChange} />
+          <div className="EditNote__control">
+            <input
+              className="EditNote__title"
+              type="text"
+              value={this.state.title}
+              name="title"
+              onChange={this.handleChange}
+            />
           </div>
-          <div className='EditNote__control'>
-            <textarea className='EditNote__content' value={this.state.content} name='content' onChange={this.handleChange}></textarea>
+          <div className="EditNote__control">
+            <textarea
+              className="EditNote__content"
+              value={this.state.content}
+              name="content"
+              onChange={this.handleChange}
+            />
           </div>
         </form>
       </div>

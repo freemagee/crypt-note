@@ -1,12 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
 
 export default class NoteCreateEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editor: 'Type your new note here',
-      title: 'Please enter a title'
+      editor: "Type your new note here",
+      title: "Please enter a title"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,17 +36,36 @@ export default class NoteCreateEditor extends React.Component {
   }
   render() {
     return (
-      <div className='NoteCreateEditor' data-create-mode={this.props.mode}>
-        <form className='NoteCreateEditor__form' onSubmit={this.handleSubmit}>
-          <div className='NoteCreateEditor__actions'>
-            <button className='NoteCreate__cancel' type='button' onClick={this.cancelCreate.bind(this)}>Cancel and return to list</button>
-            <button className='NoteCreateEditor__save' type='submit'>Save new note</button>
+      <div className="NoteCreateEditor" data-create-mode={this.props.mode}>
+        <form className="NoteCreateEditor__form" onSubmit={this.handleSubmit}>
+          <div className="NoteCreateEditor__actions">
+            <button
+              className="NoteCreate__cancel"
+              type="button"
+              onClick={this.cancelCreate.bind(this)}
+            >
+              Cancel and return to list
+            </button>
+            <button className="NoteCreateEditor__save" type="submit">
+              Save new note
+            </button>
           </div>
-          <div className='NoteCreateEditor__control'>
-            <input className="NoteCreateEditor__title" type='text' value={this.state.title} name='title' onChange={this.handleChange} />
+          <div className="NoteCreateEditor__control">
+            <input
+              className="NoteCreateEditor__title"
+              type="text"
+              value={this.state.title}
+              name="title"
+              onChange={this.handleChange}
+            />
           </div>
-          <div className='NoteCreateEditor__control'>
-            <textarea className='NoteCreateEditor__editor' name='editor' value={this.state.editor} onChange={this.handleChange}></textarea>
+          <div className="NoteCreateEditor__control">
+            <textarea
+              className="NoteCreateEditor__editor"
+              name="editor"
+              value={this.state.editor}
+              onChange={this.handleChange}
+            />
           </div>
         </form>
       </div>
