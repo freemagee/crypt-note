@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+// Common/repeated color
+$color__off-white: #f8f8f8 !default;
+$color__lightest: #ebebeb !default;
+$color__light: #ccc !default;
+$color__mid: #4c4c4c !default;
+$color__dark: #333 !default;
+$color__darkest: #111 !default;
+
+$color__text-default: $color__mid !default;
+
+$color__border-default: $color__light !default;
+
+// Named colors
+$GOSSIP: #87D37C !default;
+$CAPEHONEY: #FDE3A7 !default;
+$BURNTORANGE:#D35400 !default;
+
+// Fonts
+$font__main: 'Ubuntu', sans-serif !default;
+$font__code: 'Ubuntu Mono', monospace !default;
+$font__line-height-body: 1.5 !default;

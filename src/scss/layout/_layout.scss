@@ -1,0 +1,9 @@
+﻿.NotesContainer {
+  height: 100vh;
+
+  &__inner {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
