@@ -9,10 +9,14 @@ export default class EditNote extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+    const matches = (obj, source) =>
+      Object.keys(source).every(
+        key => obj.hasOwnProperty(key) && obj[key] === source[key]
+      );
+
+    if (!matches(this.props.note, nextProps.note)) {
       this.setState({
         content: nextProps.note.content,
         title: nextProps.note.title
@@ -36,34 +40,26 @@ export default class EditNote extends React.Component {
       this.props.onContentUpdate(value);
     }
   }
-  // handleSubmit(event) {
-  //   if (this.state.note.content !== this.props.note.content) {
-  //     this.saveNote(this.state.note.content);
-  //   }
-  //   event.preventDefault();
-  // }
   render() {
     return (
       <div className="EditNote" data-edit-mode={this.props.mode}>
-
-          <div className="EditNote__control">
-            <input
-              className="EditNote__title"
-              type="text"
-              value={this.state.title}
-              name="title"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="EditNote__control">
-            <textarea
-              className="EditNote__content"
-              value={this.state.content}
-              name="content"
-              onChange={this.handleChange}
-            />
-          </div>
-
+        <div className="EditNote__control">
+          <input
+            className="EditNote__title"
+            type="text"
+            value={this.state.title}
+            name="title"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="EditNote__control">
+          <textarea
+            className="EditNote__content"
+            value={this.state.content}
+            name="content"
+            onChange={this.handleChange}
+          />
+        </div>
       </div>
     );
   }
