@@ -13,10 +13,6 @@
     grid-gap: 20px;
   }
 
-  &__actions {}
-
-  &__control {}
-
   &__title {
     display: block;
     width: 100%;
@@ -73,10 +69,5 @@
         color: $color__light;
         cursor: not-allowed;
     }
-  }
-
-  &__save {
-    @include primary-button;
-    margin-left: 10px;
   }
 }

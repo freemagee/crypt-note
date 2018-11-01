@@ -1,13 +1,12 @@
 import React from "react";
-
-// TODO: load data dynamically from a db
+// TODO: load data dynamically from a db. Just here as a data placeholder
 import NOTES from "../data.js";
-
-import Helpers from "../helpers/Helpers.js";
+import NoteActions from "../components/NoteActions.jsx";
 import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
 import CreateNote from "../components/CreateNote.jsx";
 //import EditNote from "../components/EditNote.jsx";
+import Helpers from "../helpers/Helpers.js";
 
 export default class NotesContainer extends React.Component {
   constructor(props) {
@@ -22,6 +21,15 @@ export default class NotesContainer extends React.Component {
   }
   setAppMode(appMode) {
     this.setState({ appMode });
+  }
+  returnToList() {
+    this.setState({
+      currentNote: {},
+      editMode: false,
+      createMode: false,
+      index: null,
+      appMode: "list"
+    });
   }
   setCurrentNote(noteContent, index) {
     const completeNote = Object.assign({}, NOTES[index]);
@@ -61,10 +69,12 @@ export default class NotesContainer extends React.Component {
     return (
       <div className="NotesContainer">
         <div className="NotesContainer__inner">
+          <NoteActions
+            returnToList={this.returnToList.bind(this)}
+          />
           <CreateNote
             mode={this.state.createMode}
             appMode={this.state.appMode}
-            returnToList={this.setAppMode.bind(this)}
             setCreateMode={this.setCreateMode.bind(this)}
             createNewNote={this.createNewNote.bind(this)}
             saveNewNote={this.saveNewNote.bind(this)}
@@ -78,8 +88,6 @@ export default class NotesContainer extends React.Component {
             mode={this.state.editMode}
             appMode={this.state.appMode}
             note={this.state.currentNote}
-            returnToList={this.setAppMode.bind(this)}
-            //setEditMode={this.setEditMode.bind(this)}
           />
         </div>
       </div>

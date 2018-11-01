@@ -7,10 +7,7 @@
     display: none;
   }
 
-  &[data-app-mode='note'] {
-    // top: 0;
-    // left: 0;
-  }
+  //&[data-app-mode='note'] {}
 
   &__markdown {
     &[data-edit-mode='true'] {
@@ -18,16 +15,7 @@
     }
   }
 
-  &__btn {
-    @include basic-button;
-  }
-
-  &__edit {
-    @include primary-button;
-    margin-left: 10px;
-
-    &[data-edit-mode='false'] {
-      display: none;
-    }
-  }
+  // &__btn {
+  //   @include basic-button;
+  // }
 }

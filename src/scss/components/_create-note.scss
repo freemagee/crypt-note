@@ -1,22 +1,11 @@
-$GOSSIP: #87D37C;
-
 .NoteCreate {
   height: 100vh;
   padding: 20px;
 
+  &[data-app-mode='list'],
   &[data-app-mode='note'] {
     display: none;
   }
 
-  &__create {
-    @include primary-button;
-
-    &[data-create-mode='true'] {
-      display: none;
-    }
-  }
-
-  &__cancel {
-    @include basic-button;
-  }
+  //&[data-app-mode='create'] {}
 }

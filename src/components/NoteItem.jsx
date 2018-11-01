@@ -20,8 +20,8 @@ export default class NoteItem extends React.Component {
       });
   }
   render() {
-    let created = Helpers.convertTimestamp(this.props.note.created);
-    let updated = Helpers.convertTimestamp(this.props.note.updated);
+    const created = Helpers.convertTimestamp(this.props.note.created);
+    const updated = Helpers.convertTimestamp(this.props.note.updated);
 
     return (
       <li className="NoteItem">
@@ -36,7 +36,11 @@ export default class NoteItem extends React.Component {
             {updated}
           </p>
         </div>
-        <button className="NoteItem__open" onClick={this.openNote.bind(this)}>
+        <button
+          type="button"
+          className="NoteItem__open"
+          onClick={this.openNote.bind(this)}
+        >
           Open
         </button>
       </li>

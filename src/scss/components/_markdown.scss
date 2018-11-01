@@ -9,8 +9,6 @@
     display: none;
   }
 
-  &__actions {}
-
   &__title {
     position: relative;
     height: 100%;
@@ -33,15 +31,6 @@
 
   &__content {
     overflow: auto;
-  }
-
-  &__return {
-    @include basic-button;
-  }
-
-  &__edit {
-    @include primary-button;
-    margin-left: 10px;
   }
 }
 

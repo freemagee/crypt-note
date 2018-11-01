@@ -13,15 +13,6 @@
     grid-gap: 20px;
   }
 
-  &__cancel {
-    @include basic-button;
-  }
-
-  &__update {
-    @include primary-button;
-    margin-left: 10px;
-  }
-
   &__title {
     display: block;
     width: 100%;

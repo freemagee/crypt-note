@@ -53,18 +53,6 @@ export default class EditNote extends React.Component {
     return (
       <div className="EditNote" data-edit-mode={mode}>
         <form className="EditNote__form" onSubmit={this.handleSubmit}>
-          <div className="EditNote__actions">
-            <button
-              className="EditNote__cancel"
-              type="button"
-              onClick={this.cancel.bind(this)}
-            >
-              Cancel
-            </button>
-            <button className="EditNote__update" type="submit">
-              Update
-            </button>
-          </div>
           <div className="EditNote__control">
             <input
               className="EditNote__title"

@@ -38,18 +38,6 @@ export default class NoteCreateEditor extends React.Component {
     return (
       <div className="NoteCreateEditor" data-create-mode={this.props.mode}>
         <form className="NoteCreateEditor__form" onSubmit={this.handleSubmit}>
-          <div className="NoteCreateEditor__actions">
-            <button
-              className="NoteCreate__cancel"
-              type="button"
-              onClick={this.cancelCreate.bind(this)}
-            >
-              Cancel and return to list
-            </button>
-            <button className="NoteCreateEditor__save" type="submit">
-              Save new note
-            </button>
-          </div>
           <div className="NoteCreateEditor__control">
             <input
               className="NoteCreateEditor__title"
