@@ -1,0 +1,31 @@
+.NoteActions {
+  padding: 20px;
+
+  button[type=button] + button[type=button] {
+    margin-left: 10px;
+  }
+
+  &__return {
+    @include basic-button;
+  }
+
+  &__create {
+    @include primary-button;
+  }
+
+  &__save {
+    @include primary-button;
+  }
+
+  &__cancel {
+    @include basic-button;
+  }
+
+  &__edit {
+    @include primary-button;
+  }
+
+  &__update {
+    @include primary-button;
+  }
+}
