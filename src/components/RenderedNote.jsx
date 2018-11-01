@@ -1,40 +1,25 @@
 import React from "react";
 
-import EditNote from "./EditNote.jsx";
-import MarkdownNote from "./MarkdownNote.jsx";
+import MarkdownIt from "markdown-it";
+import Parser from "html-react-parser";
+
+const md = new MarkdownIt();
 
 export default class RenderedNote extends React.Component {
-  returnToList(appMode) {
-    this.props.returnToList(appMode);
-  }
-  editMode(mode) {
-    this.props.setEditMode(mode);
-  }
-  saveNote(val) {
-    this.props.saveNote(val);
-  }
   render() {
+    const content =
+      typeof this.props.content !== "undefined"
+        ? md.render(this.props.content)
+        : "";
+    const title =
+      typeof this.props.title !== "undefined" ? this.props.title : "";
+
     return (
-      <div
-        className="Note"
-        data-app-mode={this.props.appMode}
-        data-edit-mode={this.props.mode}
-      >
-        <MarkdownNote
-          title={this.props.title}
-          content={this.props.source}
-          appMode={this.props.appMode}
-          returnToList={this.returnToList.bind(this)}
-          mode={this.props.mode}
-          editMode={this.editMode.bind(this)}
-        />
-        <EditNote
-          title={this.props.title}
-          content={this.props.source}
-          mode={this.props.mode}
-          editMode={this.editMode.bind(this)}
-          saveNote={this.saveNote.bind(this)}
-        />
+      <div className="MarkdownNote" data-edit-mode={this.props.mode}>
+        <div className="MarkdownNote__meta">
+          <p className="MarkdownNote__title">{title}</p>
+        </div>
+        <div className="MarkdownNote__content">{Parser(content)}</div>
       </div>
     );
   }

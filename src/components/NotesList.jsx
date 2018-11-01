@@ -3,8 +3,8 @@ import React from "react";
 import NoteItem from "./NoteItem.jsx";
 
 export default class NotesList extends React.Component {
-  setCurrentNote(source, index) {
-    this.props.setCurrentNote(source, index);
+  setCurrentNote(content, index) {
+    this.props.setCurrentNote(content, index);
   }
   render() {
     return (
@@ -16,7 +16,7 @@ export default class NotesList extends React.Component {
                 note={note}
                 openNote={this.setCurrentNote.bind(this)}
                 index={index}
-                key={index}
+                key={note.title}
               />
             );
           }, this)}

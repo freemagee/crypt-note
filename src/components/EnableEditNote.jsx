@@ -1,20 +1,12 @@
 import React from "react";
 
 export default class EnableEditNote extends React.Component {
-  editNote() {
-    this.props.editNote(true);
+  setEditMode() {
+    this.props.editMode();
   }
   render() {
-    // let classVisible = '';
-
-    // if (this.props.content === '') {
-    //   classVisible = 'MarkdownNote__edit';
-    // } else {
-    //   classVisible = 'Note__edit';
-    // }
-
     return (
-      <button className="MarkdownNote__edit" onClick={this.editNote.bind(this)}>
+      <button className="MarkdownNote__edit" onClick={this.setEditMode.bind(this)}>
         Edit
       </button>
     );

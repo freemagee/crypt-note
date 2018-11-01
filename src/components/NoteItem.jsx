@@ -15,8 +15,8 @@ export default class NoteItem extends React.Component {
       .then(function(response) {
         return response.text();
       })
-      .then(function(markdown) {
-        thisObj.props.openNote(markdown, thisObj.props.index);
+      .then(function(noteContent) {
+        thisObj.props.openNote(noteContent, thisObj.props.index);
       });
   }
   render() {

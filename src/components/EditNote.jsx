@@ -3,74 +3,83 @@ import React from "react";
 export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      content: this.props.content,
-      title: this.props.title
-    };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      this.setState({
-        content: nextProps.content,
-        title: nextProps.title
-      });
+  parseData(val) {
+    // This is simple parsing, but could be extensive, check for XSS etc...
+    if (val === "") {
+      return false;
+    }
+
+    return true;
+  }
+  handleTitleChange(event) {
+    const value = event.target.value;
+
+    if (this.parseData(value)) {
+      // Do prop update
     }
   }
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleContentChange(event) {
+    const value = event.target.value;
 
-    this.setState({
-      [name]: value
-    });
+    if (this.parseData(value)) {
+      // Do prop update
+    }
   }
   handleSubmit(event) {
-    if (this.state.value !== this.props.content) {
-      this.saveNote(this.state.value);
-    }
+    // if (this.parseData()) {
+    //   this.onUpdateNote();
+    // }
     event.preventDefault();
   }
-  saveNote(newVal) {
-    this.props.saveNote(newVal);
+  update() {
+    // this.props.onUpdateNote({
+    //   title: this.state.title,
+    //   content: this.state.content
+    // });
   }
-  cancelEdit() {
+  cancel() {
     this.props.editMode(false);
   }
   render() {
+    const title = this.props.title;
+    const content = this.props.content;
+    const mode = this.props.mode;
+
     return (
-      <div className="EditNote" data-edit-mode={this.props.mode}>
+      <div className="EditNote" data-edit-mode={mode}>
         <form className="EditNote__form" onSubmit={this.handleSubmit}>
           <div className="EditNote__actions">
             <button
               className="EditNote__cancel"
               type="button"
-              onClick={this.cancelEdit.bind(this)}
+              onClick={this.cancel.bind(this)}
             >
               Cancel
             </button>
-            <button className="EditNote__save" type="submit">
-              Save
+            <button className="EditNote__update" type="submit">
+              Update
             </button>
           </div>
           <div className="EditNote__control">
             <input
               className="EditNote__title"
               type="text"
-              value={this.state.title}
+              value={title}
               name="title"
-              onChange={this.handleChange}
+              onChange={this.handleTitleChange}
             />
           </div>
           <div className="EditNote__control">
             <textarea
               className="EditNote__content"
-              value={this.state.content}
+              value={content}
               name="content"
-              onChange={this.handleChange}
+              onChange={this.handleContentChange}
             />
           </div>
         </form>
