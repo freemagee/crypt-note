@@ -7,13 +7,17 @@
     display: none;
   }
 
+  &[data-edit-mode='true'] {
+    display: none;
+  }
+
   //&[data-app-mode='note'] {}
 
-  &__markdown {
-    &[data-edit-mode='true'] {
-      display: none;
-    }
-  }
+  // &__markdown {
+  //   &[data-edit-mode='true'] {
+  //     display: none;
+  //   }
+  // }
 
   // &__btn {
   //   @include basic-button;

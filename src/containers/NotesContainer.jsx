@@ -5,7 +5,7 @@ import NoteActions from "../components/NoteActions.jsx";
 import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
 import CreateNote from "../components/CreateNote.jsx";
-//import EditNote from "../components/EditNote.jsx";
+import EditNote from "../components/EditNote.jsx";
 import Helpers from "../helpers/Helpers.js";
 
 export default class NotesContainer extends React.Component {
@@ -50,8 +50,15 @@ export default class NotesContainer extends React.Component {
   createNewNote() {
     this.setAppMode("create");
   }
-  updateNote(noteObj) {
-    debugger;
+  updateTitle(newTitle) {
+    console.log(newTitle);
+  }
+  updateContent(newContent) {
+    console.log(newContent);
+  }
+  updateCurrentNote() {
+    const updateTimestamp = Helpers.generateTimestamp();
+    console.log("Updating the current note...not really", updateTimestamp);
     // let currentNote = val;
     // let changedTimestamp = Helpers.generateTimestamp();
     // this.setState({
@@ -75,6 +82,7 @@ export default class NotesContainer extends React.Component {
             editMode={this.state.editMode}
             returnToList={this.returnToList.bind(this)}
             setEditMode={this.setEditMode.bind(this)}
+            onUpdateNote={this.updateCurrentNote.bind(this)}
           />
           <CreateNote
             mode={this.state.createMode}
@@ -92,6 +100,13 @@ export default class NotesContainer extends React.Component {
             mode={this.state.editMode}
             appMode={this.state.appMode}
             note={this.state.currentNote}
+          />
+          <EditNote
+            mode={this.state.editMode}
+            appMode={this.state.appMode}
+            note={this.state.currentNote}
+            onTitleUpdate={this.updateTitle.bind(this)}
+            onContentUpdate={this.updateContent.bind(this)}
           />
         </div>
       </div>

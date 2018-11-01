@@ -3,74 +3,67 @@ import React from "react";
 export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      content: "",
+      title: ""
+    };
 
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
   }
-  parseData(val) {
-    // This is simple parsing, but could be extensive, check for XSS etc...
-    if (val === "") {
-      return false;
-    }
-
-    return true;
-  }
-  handleTitleChange(event) {
-    const value = event.target.value;
-
-    if (this.parseData(value)) {
-      // Do prop update
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        content: nextProps.note.content,
+        title: nextProps.note.title
+      });
     }
   }
-  handleContentChange(event) {
-    const value = event.target.value;
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
-    if (this.parseData(value)) {
-      // Do prop update
+    this.setState({
+      [name]: value
+    });
+
+    if (name === "title") {
+      this.props.onTitleUpdate(value);
+    }
+
+    if (name === "content") {
+      this.props.onContentUpdate(value);
     }
   }
-  handleSubmit(event) {
-    // if (this.parseData()) {
-    //   this.onUpdateNote();
-    // }
-    event.preventDefault();
-  }
-  update() {
-    // this.props.onUpdateNote({
-    //   title: this.state.title,
-    //   content: this.state.content
-    // });
-  }
-  cancel() {
-    this.props.editMode(false);
-  }
+  // handleSubmit(event) {
+  //   if (this.state.note.content !== this.props.note.content) {
+  //     this.saveNote(this.state.note.content);
+  //   }
+  //   event.preventDefault();
+  // }
   render() {
-    const title = this.props.title;
-    const content = this.props.content;
-    const mode = this.props.mode;
-
     return (
-      <div className="EditNote" data-edit-mode={mode}>
-        <form className="EditNote__form" onSubmit={this.handleSubmit}>
+      <div className="EditNote" data-edit-mode={this.props.mode}>
+
           <div className="EditNote__control">
             <input
               className="EditNote__title"
               type="text"
-              value={title}
+              value={this.state.title}
               name="title"
-              onChange={this.handleTitleChange}
+              onChange={this.handleChange}
             />
           </div>
           <div className="EditNote__control">
             <textarea
               className="EditNote__content"
-              value={content}
+              value={this.state.content}
               name="content"
-              onChange={this.handleContentChange}
+              onChange={this.handleChange}
             />
           </div>
-        </form>
+
       </div>
     );
   }
