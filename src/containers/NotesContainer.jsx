@@ -70,7 +70,11 @@ export default class NotesContainer extends React.Component {
       <div className="NotesContainer">
         <div className="NotesContainer__inner">
           <NoteActions
+            appMode={this.state.appMode}
+            createMode={this.state.createMode}
+            editMode={this.state.editMode}
             returnToList={this.returnToList.bind(this)}
+            setEditMode={this.setEditMode.bind(this)}
           />
           <CreateNote
             mode={this.state.createMode}

@@ -97,6 +97,10 @@
   + #{ $self } {
     margin-left: 10px;
   }
+
+  &--isHidden {
+    display: none;
+  }
 }
 
 @mixin primary-button() {
