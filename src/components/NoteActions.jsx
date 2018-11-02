@@ -21,7 +21,7 @@ export default class NoteActions extends React.Component {
   }
   render() {
     const returnBtnClass =
-      !this.props.editMode && this.props.appMode !== "list"
+      this.props.appMode !== "list"
         ? "NoteActions__return"
         : "NoteActions__return NoteActions__return--isHidden";
     const saveBtnClass =
@@ -61,7 +61,7 @@ export default class NoteActions extends React.Component {
           className={cancelEditBtnClass}
           onClick={this.cancelEditMode.bind(this)}
         >
-          Cancel
+          Cancel edit
         </button>
 
         <button

@@ -50,22 +50,26 @@ export default class NotesContainer extends React.Component {
     this.setState({ createMode });
     this.setAppMode("create");
   }
-  updateTitle(newTitle) {
-    console.log(newTitle);
+  updateTitle(title) {
+    const currentNote = Object.assign({}, this.state.currentNote);
+
+    currentNote.title = title;
+    this.setState({ currentNote });
   }
-  updateContent(newContent) {
-    console.log(newContent);
+  updateContent(content) {
+    const currentNote = Object.assign({}, this.state.currentNote);
+
+    currentNote.content = content;
+    this.setState({ currentNote });
   }
   updateCurrentNote() {
-    const updateTimestamp = Helpers.generateTimestamp();
-    console.log("Updating the current note...not really", updateTimestamp);
-    // let currentNote = val;
-    // let changedTimestamp = Helpers.generateTimestamp();
-    // this.setState({
-    //   currentNote: currentNote,
-    //   editMode: true
-    // });
-    // NOTES[this.state.index].updated = changedTimestamp;
+    const currentNote = Object.assign({}, this.state.currentNote);
+
+    currentNote.updated = Helpers.generateTimestamp();
+    this.setState({ currentNote, editMode: true }, () => {
+      NOTES[this.state.index] = currentNote;
+      console.log("Updating current note...not really", this.state.currentNote);
+    });
   }
   setNewTitle(newTitle) {
     const newNote = Object.assign({}, this.state.newNote);

@@ -4,13 +4,15 @@ export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: "",
-      title: ""
+      title: this.props.note.title,
+      content: this.props.note.content
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+    // TODO: Refactor -> as this is an anti-pattern
+    // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
     const matches = (obj, source) =>
       Object.keys(source).every(
         key => obj.hasOwnProperty(key) && obj[key] === source[key]
@@ -18,8 +20,8 @@ export default class EditNote extends React.Component {
 
     if (!matches(this.props.note, nextProps.note)) {
       this.setState({
-        content: nextProps.note.content,
-        title: nextProps.note.title
+        title: nextProps.note.title,
+        content: nextProps.note.content
       });
     }
   }
