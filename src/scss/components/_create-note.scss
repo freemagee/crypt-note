@@ -1,11 +1,9 @@
-.NoteCreate {
-  height: 100vh;
-  padding: 20px;
+.CreateNote {
+  height: 100%;
+  padding: 0 20px 20px;
 
   &[data-app-mode='list'],
   &[data-app-mode='note'] {
     display: none;
   }
-
-  //&[data-app-mode='create'] {}
 }

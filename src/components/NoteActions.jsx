@@ -4,6 +4,12 @@ export default class NoteActions extends React.Component {
   returnToList() {
     this.props.returnToList();
   }
+  setCreateMode() {
+    this.props.setCreateMode(true);
+  }
+  saveNewNote() {
+    this.props.saveNewNote();
+  }
   setEditMode() {
     this.props.setEditMode(true);
   }
@@ -18,8 +24,15 @@ export default class NoteActions extends React.Component {
       !this.props.editMode && this.props.appMode !== "list"
         ? "NoteActions__return"
         : "NoteActions__return NoteActions__return--isHidden";
-    const saveBtnClass = "NoteActions__save NoteActions__save--isHidden";
-    const createBtnClass = "NoteActions__create NoteActions__create--isHidden";
+    const saveBtnClass =
+      this.props.appMode === "create"
+        ? "NoteActions__save"
+        : "NoteActions__save NoteActions__save--isHidden";
+    const createBtnClass =
+      (this.props.appMode === "create" && !this.props.createMode) ||
+      this.props.appMode === "list"
+        ? "NoteActions__create"
+        : "NoteActions__create NoteActions__create--isHidden";
     const cancelEditBtnClass =
       this.props.editMode && this.props.appMode === "note"
         ? "NoteActions__cancel"
@@ -51,11 +64,19 @@ export default class NoteActions extends React.Component {
           Cancel
         </button>
 
-        <button type="button" className={saveBtnClass}>
-          Save new note
+        <button
+          type="button"
+          className={saveBtnClass}
+          onClick={this.saveNewNote.bind(this)}
+        >
+          Save
         </button>
 
-        <button type="button" className={createBtnClass}>
+        <button
+          type="button"
+          className={createBtnClass}
+          onClick={this.setCreateMode.bind(this)}
+        >
           Create new note
         </button>
 

@@ -1,24 +1,22 @@
 .NoteCreateEditor {
-  height: 100%;
+  display: grid;
+  height: calc(100% - 80px);
+  grid-template-columns: auto;
+  grid-template-rows: 40px auto;
+  grid-gap: 20px;
 
   &[data-create-mode='false'] {
     display: none;
   }
 
-  &__form {
-    display: grid;
-    height: 100%;
-    grid-template-columns: auto;
-    grid-template-rows: 40px 40px auto;
-    grid-gap: 20px;
-  }
-
-  &__title {
+  &__title,
+  &__content {
     display: block;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
     font-family: $font__code;
+    color: $color__mid;
     background-color: $color__off-white;
     border-width: 1px;
     border-style: solid;
@@ -30,44 +28,37 @@
     }
 
     &:focus {
-        outline: 0;
-        border-color: $color__dark;
-        color: $color__dark;
+      outline: 0;
+      border-color: $color__dark;
+      color: $color__darker;
     }
 
     &:disabled {
-        color: $color__light;
-        cursor: not-allowed;
+      color: $color__light;
+      cursor: not-allowed;
     }
-  }
 
-  &__editor {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: $font__code;
-    background-color: $color__off-white;
-    border-width: 1px;
-    border-style: solid;
-    border-color: $color__lightest;
-    resize: none;
-    transition: border-color 0.3s ease-in-out;
+    &::-webkit-input-placeholder {
+      color: $color__mid;
+    }
 
-    &:hover {
-      border-color: $color__light;
+    &::-moz-placeholder {
+      color: $color__mid;
     }
 
     &:focus {
-        outline: 0;
-        border-color: $color__dark;
-        color: $color__dark;
-    }
-
-    &:disabled {
+      &::-webkit-input-placeholder {
         color: $color__light;
-        cursor: not-allowed;
+      }
+
+      &::-moz-placeholder {
+        color: $color__light;
+      }
     }
+  }
+
+  &__content {
+    height: 100%;
+    resize: none;
   }
 }

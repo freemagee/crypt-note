@@ -12,6 +12,7 @@ export default class NotesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      newNote: {},
       currentNote: {},
       editMode: false,
       createMode: false,
@@ -24,6 +25,7 @@ export default class NotesContainer extends React.Component {
   }
   returnToList() {
     this.setState({
+      newNote: {},
       currentNote: {},
       editMode: false,
       createMode: false,
@@ -46,8 +48,6 @@ export default class NotesContainer extends React.Component {
   }
   setCreateMode(createMode) {
     this.setState({ createMode });
-  }
-  createNewNote() {
     this.setAppMode("create");
   }
   updateTitle(newTitle) {
@@ -67,10 +67,26 @@ export default class NotesContainer extends React.Component {
     // });
     // NOTES[this.state.index].updated = changedTimestamp;
   }
-  saveNewNote(noteObj) {
-    noteObj.created = Helpers.generateTimestamp();
-    noteObj.updated = Helpers.generateTimestamp();
-    console.log("Saving a new note...not really", noteObj);
+  setNewTitle(newTitle) {
+    const newNote = Object.assign({}, this.state.newNote);
+
+    newNote.title = newTitle;
+    this.setState({ newNote });
+  }
+  setNewContent(newContent) {
+    const newNote = Object.assign({}, this.state.newNote);
+
+    newNote.content = newContent;
+    this.setState({ newNote });
+  }
+  saveNewNote() {
+    const newNote = Object.assign({}, this.state.newNote);
+
+    newNote.created = Helpers.generateTimestamp();
+    newNote.updated = Helpers.generateTimestamp();
+    this.setState({ newNote }, () => {
+      console.log("Saving a new note...not really", this.state.newNote);
+    });
   }
   render() {
     return (
@@ -81,15 +97,16 @@ export default class NotesContainer extends React.Component {
             createMode={this.state.createMode}
             editMode={this.state.editMode}
             returnToList={this.returnToList.bind(this)}
+            saveNewNote={this.saveNewNote.bind(this)}
             setEditMode={this.setEditMode.bind(this)}
+            setCreateMode={this.setCreateMode.bind(this)}
             onUpdateNote={this.updateCurrentNote.bind(this)}
           />
           <CreateNote
-            mode={this.state.createMode}
+            createMode={this.state.createMode}
             appMode={this.state.appMode}
-            setCreateMode={this.setCreateMode.bind(this)}
-            createNewNote={this.createNewNote.bind(this)}
-            saveNewNote={this.saveNewNote.bind(this)}
+            onTitleChange={this.setNewTitle.bind(this)}
+            onContentChange={this.setNewContent.bind(this)}
           />
           <NotesList
             notes={NOTES}

@@ -2,25 +2,19 @@ import React from "react";
 
 import NoteCreateEditor from "../components/NoteCreateEditor.jsx";
 
-export default class EditNote extends React.Component {
-  setCreateMode() {
-    this.props.setCreateMode(true);
-    this.props.createNewNote();
+export default class CreateNote extends React.Component {
+  onTitleChange(newVal) {
+    this.props.onTitleChange(newVal);
   }
-  cancelCreateMode() {
-    this.props.setCreateMode(false);
-    this.props.returnToList("list");
-  }
-  saveNewNote(obj) {
-    this.props.saveNewNote(obj);
+  onContentChange(newVal) {
+    this.props.onContentChange(newVal);
   }
   render() {
     return (
-      <div className="NoteCreate" data-app-mode={this.props.appMode}>
+      <div className="CreateNote" data-app-mode={this.props.appMode}>
         <NoteCreateEditor
-          mode={this.props.mode}
-          cancelCreateMode={this.cancelCreateMode.bind(this)}
-          saveNewNote={this.saveNewNote.bind(this)}
+          onTitleChange={this.onTitleChange.bind(this)}
+          onContentChange={this.onContentChange.bind(this)}
         />
       </div>
     );
