@@ -43,28 +43,32 @@ export default class EditNote extends React.Component {
     }
   }
   render() {
-    const title = typeof this.props.note !== "undefined" ? this.props.note.title : "";
-    const content = typeof this.props.note !== "undefined" ? this.props.note.content : "";
+    const title = typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content = typeof this.props.note.content !== "undefined" ? this.props.note.content : "";
 
     return (
       <div className="EditNote" data-edit-mode={this.props.mode}>
-        <div className="EditNote__control">
-          <input
-            className="EditNote__title"
-            type="text"
-            value={title}
-            name="title"
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="EditNote__control">
-          <textarea
-            className="EditNote__content"
-            value={content}
-            name="content"
-            onChange={this.handleChange}
-          />
-        </div>
+        {title !== "" &&
+          <div className="EditNote__control">
+            <input
+              className="EditNote__title"
+              type="text"
+              value={title}
+              name="title"
+              onChange={this.handleChange}
+            />
+          </div>
+        }
+        {content !== "" &&
+          <div className="EditNote__control">
+            <textarea
+              className="EditNote__content"
+              value={content}
+              name="content"
+              onChange={this.handleChange}
+            />
+          </div>
+        }
       </div>
     );
   }

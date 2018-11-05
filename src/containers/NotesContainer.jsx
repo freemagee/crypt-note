@@ -12,26 +12,20 @@ export default class NotesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newNote: {},
-      currentNote: {},
+      note: {},
       editMode: false,
       createMode: false,
       index: null,
       appMode: "list"
     };
+    // preserve the initial state in a new object
+    this.baseState = this.state;
   }
   setAppMode(appMode) {
     this.setState({ appMode });
   }
   returnToList() {
-    this.setState({
-      newNote: {},
-      currentNote: {},
-      editMode: false,
-      createMode: false,
-      index: null,
-      appMode: "list"
-    });
+    this.setState(this.baseState);
   }
   setCurrentNote(noteContent, index) {
     const completeNote = Object.assign({}, NOTES[index]);
@@ -39,7 +33,7 @@ export default class NotesContainer extends React.Component {
 
     this.setState(
       {
-        currentNote: completeNote,
+        note: completeNote,
         index: index
       },
       () => {
@@ -53,57 +47,41 @@ export default class NotesContainer extends React.Component {
     if (!editMode) {
       const resetNote = Object.assign({}, NOTES[this.state.index]);
 
-      this.setState({ currentNote: resetNote });
+      this.setState({ note: resetNote });
     }
   }
   setCreateMode(createMode) {
     this.setState({ createMode });
     this.setAppMode("create");
   }
-  updateTitle(title) {
-    const currentNote = Object.assign({}, this.state.currentNote);
+  setTitle(title) {
+    const note = Object.assign({}, this.state.note);
 
-    currentNote.title = title;
-    this.setState({ currentNote });
+    note.title = title;
+    this.updateNoteState(note);
   }
-  updateContent(content) {
-    const currentNote = Object.assign({}, this.state.currentNote);
+  setContent(content) {
+    const note = Object.assign({}, this.state.note);
 
-    currentNote.content = content;
-    this.setState({ currentNote });
+    note.content = content;
+    this.updateNoteState(note);
   }
-  updateCurrentNote() {
-    const currentNote = Object.assign({}, this.state.currentNote);
+  saveNote() {
+    const note = Object.assign({}, this.state.note);
 
-    currentNote.updated = Helpers.generateTimestamp();
-    this.setState({ currentNote, editMode: true }, () => {
-      NOTES[this.state.index] = currentNote;
-      console.log("Updating current note...not really", this.state.currentNote);
+    if (this.state.createMode) {
+      note.created = Helpers.generateTimestamp();
+    }
+    note.updated = Helpers.generateTimestamp();
+    this.setState({ note }, () => {
+      console.log("Saving the note...not really", this.state.note);
     });
   }
-  setNewTitle(newTitle) {
-    const newNote = Object.assign({}, this.state.newNote);
-
-    newNote.title = newTitle;
-    this.setState({ newNote });
-  }
-  setNewContent(newContent) {
-    const newNote = Object.assign({}, this.state.newNote);
-
-    newNote.content = newContent;
-    this.setState({ newNote });
-  }
-  saveNewNote() {
-    const newNote = Object.assign({}, this.state.newNote);
-
-    newNote.created = Helpers.generateTimestamp();
-    newNote.updated = Helpers.generateTimestamp();
-    this.setState({ newNote }, () => {
-      console.log("Saving a new note...not really", this.state.newNote);
-    });
+  updateNoteState(note) {
+    this.setState({ note });
   }
   render() {
-    const currentNote = this.state.currentNote;
+    const note = this.state.note;
 
     return (
       <div className="NotesContainer">
@@ -113,16 +91,16 @@ export default class NotesContainer extends React.Component {
             createMode={this.state.createMode}
             editMode={this.state.editMode}
             returnToList={this.returnToList.bind(this)}
-            saveNewNote={this.saveNewNote.bind(this)}
+            saveNewNote={this.saveNote.bind(this)}
             setEditMode={this.setEditMode.bind(this)}
             setCreateMode={this.setCreateMode.bind(this)}
-            onUpdateNote={this.updateCurrentNote.bind(this)}
+            onUpdateNote={this.saveNote.bind(this)}
           />
           <CreateNote
             createMode={this.state.createMode}
             appMode={this.state.appMode}
-            onTitleChange={this.setNewTitle.bind(this)}
-            onContentChange={this.setNewContent.bind(this)}
+            onTitleChange={this.setTitle.bind(this)}
+            onContentChange={this.setContent.bind(this)}
           />
           <NotesList
             notes={NOTES}
@@ -132,15 +110,15 @@ export default class NotesContainer extends React.Component {
           <Note
             mode={this.state.editMode}
             appMode={this.state.appMode}
-            note={this.state.currentNote}
+            note={note}
           />
           <EditNote
             key={this.state.index}
             mode={this.state.editMode}
             appMode={this.state.appMode}
-            note={currentNote}
-            onTitleUpdate={this.updateTitle.bind(this)}
-            onContentUpdate={this.updateContent.bind(this)}
+            note={note}
+            onTitleUpdate={this.setTitle.bind(this)}
+            onContentUpdate={this.setContent.bind(this)}
           />
         </div>
       </div>
