@@ -37,14 +37,24 @@ export default class NotesContainer extends React.Component {
     const completeNote = Object.assign({}, NOTES[index]);
     completeNote.content = noteContent;
 
-    this.setState({
-      currentNote: completeNote,
-      index: index
-    });
-    this.setAppMode("note");
+    this.setState(
+      {
+        currentNote: completeNote,
+        index: index
+      },
+      () => {
+        NOTES[this.state.index] = completeNote;
+        this.setAppMode("note");
+      }
+    );
   }
   setEditMode(editMode) {
     this.setState({ editMode });
+    if (!editMode) {
+      const resetNote = Object.assign({}, NOTES[this.state.index]);
+
+      this.setState({ currentNote: resetNote });
+    }
   }
   setCreateMode(createMode) {
     this.setState({ createMode });
