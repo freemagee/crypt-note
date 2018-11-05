@@ -93,6 +93,8 @@ export default class NotesContainer extends React.Component {
     });
   }
   render() {
+    const currentNote = this.state.currentNote;
+
     return (
       <div className="NotesContainer">
         <div className="NotesContainer__inner">
@@ -123,9 +125,10 @@ export default class NotesContainer extends React.Component {
             note={this.state.currentNote}
           />
           <EditNote
+            key={this.state.index}
             mode={this.state.editMode}
             appMode={this.state.appMode}
-            note={this.state.currentNote}
+            note={currentNote}
             onTitleUpdate={this.updateTitle.bind(this)}
             onContentUpdate={this.updateContent.bind(this)}
           />

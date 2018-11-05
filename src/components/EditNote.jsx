@@ -4,27 +4,27 @@ export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.note.title,
-      content: this.props.note.content
+      title: "",
+      content: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    // TODO: Refactor -> as this is an anti-pattern
-    // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
-    const matches = (obj, source) =>
-      Object.keys(source).every(
-        key => obj.hasOwnProperty(key) && obj[key] === source[key]
-      );
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   // TODO: Refactor -> as this is an anti-pattern
+  //   // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
+  //   const matches = (obj, source) =>
+  //     Object.keys(source).every(
+  //       key => obj.hasOwnProperty(key) && obj[key] === source[key]
+  //     );
 
-    if (!matches(this.props.note, nextProps.note)) {
-      this.setState({
-        title: nextProps.note.title,
-        content: nextProps.note.content
-      });
-    }
-  }
+  //   if (!matches(this.props.note, nextProps.note)) {
+  //     this.setState({
+  //       title: nextProps.note.title,
+  //       content: nextProps.note.content
+  //     });
+  //   }
+  // }
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -43,13 +43,16 @@ export default class EditNote extends React.Component {
     }
   }
   render() {
+    const title = typeof this.props.note !== "undefined" ? this.props.note.title : "";
+    const content = typeof this.props.note !== "undefined" ? this.props.note.content : "";
+
     return (
       <div className="EditNote" data-edit-mode={this.props.mode}>
         <div className="EditNote__control">
           <input
             className="EditNote__title"
             type="text"
-            value={this.state.title}
+            value={title}
             name="title"
             onChange={this.handleChange}
           />
@@ -57,7 +60,7 @@ export default class EditNote extends React.Component {
         <div className="EditNote__control">
           <textarea
             className="EditNote__content"
-            value={this.state.content}
+            value={content}
             name="content"
             onChange={this.handleChange}
           />
