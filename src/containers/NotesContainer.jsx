@@ -96,16 +96,16 @@ export default class NotesContainer extends React.Component {
             setCreateMode={this.setCreateMode.bind(this)}
             onUpdateNote={this.saveNote.bind(this)}
           />
+          <NotesList
+            notes={NOTES}
+            appMode={this.state.appMode}
+            setCurrentNote={this.setCurrentNote.bind(this)}
+          />
           <CreateNote
             createMode={this.state.createMode}
             appMode={this.state.appMode}
             onTitleChange={this.setTitle.bind(this)}
             onContentChange={this.setContent.bind(this)}
-          />
-          <NotesList
-            notes={NOTES}
-            appMode={this.state.appMode}
-            setCurrentNote={this.setCurrentNote.bind(this)}
           />
           <Note
             mode={this.state.editMode}

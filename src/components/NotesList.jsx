@@ -9,18 +9,20 @@ export default class NotesList extends React.Component {
   render() {
     return (
       <div className="Notes" data-app-mode={this.props.appMode}>
-        <ul className="Notes__list">
-          {this.props.notes.map(function(note, index) {
-            return (
-              <NoteItem
-                note={note}
-                openNote={this.setCurrentNote.bind(this)}
-                index={index}
-                key={note.title}
-              />
-            );
-          }, this)}
-        </ul>
+        {this.props.appMode === "list" && (
+          <ul className="Notes__list">
+            {this.props.notes.map(function(note, index) {
+              return (
+                <NoteItem
+                  note={note}
+                  openNote={this.setCurrentNote.bind(this)}
+                  index={index}
+                  key={note.title}
+                />
+              );
+            }, this)}
+          </ul>
+        )}
       </div>
     );
   }

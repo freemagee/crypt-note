@@ -12,10 +12,12 @@ export default class CreateNote extends React.Component {
   render() {
     return (
       <div className="CreateNote" data-app-mode={this.props.appMode}>
-        <NoteCreateEditor
-          onTitleChange={this.onTitleChange.bind(this)}
-          onContentChange={this.onContentChange.bind(this)}
-        />
+        {this.props.appMode === "create" && (
+          <NoteCreateEditor
+            onTitleChange={this.onTitleChange.bind(this)}
+            onContentChange={this.onContentChange.bind(this)}
+          />
+        )}
       </div>
     );
   }
