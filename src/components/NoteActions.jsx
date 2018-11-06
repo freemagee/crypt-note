@@ -1,114 +1,93 @@
 import React from "react";
 
 export default class NoteActions extends React.Component {
-  returnToList() {
-    this.props.returnToList();
+  constructor(props) {
+    super(props);
+
+    this.buttonsList = [
+      {
+        type: "return",
+        action: this.setListMode.bind(this),
+        label: "Return to list"
+      },
+      {
+        type: "cancel",
+        action: this.setNoteMode.bind(this),
+        label: "Cancel edit"
+      },
+      {
+        type: "create",
+        action: this.setCreateMode.bind(this),
+        label: "Create new note"
+      },
+      {
+        type: "preview",
+        action: this.setPreviewMode.bind(this),
+        label: "Preview"
+      },
+      {
+        type: "save",
+        action: this.doSaveNote.bind(this),
+        label: "Save note"
+      },
+      {
+        type: "edit",
+        action: this.setEditMode.bind(this),
+        label: "Edit note"
+      },
+      {
+        type: "update",
+        action: this.doUpdateNote.bind(this),
+        label: "Update note"
+      },
+      {
+        type: "back",
+        action: this.setCreateMode.bind(this),
+        label: "Back to new note"
+      }
+    ];
+  }
+  setListMode() {
+    this.props.setAppMode("list");
   }
   setCreateMode() {
-    this.props.setCreateMode("create");
+    this.props.setAppMode("create");
   }
-  saveNewNote() {
-    this.props.saveNewNote();
-  }
-  previewNote() {
-    this.props.setPreviewMode("preview");
+  setPreviewMode() {
+    this.props.setAppMode("preview");
   }
   setEditMode() {
-    this.props.setEditMode("edit");
+    this.props.setAppMode("edit");
   }
-  cancelEditMode() {
-    this.props.setEditMode("note");
+  setNoteMode() {
+    this.props.setAppMode("note");
   }
-  updateNote() {
+  doSaveNote() {
+    this.props.onSaveNote();
+  }
+  doUpdateNote() {
     this.props.onUpdateNote();
   }
-  render() {
-    const returnBtnClass =
-      this.props.appMode !== "list"
-        ? "NoteActions__return"
-        : "NoteActions__return NoteActions__return--isHidden";
-    const saveBtnClass =
-      this.props.appMode === "create"
-        ? "NoteActions__save"
-        : "NoteActions__save NoteActions__save--isHidden";
-    const previewBtnClass =
-      this.props.appMode === "create"
-        ? "NoteActions__preview"
-        : "NoteActions__preview NoteActions__preview--isHidden";
-    const createBtnClass =
-      this.props.appMode === "list"
-        ? "NoteActions__create"
-        : "NoteActions__create NoteActions__create--isHidden";
-    const cancelEditBtnClass =
-      this.props.appMode === "edit"
-        ? "NoteActions__cancel"
-        : "NoteActions__cancel NoteActions__cancel--isHidden";
-    const editBtnClass =
-      this.props.appMode === "note"
-        ? "NoteActions__edit"
-        : "NoteActions__edit NoteActions__edit--isHidden";
-    const updateBtnClass =
-      this.props.appMode === "edit"
-        ? "NoteActions__update"
-        : "NoteActions__update NoteActions__update--isHidden";
+  shouldComponentUpdate(nextProps) {
+    if (this.props.actions !== nextProps.actions) {
+      return true;
+    }
 
+    return false;
+  }
+  render() {
     return (
       <div className="NoteActions">
-        <button
-          type="button"
-          className={returnBtnClass}
-          onClick={this.returnToList.bind(this)}
-        >
-          Return to list
-        </button>
+        {this.props.actions.map(function(action, index) {
+          const result = this.buttonsList.filter(btn => btn.type === action);
+          const btn = result[0];
 
-        <button
-          type="button"
-          className={cancelEditBtnClass}
-          onClick={this.cancelEditMode.bind(this)}
-        >
-          Cancel edit
-        </button>
-
-        <button
-          type="button"
-          className={previewBtnClass}
-          onClick={this.previewNote.bind(this)}
-        >
-          Preview
-        </button>
-
-        <button
-          type="button"
-          className={saveBtnClass}
-          onClick={this.saveNewNote.bind(this)}
-        >
-          Save
-        </button>
-
-        <button
-          type="button"
-          className={createBtnClass}
-          onClick={this.setCreateMode.bind(this)}
-        >
-          Create new note
-        </button>
-
-        <button
-          type="button"
-          className={editBtnClass}
-          onClick={this.setEditMode.bind(this)}
-        >
-          Edit note
-        </button>
-
-        <button
-          type="button"
-          className={updateBtnClass}
-          onClick={this.updateNote.bind(this)}
-        >
-          Update note
-        </button>
+          return (
+            <button type="button" key={index} className={`NoteActions__${btn.type}`} onClick={btn.action}>
+              {btn.label}
+            </button>
+          );
+        }, this)}
       </div>
     );
   }

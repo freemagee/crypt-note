@@ -5,31 +5,17 @@
     margin-left: 10px;
   }
 
-  &__return {
+  &__return,
+  &__cancel,
+  &__preview,
+  &__back {
     @include basic-button;
   }
 
-  &__create {
-    @include primary-button;
-  }
-
+  &__edit,
+  &__update,
+  &__create,
   &__save {
     @include primary-button;
-  }
-
-  &__cancel {
-    @include basic-button;
-  }
-
-  &__edit {
-    @include primary-button;
-  }
-
-  &__update {
-    @include primary-button;
-  }
-
-  &__preview {
-    @include basic-button;
   }
 }

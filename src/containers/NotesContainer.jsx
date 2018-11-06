@@ -12,6 +12,7 @@ export default class NotesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      actions: ["create"],
       note: {},
       index: null,
       appMode: "list"
@@ -20,7 +21,11 @@ export default class NotesContainer extends React.Component {
     this.baseState = this.state;
   }
   setAppMode(appMode) {
-    this.setState({ appMode });
+    if (appMode !== "list") {
+      this.setState({ appMode: appMode });
+    } else {
+      this.returnToList();
+    }
   }
   returnToList() {
     this.setState(this.baseState);
@@ -32,7 +37,8 @@ export default class NotesContainer extends React.Component {
     this.setState(
       {
         note: completeNote,
-        index: index
+        index: index,
+        actions: ["return", "edit"]
       },
       () => {
         NOTES[this.state.index] = completeNote;
@@ -41,7 +47,7 @@ export default class NotesContainer extends React.Component {
     );
   }
   setEditMode(mode) {
-    this.setState({ appMode : mode });
+    this.setState({ appMode: mode });
     if (mode !== "edit") {
       const resetNote = Object.assign({}, NOTES[this.state.index]);
 
@@ -81,12 +87,10 @@ export default class NotesContainer extends React.Component {
       <div className="NotesContainer">
         <div className="NotesContainer__inner">
           <NoteActions
-            appMode={this.state.appMode}
+            actions={this.state.actions}
+            setAppMode={this.setAppMode.bind(this)}
             returnToList={this.returnToList.bind(this)}
-            saveNewNote={this.saveNote.bind(this)}
-            setEditMode={this.setEditMode.bind(this)}
-            setCreateMode={this.setAppMode.bind(this)}
-            setPreviewMode={this.setAppMode.bind(this)}
+            onSaveNote={this.saveNote.bind(this)}
             onUpdateNote={this.saveNote.bind(this)}
           />
           <NotesList
