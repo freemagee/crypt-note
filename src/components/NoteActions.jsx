@@ -51,16 +51,16 @@ export default class NoteActions extends React.Component {
     this.props.setAppMode("list");
   }
   setCreateMode() {
-    this.props.setAppMode("create");
+    this.props.setAppMode("create", ["return", "preview", "save"]);
   }
   setPreviewMode() {
-    this.props.setAppMode("preview");
+    this.props.setAppMode("preview", ["back"]);
   }
   setEditMode() {
-    this.props.setAppMode("edit");
+    this.props.setAppMode("edit", ["cancel", "update"]);
   }
   setNoteMode() {
-    this.props.setAppMode("note");
+    this.props.setAppMode("note", ["return", "edit"]);
   }
   doSaveNote() {
     this.props.onSaveNote();

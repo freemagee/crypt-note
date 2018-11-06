@@ -20,9 +20,9 @@ export default class NotesContainer extends React.Component {
     // preserve the initial state in a new object
     this.baseState = this.state;
   }
-  setAppMode(appMode) {
+  setAppMode(appMode, actions) {
     if (appMode !== "list") {
-      this.setState({ appMode: appMode });
+      this.setState({ appMode, actions });
     } else {
       this.returnToList();
     }
@@ -37,12 +37,11 @@ export default class NotesContainer extends React.Component {
     this.setState(
       {
         note: completeNote,
-        index: index,
-        actions: ["return", "edit"]
+        index: index
       },
       () => {
         NOTES[this.state.index] = completeNote;
-        this.setAppMode("note");
+        this.setAppMode("note", ["return", "edit"]);
       }
     );
   }
