@@ -28,4 +28,8 @@
   &__update {
     @include primary-button;
   }
+
+  &__preview {
+    @include basic-button;
+  }
 }

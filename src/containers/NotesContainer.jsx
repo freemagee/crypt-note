@@ -13,8 +13,6 @@ export default class NotesContainer extends React.Component {
     super(props);
     this.state = {
       note: {},
-      editMode: false,
-      createMode: false,
       index: null,
       appMode: "list"
     };
@@ -42,17 +40,13 @@ export default class NotesContainer extends React.Component {
       }
     );
   }
-  setEditMode(editMode) {
-    this.setState({ editMode });
-    if (!editMode) {
+  setEditMode(mode) {
+    this.setState({ appMode : mode });
+    if (mode !== "edit") {
       const resetNote = Object.assign({}, NOTES[this.state.index]);
 
       this.setState({ note: resetNote });
     }
-  }
-  setCreateMode(createMode) {
-    this.setState({ createMode });
-    this.setAppMode("create");
   }
   setTitle(title) {
     const note = Object.assign({}, this.state.note);
@@ -88,12 +82,11 @@ export default class NotesContainer extends React.Component {
         <div className="NotesContainer__inner">
           <NoteActions
             appMode={this.state.appMode}
-            createMode={this.state.createMode}
-            editMode={this.state.editMode}
             returnToList={this.returnToList.bind(this)}
             saveNewNote={this.saveNote.bind(this)}
             setEditMode={this.setEditMode.bind(this)}
-            setCreateMode={this.setCreateMode.bind(this)}
+            setCreateMode={this.setAppMode.bind(this)}
+            setPreviewMode={this.setAppMode.bind(this)}
             onUpdateNote={this.saveNote.bind(this)}
           />
           <NotesList
@@ -102,24 +95,18 @@ export default class NotesContainer extends React.Component {
             setCurrentNote={this.setCurrentNote.bind(this)}
           />
           <CreateNote
-            createMode={this.state.createMode}
             appMode={this.state.appMode}
             onTitleChange={this.setTitle.bind(this)}
             onContentChange={this.setContent.bind(this)}
           />
-          <Note
-            mode={this.state.editMode}
-            appMode={this.state.appMode}
-            note={note}
-          />
           <EditNote
-            key={this.state.index}
-            mode={this.state.editMode}
             appMode={this.state.appMode}
+            key={this.state.index}
             note={note}
             onTitleUpdate={this.setTitle.bind(this)}
             onContentUpdate={this.setContent.bind(this)}
           />
+          <Note appMode={this.state.appMode} note={note} />
         </div>
       </div>
     );

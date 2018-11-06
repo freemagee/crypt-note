@@ -5,16 +5,19 @@ export default class NoteActions extends React.Component {
     this.props.returnToList();
   }
   setCreateMode() {
-    this.props.setCreateMode(true);
+    this.props.setCreateMode("create");
   }
   saveNewNote() {
     this.props.saveNewNote();
   }
+  previewNote() {
+    this.props.setPreviewMode("preview");
+  }
   setEditMode() {
-    this.props.setEditMode(true);
+    this.props.setEditMode("edit");
   }
   cancelEditMode() {
-    this.props.setEditMode(false);
+    this.props.setEditMode("note");
   }
   updateNote() {
     this.props.onUpdateNote();
@@ -28,21 +31,24 @@ export default class NoteActions extends React.Component {
       this.props.appMode === "create"
         ? "NoteActions__save"
         : "NoteActions__save NoteActions__save--isHidden";
+    const previewBtnClass =
+      this.props.appMode === "create"
+        ? "NoteActions__preview"
+        : "NoteActions__preview NoteActions__preview--isHidden";
     const createBtnClass =
-      (this.props.appMode === "create" && !this.props.createMode) ||
       this.props.appMode === "list"
         ? "NoteActions__create"
         : "NoteActions__create NoteActions__create--isHidden";
     const cancelEditBtnClass =
-      this.props.editMode && this.props.appMode === "note"
+      this.props.appMode === "edit"
         ? "NoteActions__cancel"
         : "NoteActions__cancel NoteActions__cancel--isHidden";
     const editBtnClass =
-      !this.props.editMode && this.props.appMode === "note"
+      this.props.appMode === "note"
         ? "NoteActions__edit"
         : "NoteActions__edit NoteActions__edit--isHidden";
     const updateBtnClass =
-      this.props.editMode && this.props.appMode === "note"
+      this.props.appMode === "edit"
         ? "NoteActions__update"
         : "NoteActions__update NoteActions__update--isHidden";
 
@@ -62,6 +68,14 @@ export default class NoteActions extends React.Component {
           onClick={this.cancelEditMode.bind(this)}
         >
           Cancel edit
+        </button>
+
+        <button
+          type="button"
+          className={previewBtnClass}
+          onClick={this.previewNote.bind(this)}
+        >
+          Preview
         </button>
 
         <button

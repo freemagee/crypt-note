@@ -1,25 +1,10 @@
 .Note {
+  display: none;
   height: 100%;
   padding: 20px;
 
-  &[data-app-mode='list'],
-  &[data-app-mode='create'] {
-    display: none;
+  &[data-app-mode='note'],
+  &[data-app-mode='preview'] {
+    display: block;
   }
-
-  &[data-edit-mode='true'] {
-    display: none;
-  }
-
-  //&[data-app-mode='note'] {}
-
-  // &__markdown {
-  //   &[data-edit-mode='true'] {
-  //     display: none;
-  //   }
-  // }
-
-  // &__btn {
-  //   @include basic-button;
-  // }
 }
