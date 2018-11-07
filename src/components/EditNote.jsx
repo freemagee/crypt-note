@@ -1,25 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
 
 export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: this.props.content,
-      title: this.props.title
+      title: "",
+      content: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      this.setState({
-        content: nextProps.content,
-        title: nextProps.title,
-      });
-    }
-  }
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   // TODO: Refactor -> as this is an anti-pattern
+  //   // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
+  //   const matches = (obj, source) =>
+  //     Object.keys(source).every(
+  //       key => obj.hasOwnProperty(key) && obj[key] === source[key]
+  //     );
+
+  //   if (!matches(this.props.note, nextProps.note)) {
+  //     this.setState({
+  //       title: nextProps.note.title,
+  //       content: nextProps.note.content
+  //     });
+  //   }
+  // }
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -28,34 +33,48 @@ export default class EditNote extends React.Component {
     this.setState({
       [name]: value
     });
-  }
-  handleSubmit(event) {
-    if (this.state.value !== this.props.content) {
-      this.saveNote(this.state.value);
+
+    if (name === "title") {
+      this.props.onTitleUpdate(value);
     }
-    event.preventDefault();
-  }
-  saveNote(newVal) {
-    this.props.saveNote(newVal);
-  }
-  cancelEdit() {
-    this.props.editMode(false);
+
+    if (name === "content") {
+      this.props.onContentUpdate(value);
+    }
   }
   render() {
+    const title =
+      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content =
+      typeof this.props.note.content !== "undefined"
+        ? this.props.note.content
+        : "";
+
     return (
-      <div className='EditNote' data-edit-mode={this.props.mode}>
-        <form className='EditNote__form' onSubmit={this.handleSubmit}>
-          <div className='EditNote__actions'>
-            <button className='EditNote__cancel' type='button' onClick={this.cancelEdit.bind(this)}>Cancel</button>
-            <button className='EditNote__save' type='submit'>Save</button>
-          </div>
-          <div className='EditNote__control'>
-            <input className="EditNote__title" type='text' value={this.state.title} name='title' onChange={this.handleChange} />
-          </div>
-          <div className='EditNote__control'>
-            <textarea className='EditNote__content' value={this.state.content} name='content' onChange={this.handleChange}></textarea>
-          </div>
-        </form>
+      <div className="EditNote" data-app-mode={this.props.appMode}>
+        {title !== "" &&
+          this.props.appMode === "edit" && (
+            <div className="EditNote__control">
+              <input
+                className="EditNote__title"
+                type="text"
+                value={title}
+                name="title"
+                onChange={this.handleChange}
+              />
+            </div>
+          )}
+        {content !== "" &&
+        this.props.appMode === "edit" && (
+            <div className="EditNote__control">
+              <textarea
+                className="EditNote__content"
+                value={content}
+                name="content"
+                onChange={this.handleChange}
+              />
+            </div>
+          )}
       </div>
     );
   }

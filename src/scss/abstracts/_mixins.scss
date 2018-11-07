@@ -97,6 +97,10 @@
   + #{ $self } {
     margin-left: 10px;
   }
+
+  &--isHidden {
+    display: none;
+  }
 }
 
 @mixin primary-button() {
@@ -115,5 +119,54 @@
   &:active,
   &:focus {
     border-color: $color__dark;
+  }
+}
+
+@mixin basic-control() {
+  $self: &;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: $font__code;
+  color: $color__mid;
+  background-color: $color__off-white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $color__lightest;
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover {
+    border-color: $color__light;
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: $color__dark;
+    color: $color__darkest;
+    background-color: #fff;
+  }
+
+  &:disabled {
+    color: $color__light;
+    cursor: not-allowed;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $color__mid;
+  }
+
+  &::-moz-placeholder {
+    color: $color__mid;
+  }
+
+  &:focus {
+    &::-webkit-input-placeholder {
+      color: $color__light;
+    }
+
+    &::-moz-placeholder {
+      color: $color__light;
+    }
   }
 }

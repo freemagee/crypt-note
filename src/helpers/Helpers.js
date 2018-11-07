@@ -18,7 +18,7 @@ module.exports = {
     } else if (hh === 12) {
       h = 12;
       ampm = 'PM';
-    } else if (hh == 0) {
+    } else if (hh === 0) {
       h = 12;
     }
 

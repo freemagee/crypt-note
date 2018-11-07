@@ -1,0 +1,17 @@
+.NoteCreateEditor {
+  display: grid;
+  height: calc(100% - 80px);
+  grid-template-columns: auto;
+  grid-template-rows: 40px auto;
+  grid-gap: 20px;
+
+  &__title,
+  &__content {
+    @include basic-control;
+  }
+
+  &__content {
+    height: 100%;
+    resize: none;
+  }
+}

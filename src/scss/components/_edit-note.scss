@@ -1,0 +1,22 @@
+.EditNote {
+  display: none;
+  height: calc(100% - 80px);
+  padding: 0 20px 20px;
+  grid-template-columns: auto;
+  grid-template-rows: 40px auto;
+  grid-gap: 20px;
+
+  &[data-app-mode='edit'] {
+    display: grid;
+  }
+
+  &__title,
+  &__content {
+    @include basic-control;
+  }
+
+  &__content {
+    height: 100%;
+    resize: none;
+  }
+}

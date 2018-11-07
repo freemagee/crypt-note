@@ -1,0 +1,10 @@
+.Note {
+  display: none;
+  height: 100%;
+  padding: 20px;
+
+  &[data-app-mode='note'],
+  &[data-app-mode='preview'] {
+    display: block;
+  }
+}
