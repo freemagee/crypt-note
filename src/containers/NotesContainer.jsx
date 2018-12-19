@@ -1,6 +1,5 @@
 import React from "react";
-// TODO: load data dynamically from a db. Just here as a data placeholder
-import NOTES from "../data.js";
+import API from "../services/Api.js";
 import NoteActions from "../components/NoteActions.jsx";
 import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
@@ -13,12 +12,22 @@ export default class NotesContainer extends React.Component {
     super(props);
     this.state = {
       actions: ["create"],
+      notes: [],
       note: {},
       index: null,
       appMode: "list"
     };
     // preserve the initial state in a new object
     this.baseState = this.state;
+  }
+  componentDidMount() {
+    API.getAllNotes().then(result => {
+      if (result !== null) {
+        this.setState({ notes: result });
+      } else {
+        alert("Error retrieving notes");
+      }
+    });
   }
   setAppMode(appMode, actions) {
     if (appMode !== "list") {
@@ -31,7 +40,7 @@ export default class NotesContainer extends React.Component {
     this.setState(this.baseState);
   }
   setCurrentNote(noteContent, index) {
-    const completeNote = Object.assign({}, NOTES[index]);
+    const completeNote = Object.assign({}, this.state.notes[index]);
     completeNote.content = noteContent;
 
     this.setState(
@@ -40,7 +49,7 @@ export default class NotesContainer extends React.Component {
         index: index
       },
       () => {
-        NOTES[this.state.index] = completeNote;
+        this.state.notes[this.state.index] = completeNote;
         this.setAppMode("note", ["return", "edit"]);
       }
     );
@@ -48,7 +57,7 @@ export default class NotesContainer extends React.Component {
   setEditMode(mode) {
     this.setState({ appMode: mode });
     if (mode !== "edit") {
-      const resetNote = Object.assign({}, NOTES[this.state.index]);
+      const resetNote = Object.assign({}, this.state.notes[this.state.index]);
 
       this.setState({ note: resetNote });
     }
@@ -93,7 +102,7 @@ export default class NotesContainer extends React.Component {
             onUpdateNote={this.saveNote.bind(this)}
           />
           <NotesList
-            notes={NOTES}
+            notes={this.state.notes}
             appMode={this.state.appMode}
             setCurrentNote={this.setCurrentNote.bind(this)}
           />
