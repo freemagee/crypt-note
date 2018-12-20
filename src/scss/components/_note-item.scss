@@ -47,4 +47,17 @@
   &__open {
     @include basic-button;
   }
+
+  &__delete {
+    @include text-button;
+    color: lighten($CINNABAR, 10%);
+
+    &:hover {
+      color: $CINNABAR;
+    }
+  }
+
+  &__open + &__delete {
+    margin-left: 10px;
+  }
 }

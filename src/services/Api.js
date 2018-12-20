@@ -117,7 +117,35 @@ const Api = {
       .catch(() => {
         return null;
       });
-  }
+  },
+  deleteNote(id) {
+    return fetch(
+      new Request(`${URL}${id}`, {
+        method: "DELETE",
+        mode: "cors",
+        headers: new Headers({
+          "X-Api-Key": KEY
+        })
+      })
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("There has been a problem deleting the data");
+        }
+      })
+      .then(json => {
+        if (json.status === "success") {
+          return { status: "success" };
+        } else {
+          throw new Error(json.message);
+        }
+      })
+      .catch(() => {
+        return null;
+      });
+  },
 };
 
 export default Api;

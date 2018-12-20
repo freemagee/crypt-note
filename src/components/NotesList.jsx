@@ -6,6 +6,9 @@ export default class NotesList extends React.Component {
   setCurrentNote(id, index) {
     this.props.setCurrentNote(id, index);
   }
+  onDeleteNote(id, title) {
+    this.props.onDeleteNote(id, title);
+  }
   shouldComponentUpdate(nextProps) {
     if (this.props.appMode !== nextProps.appMode) {
       return true;
@@ -30,6 +33,7 @@ export default class NotesList extends React.Component {
                   <NoteItem
                     note={note}
                     openNote={this.setCurrentNote.bind(this)}
+                    deleteNote={this.onDeleteNote.bind(this)}
                     index={index}
                     key={note.id}
                   />
@@ -37,15 +41,11 @@ export default class NotesList extends React.Component {
               }, this)}
             </ul>
           )}
-          {notesCount === 0 && (
-            <p>Currently no notes available</p>
-          )}
+          {notesCount === 0 && <p>Currently no notes available</p>}
         </div>
       );
     } else {
-      return (
-        <div className="Notes isHidden"></div>
-      );
+      return <div className="Notes isHidden" />;
     }
   }
 }

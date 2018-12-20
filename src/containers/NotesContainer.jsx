@@ -26,7 +26,7 @@ export default class NotesContainer extends React.Component {
       if (result !== null) {
         this.setState({ note: result });
       } else {
-        alert("Error retrieving note");
+        window.alert("Error retrieving note");
       }
     });
   }
@@ -35,7 +35,7 @@ export default class NotesContainer extends React.Component {
       if (result !== null) {
         this.setState({ notes: result });
       } else {
-        alert("Error retrieving notes");
+        window.alert("Error retrieving notes");
       }
     });
   }
@@ -84,9 +84,9 @@ export default class NotesContainer extends React.Component {
     this.setState({ note }, () => {
       API.saveNote(note).then(result => {
         if (result !== null) {
-          alert("Successfully saved new note");
+          window.alert("Successfully saved new note");
         } else {
-          alert("Error saving note");
+          window.alert("Error saving note");
         }
       });
     });
@@ -103,13 +103,25 @@ export default class NotesContainer extends React.Component {
     this.setState({ note, notes }, () => {
       API.updateNote(note).then(result => {
         if (result !== null) {
-          alert("Successfully updated note");
+          window.alert("Successfully updated note");
           this.setAppMode("note", ["return", "edit"]);
         } else {
-          alert("Error updating note");
+          window.alert("Error updating note");
         }
       });
     });
+  }
+  deleteNote(id, title) {
+    if (window.confirm(`Do you want to delete note ${title}?`)) {
+      API.deleteNote(id).then(result => {
+        if (result !== null) {
+          window.alert("Successfully deleted note");
+          this.getAllNotes();
+        } else {
+          window.alert("Error deleting note");
+        }
+      });
+    }
   }
   returnToList() {
     this.getAllNotes();
@@ -137,6 +149,7 @@ export default class NotesContainer extends React.Component {
             notes={this.state.notes}
             appMode={this.state.appMode}
             setCurrentNote={this.setCurrentNote.bind(this)}
+            onDeleteNote={this.deleteNote.bind(this)}
           />
           <CreateNote
             appMode={this.state.appMode}
