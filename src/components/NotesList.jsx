@@ -3,8 +3,8 @@ import React from "react";
 import NoteItem from "./NoteItem.jsx";
 
 export default class NotesList extends React.Component {
-  setCurrentNote(content, index) {
-    this.props.setCurrentNote(content, index);
+  setCurrentNote(id) {
+    this.props.setCurrentNote(id);
   }
   render() {
     const notesCount = this.props.notes.length;

@@ -4,20 +4,7 @@ import Helpers from "../helpers/Helpers.js";
 
 export default class NoteItem extends React.Component {
   openNote() {
-    var headers = new Headers();
-    var thisObj = this;
-
-    headers.append("Content-Type", "text/markdown");
-
-    fetch(this.props.note.source, {
-      method: "get"
-    })
-      .then(function(response) {
-        return response.text();
-      })
-      .then(function(noteContent) {
-        thisObj.props.openNote(noteContent, thisObj.props.index);
-      });
+    this.props.openNote(this.props.note.id);
   }
   render() {
     const created = Helpers.convertTimestamp(this.props.note.created);

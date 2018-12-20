@@ -14,19 +14,20 @@ export default class NotesContainer extends React.Component {
       actions: ["create"],
       notes: [],
       note: {},
-      index: null,
       appMode: "list"
     };
   }
   componentDidMount() {
     this.getAllNotes();
   }
-  setAppMode(appMode, actions) {
-    if (appMode !== "list") {
-      this.setState({ appMode, actions });
-    } else {
-      this.returnToList();
-    }
+  getNote(id) {
+    API.getNote(id).then(result => {
+      if (result !== null) {
+        this.setState({ note: result });
+      } else {
+        alert("Error retrieving note");
+      }
+    });
   }
   getAllNotes() {
     API.getAllNotes().then(result => {
@@ -37,29 +38,16 @@ export default class NotesContainer extends React.Component {
       }
     });
   }
-  returnToList() {
-    this.getAllNotes();
-    this.setState({
-      actions: ["create"],
-      note: {},
-      index: null,
-      appMode: "list"
-    });
+  setAppMode(appMode, actions) {
+    if (appMode !== "list") {
+      this.setState({ appMode, actions });
+    } else {
+      this.returnToList();
+    }
   }
-  setCurrentNote(noteContent, index) {
-    const completeNote = Object.assign({}, this.state.notes[index]);
-    completeNote.content = noteContent;
-
-    this.setState(
-      {
-        note: completeNote,
-        index: index
-      },
-      () => {
-        this.state.notes[this.state.index] = completeNote;
-        this.setAppMode("note", ["return", "edit"]);
-      }
-    );
+  setCurrentNote(id) {
+    this.getNote(id);
+    this.setAppMode("note", ["return", "edit"]);
   }
   setEditMode(mode) {
     this.setState({ appMode: mode });
@@ -101,6 +89,14 @@ export default class NotesContainer extends React.Component {
   updateNoteState(note) {
     this.setState({ note });
   }
+  returnToList() {
+    this.getAllNotes();
+    this.setState({
+      actions: ["create"],
+      note: {},
+      appMode: "list"
+    });
+  }
   render() {
     const note = this.state.note;
 
@@ -127,7 +123,7 @@ export default class NotesContainer extends React.Component {
           />
           <EditNote
             appMode={this.state.appMode}
-            key={this.state.index}
+            key={note.id}
             note={note}
             onTitleUpdate={this.setTitle.bind(this)}
             onContentUpdate={this.setContent.bind(this)}

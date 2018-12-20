@@ -30,6 +30,34 @@ const Api = {
         return null;
       });
   },
+  getNote(id) {
+    return fetch(
+      new Request(`${URL}${id}`, {
+        method: "GET",
+        mode: "cors",
+        headers: new Headers({
+          "X-Api-Key": KEY
+        })
+      })
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("There has been a problem retrieving data");
+        }
+      })
+      .then(json => {
+        if (json.status === "success" && json.data !== null) {
+          return json.data;
+        } else {
+          throw new Error(json.message);
+        }
+      })
+      .catch(() => {
+        return null;
+      });
+  },
   saveNote(data) {
     return fetch(
       new Request(URL, {
