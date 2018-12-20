@@ -58,8 +58,9 @@ export default class NotesContainer extends React.Component {
   }
   setCurrentNote(id, index) {
     this.getNote(id);
-    this.setState({ index });
-    this.setAppMode("note", ["return", "edit"]);
+    this.setState({ index }, () => {
+      this.setAppMode("note", ["return", "edit"]);
+    });
   }
   setTitle(title) {
     const note = Object.assign({}, this.state.note);
@@ -93,6 +94,23 @@ export default class NotesContainer extends React.Component {
   updateNoteState(note) {
     this.setState({ note });
   }
+  updateNote() {
+    const note = Object.assign({}, this.state.note);
+    const notes = this.state.notes;
+
+    note.updated = Helpers.generateTimestamp();
+    notes[this.state.index] = Object.assign({}, note);
+    this.setState({ note, notes }, () => {
+      API.updateNote(note).then(result => {
+        if (result !== null) {
+          alert("Successfully updated note");
+          this.setAppMode("note", ["return", "edit"]);
+        } else {
+          alert("Error updating note");
+        }
+      });
+    });
+  }
   returnToList() {
     this.getAllNotes();
     this.setState({
@@ -113,7 +131,7 @@ export default class NotesContainer extends React.Component {
             setAppMode={this.setAppMode.bind(this)}
             returnToList={this.returnToList.bind(this)}
             onSaveNote={this.saveNote.bind(this)}
-            onUpdateNote={this.saveNote.bind(this)}
+            onUpdateNote={this.updateNote.bind(this)}
           />
           <NotesList
             notes={this.state.notes}

@@ -87,6 +87,36 @@ const Api = {
       .catch(() => {
         return null;
       });
+  },
+  updateNote(data) {
+    return fetch(
+      new Request(`${URL}${data.id}`, {
+        method: "PUT",
+        mode: "cors",
+        headers: new Headers({
+          "X-Api-Key": KEY,
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(data)
+      })
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("There has been a problem saving the data");
+        }
+      })
+      .then(json => {
+        if (json.status === "success" && json.data !== null) {
+          return json.data;
+        } else {
+          throw new Error(json.message);
+        }
+      })
+      .catch(() => {
+        return null;
+      });
   }
 };
 
