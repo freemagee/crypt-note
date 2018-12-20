@@ -121,6 +121,7 @@ export default class NotesContainer extends React.Component {
           />
           <CreateNote
             appMode={this.state.appMode}
+            note={note}
             onTitleChange={this.setTitle.bind(this)}
             onContentChange={this.setContent.bind(this)}
           />

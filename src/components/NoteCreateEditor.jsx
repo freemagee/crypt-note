@@ -27,6 +27,23 @@ export default class NoteCreateEditor extends React.Component {
       this.props.onContentChange(value);
     }
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(this.props.note, prevProps, prevState);
+  // }
+  componentDidMount() {
+    //console.log(this.props.note);
+    const title =
+      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content =
+      typeof this.props.note.content !== "undefined"
+        ? this.props.note.content
+        : "";
+
+    this.setState({
+      title,
+      content
+    });
+  }
   render() {
     return (
       <div className="NoteCreateEditor">

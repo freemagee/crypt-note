@@ -14,6 +14,7 @@ export default class CreateNote extends React.Component {
       <div className="CreateNote" data-app-mode={this.props.appMode}>
         {this.props.appMode === "create" && (
           <NoteCreateEditor
+            note={this.props.note}
             onTitleChange={this.onTitleChange.bind(this)}
             onContentChange={this.onContentChange.bind(this)}
           />
