@@ -19,11 +19,44 @@ const Api = {
           throw new Error("There has been a problem retrieving data");
         }
       })
-      .then(responseJson => {
-        return responseJson;
+      .then(json => {
+        if (json.status === "success" && json.data !== null) {
+          return json.data;
+        } else {
+          throw new Error(json.message);
+        }
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
+        return null;
+      });
+  },
+  saveNote(data) {
+    return fetch(
+      new Request(URL, {
+        method: "POST",
+        mode: "cors",
+        headers: new Headers({
+          "X-Api-Key": KEY,
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(data)
+      })
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("There has been a problem saving the data");
+        }
+      })
+      .then(json => {
+        if (json.status === "success" && json.data !== null) {
+          return json.data;
+        } else {
+          throw new Error(json.message);
+        }
+      })
+      .catch(() => {
         return null;
       });
   }

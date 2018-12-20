@@ -17,17 +17,9 @@ export default class NotesContainer extends React.Component {
       index: null,
       appMode: "list"
     };
-    // preserve the initial state in a new object
-    this.baseState = this.state;
   }
   componentDidMount() {
-    API.getAllNotes().then(result => {
-      if (result !== null) {
-        this.setState({ notes: result });
-      } else {
-        alert("Error retrieving notes");
-      }
-    });
+    this.getAllNotes();
   }
   setAppMode(appMode, actions) {
     if (appMode !== "list") {
@@ -36,8 +28,23 @@ export default class NotesContainer extends React.Component {
       this.returnToList();
     }
   }
+  getAllNotes() {
+    API.getAllNotes().then(result => {
+      if (result !== null) {
+        this.setState({ notes: result });
+      } else {
+        alert("Error retrieving notes");
+      }
+    });
+  }
   returnToList() {
-    this.setState(this.baseState);
+    this.getAllNotes();
+    this.setState({
+      actions: ["create"],
+      note: {},
+      index: null,
+      appMode: "list"
+    });
   }
   setCurrentNote(noteContent, index) {
     const completeNote = Object.assign({}, this.state.notes[index]);
@@ -77,12 +84,18 @@ export default class NotesContainer extends React.Component {
   saveNote() {
     const note = Object.assign({}, this.state.note);
 
-    if (this.state.createMode) {
+    if (this.state.appMode === "create") {
       note.created = Helpers.generateTimestamp();
     }
     note.updated = Helpers.generateTimestamp();
     this.setState({ note }, () => {
-      console.log("Saving the note...not really", this.state.note);
+      API.saveNote(note).then(result => {
+        if (result !== null) {
+          alert("Successfully saved new note");
+        } else {
+          alert("Error saving note");
+        }
+      });
     });
   }
   updateNoteState(note) {

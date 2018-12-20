@@ -19,7 +19,7 @@ export default class NotesList extends React.Component {
                   note={note}
                   openNote={this.setCurrentNote.bind(this)}
                   index={index}
-                  key={note.title}
+                  key={note.id}
                 />
               );
             }, this)}
