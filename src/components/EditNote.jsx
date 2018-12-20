@@ -10,21 +10,6 @@ export default class EditNote extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   // TODO: Refactor -> as this is an anti-pattern
-  //   // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
-  //   const matches = (obj, source) =>
-  //     Object.keys(source).every(
-  //       key => obj.hasOwnProperty(key) && obj[key] === source[key]
-  //     );
-
-  //   if (!matches(this.props.note, nextProps.note)) {
-  //     this.setState({
-  //       title: nextProps.note.title,
-  //       content: nextProps.note.content
-  //     });
-  //   }
-  // }
   handleChange(event) {
     const target = event.target;
     const value = target.value;

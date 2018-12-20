@@ -4,7 +4,7 @@ import Helpers from "../helpers/Helpers.js";
 
 export default class NoteItem extends React.Component {
   openNote() {
-    this.props.openNote(this.props.note.id);
+    this.props.openNote(this.props.note.id, this.props.index);
   }
   render() {
     const created = Helpers.convertTimestamp(this.props.note.created);

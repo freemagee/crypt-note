@@ -14,7 +14,8 @@ export default class NotesContainer extends React.Component {
       actions: ["create"],
       notes: [],
       note: {},
-      appMode: "list"
+      appMode: "list",
+      index: null
     };
   }
   componentDidMount() {
@@ -39,23 +40,26 @@ export default class NotesContainer extends React.Component {
     });
   }
   setAppMode(appMode, actions) {
-    if (appMode !== "list") {
-      this.setState({ appMode, actions });
-    } else {
-      this.returnToList();
+    switch (appMode) {
+      case "list":
+        this.returnToList();
+        break;
+      case "note":
+        // Note needs reset to unedited state
+        this.setState({
+          note: Object.assign({}, this.state.notes[this.state.index]),
+          appMode,
+          actions
+        });
+        break;
+      default:
+        this.setState({ appMode, actions });
     }
   }
-  setCurrentNote(id) {
+  setCurrentNote(id, index) {
     this.getNote(id);
+    this.setState({ index });
     this.setAppMode("note", ["return", "edit"]);
-  }
-  setEditMode(mode) {
-    this.setState({ appMode: mode });
-    if (mode !== "edit") {
-      const resetNote = Object.assign({}, this.state.notes[this.state.index]);
-
-      this.setState({ note: resetNote });
-    }
   }
   setTitle(title) {
     const note = Object.assign({}, this.state.note);
@@ -94,7 +98,8 @@ export default class NotesContainer extends React.Component {
     this.setState({
       actions: ["create"],
       note: {},
-      appMode: "list"
+      appMode: "list",
+      index: null
     });
   }
   render() {
