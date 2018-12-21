@@ -1,7 +1,7 @@
 // Non React Functions
-module.exports = {
+const Helpers = {
   // https://gist.github.com/kmaida/6045266
-  convertTimestamp: function(timestamp) {
+  convertTimestamp(timestamp) {
     var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
       yyyy = d.getFullYear(),
       mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
@@ -27,7 +27,9 @@ module.exports = {
 
     return time;
   },
-  generateTimestamp: function() {
+  generateTimestamp() {
     return Math.round((new Date()).getTime() / 1000);
   }
 }
+
+export default Helpers;
