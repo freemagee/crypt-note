@@ -1,39 +1,20 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
+
 /// Responsive manager
 /// @param {String} $breakpoint - Breakpoint
 /// @requires $breakpoints
 /// @link http://sass-guidelin.es/#breakpoint-manager Sass Guidelines - Breakpoint Manager
 @mixin respond-to($breakpoint) {
   $query: map-get($breakpoints, $breakpoint);
+
   @if not $query {
     @error 'No value found for `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.';
   }
+
   @media #{if(type-of($query) == 'string', unquote($query), inspect($query))} {
     @content;
-  }
-}
-
-// Clearfix
-//
-// For modern browsers
-// 1. The space content is one way to avoid an Opera bug when the
-//    contenteditable attribute is included anywhere else in the document.
-//    Otherwise it causes space to appear at the top and bottom of elements
-//    that are clearfixed.
-// 2. The use of `table` rather than `block` is only necessary if using
-//    `:before` to contain the top-margins of child elements.
-//
-// Source: http://nicolasgallagher.com/micro-clearfix-hack/
-@mixin clearfix() {
-  &:before,
-  &:after {
-    content: " "; // 1
-    display: table; // 2
-  }
-  &:after {
-    clear: both;
   }
 }
 
@@ -51,7 +32,7 @@
   -webkit-appearance: none;
   display: inline-block;
   line-height: 38px;
-  padding: 0 20px;
+  padding: 0 10px;
   cursor: pointer;
   color: $color__dark;
   border-width: 1px;
@@ -62,6 +43,10 @@
   font-weight: normal;
   transition: border-color 0.2s linear, background-color 0.2s linear;
   text-decoration: none;
+
+  @include respond-to(small) {
+    padding: 0 20px;
+  }
 
   &:visited {
     color: $color__mid;
@@ -103,6 +88,7 @@
   }
 }
 
+// Primary button extends basic button
 @mixin primary-button() {
   @include basic-button;
   color: $color__darkest;
@@ -128,11 +114,15 @@
   -webkit-appearance: none;
   display: inline-block;
   line-height: 40px;
-  padding: 0 20px;
+  padding: 0 10px;
   cursor: pointer;
   border: 0;
   background: transparent;
   color: $color__mid;
+
+  @include respond-to(small) {
+    padding: 0 20px;
+  }
 
   &:hover {
     color: $color__dark;

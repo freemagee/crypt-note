@@ -26,20 +26,22 @@ export default class NoteItem extends React.Component {
             {updated}
           </p>
         </div>
-        <button
-          type="button"
-          className="NoteItem__open"
-          onClick={this.openNote.bind(this)}
-        >
-          Open
-        </button>
-        <button
-          type="button"
-          className="NoteItem__delete"
-          onClick={this.deleteNote.bind(this)}
-        >
-          Delete
-        </button>
+        <div className="NoteItem__actions">
+          <button
+            type="button"
+            className="NoteItem__open"
+            onClick={this.openNote.bind(this)}
+          >
+            Open
+          </button>
+          <button
+            type="button"
+            className="NoteItem__delete"
+            onClick={this.deleteNote.bind(this)}
+          >
+            Delete
+          </button>
+        </div>
       </li>
     );
   }

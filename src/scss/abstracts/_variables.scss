@@ -27,3 +27,20 @@ $CINNABAR: #e74c3c !default;
 $font__main: 'Ubuntu', sans-serif !default;
 $font__code: 'Ubuntu Mono', monospace !default;
 $font__line-height-body: 1.5 !default;
+
+// Breakpoints
+$bp__s: 600px !default;
+$bp__m: 960px !default;
+$bp__l: 1200px !default;
+$bp__xl: 1600px !default;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+/// @see {mixin} respond-to
+$breakpoints: (
+  'small': (min-width: $bp__s),
+  'medium': (min-width: $bp__m),
+  'large': (min-width: $bp__l),
+  'xl': (min-width: $bp__xl)
+) !default;

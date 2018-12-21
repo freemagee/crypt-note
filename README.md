@@ -49,3 +49,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Use a better alert/toastr system
 - Related to previous, need a replacement for confirm
 - Design sense check - does it work as expected on mobile?
+
+# Credits
+
+Entypo pictograms by Daniel Bruce — [www.entypo.com](http://entypo.com/)

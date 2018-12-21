@@ -1,19 +1,26 @@
 .NoteItem {
-  @include clearfix;
-  padding: 20px 0;
+  padding: 10px 0;
   font-family: $font__main;
   border-top: 1px solid $color__light;
   background-color: #fff;
   transition: background-color 0.2s ease-in-out;
 
+  @include respond-to(small) {
+    padding: 20px 0;
+  }
+
   &:hover,
   &:active {
-    background-color: $CAPEHONEY;
+    background-color: $color__off-white;
   }
 
   &:last-child {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid $color__light;
+
+    @include respond-to(small) {
+      padding-bottom: 20px;
+    }
   }
 
   &__title {

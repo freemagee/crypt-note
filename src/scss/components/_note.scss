@@ -1,7 +1,12 @@
 .Note {
   display: none;
-  height: 100%;
-  padding: 20px;
+  height: calc(100% - 60px);// Header height plus 20px padding
+  padding: 10px;
+
+  @include respond-to(small) {
+    height: calc(100% - 80px);// Header height plus 20px padding
+    padding: 20px;
+  }
 
   &[data-app-mode='note'],
   &[data-app-mode='preview'] {

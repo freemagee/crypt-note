@@ -1,12 +1,18 @@
 .Notes {
   position: absolute;
-  top: 80px;
+  top: 60px;
   left: 0;
   box-sizing: border-box;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 60px);
   width: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
   overflow: auto;
+
+  @include respond-to(small) {
+    top: 80px;
+    height: calc(100vh - 80px);
+    padding: 0 20px;
+  }
 
   &__list {
     margin: 0;

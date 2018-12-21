@@ -2,16 +2,19 @@
   display: grid;
   height: 100%;
   grid-template-columns: auto;
-  grid-template-rows: 40px auto;
+  grid-template-rows: minmax(max-content, 40px) auto;
   grid-gap: 20px;
 
   &__title {
-    position: relative;
-    height: 100%;
     margin: 0;
     color: $color__dark;
     font-weight: 700;
     font-size: 20px;
+  }
+
+  &__meta {
+    position: relative;
+    padding-bottom: 16px;
 
     &:after {
       content: '';
@@ -21,7 +24,7 @@
       display: block;
       width: 50px;
       height: 4px;
-      background-color: $color__light;
+      background-color: $BURNTORANGE;
     }
   }
 
@@ -120,10 +123,14 @@
 
   blockquote {
     max-width: 700px;
-    margin: 20px 10px;
+    margin: 10px 0;
     padding: 10px;
     background: $color__off-white;
-    border-left: 10px solid $BURNTORANGE;
+    border-left: 4px solid $BURNTORANGE;
+
+    @include respond-to(small) {
+      margin: 20px 10px;
+    }
 
     > p {
       display: inline;

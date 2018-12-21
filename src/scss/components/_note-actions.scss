@@ -1,5 +1,12 @@
 .NoteActions {
-  padding: 20px;
+  height: 60px;
+  padding: 10px;
+  overflow: hidden;
+
+  @include respond-to(small) {
+    height: 80px;
+    padding: 20px;
+  }
 
   button[type=button] + button[type=button] {
     margin-left: 10px;
@@ -17,5 +24,16 @@
   &__create,
   &__save {
     @include primary-button;
+  }
+
+  &__return {
+    @include image-replace;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-image: url(../img/icons/arrow-left.svg);
+    background-repeat: no-repeat;
+    background-position: 9px 9px;
+    background-size: 20px;
   }
 }
