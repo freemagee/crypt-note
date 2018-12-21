@@ -35,10 +35,10 @@ export default class EditNote extends React.Component {
         ? this.props.note.content
         : "";
 
-    return (
-      <div className="EditNote" data-app-mode={this.props.appMode}>
-        {title !== "" &&
-          this.props.appMode === "edit" && (
+    if (this.props.appMode === "edit") {
+      return (
+        <div className="EditNote">
+          {title !== "" && (
             <div className="EditNote__control">
               <input
                 className="EditNote__title"
@@ -49,8 +49,7 @@ export default class EditNote extends React.Component {
               />
             </div>
           )}
-        {content !== "" &&
-        this.props.appMode === "edit" && (
+          {content !== "" && (
             <div className="EditNote__control">
               <textarea
                 className="EditNote__content"
@@ -60,7 +59,10 @@ export default class EditNote extends React.Component {
               />
             </div>
           )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return <div className="EditNote isHidden" />;
+    }
   }
 }

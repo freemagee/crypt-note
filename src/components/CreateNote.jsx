@@ -10,16 +10,18 @@ export default class CreateNote extends React.Component {
     this.props.onContentChange(newVal);
   }
   render() {
-    return (
-      <div className="CreateNote" data-app-mode={this.props.appMode}>
-        {this.props.appMode === "create" && (
+    if (this.props.appMode === "create") {
+      return (
+        <div className="CreateNote">
           <NoteCreateEditor
             note={this.props.note}
             onTitleChange={this.onTitleChange.bind(this)}
             onContentChange={this.onContentChange.bind(this)}
           />
-        )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return <div className="CreateNote isHidden" />;
+    }
   }
 }

@@ -1,5 +1,4 @@
 .CreateNote {
-  display: none;
   height: calc(100% - 60px);// Header height plus 20px padding
   padding: 10px;
 
@@ -8,7 +7,7 @@
     padding: 20px;
   }
 
-  &[data-app-mode='create'] {
-    display: block;
+  &.isHidden {
+    display: none;
   }
 }

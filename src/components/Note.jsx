@@ -11,13 +11,14 @@ export default class Note extends React.Component {
         ? this.props.note.content
         : "";
 
-    return (
-      <div className="Note" data-app-mode={this.props.appMode}>
-        {(this.props.appMode === "note" ||
-          this.props.appMode === "preview") && (
+    if (this.props.appMode === "note" || this.props.appMode === "preview") {
+      return (
+        <div className="Note">
           <RenderedNote title={title} content={content} />
-        )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return <div className="Note isHidden" />;
+    }
   }
 }

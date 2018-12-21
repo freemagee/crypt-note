@@ -1,5 +1,5 @@
 .EditNote {
-  display: none;
+  display: grid;
   height: calc(100% - 60px);// Header height plus 20px padding
   padding: 10px;
   grid-template-columns: auto;
@@ -11,10 +11,6 @@
     padding: 20px;
   }
 
-  &[data-app-mode='edit'] {
-    display: grid;
-  }
-
   &__title,
   &__content {
     @include basic-control;
@@ -23,5 +19,9 @@
   &__content {
     height: 100%;
     resize: none;
+  }
+
+  &.isHidden {
+    display: none;
   }
 }
