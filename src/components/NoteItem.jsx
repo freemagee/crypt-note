@@ -4,10 +4,10 @@ import Helpers from "../helpers/Helpers.js";
 
 export default class NoteItem extends React.Component {
   openNote() {
-    this.props.openNote(this.props.note.id, this.props.index);
+    this.props.openNote(this.props.note.guid, this.props.index);
   }
   deleteNote() {
-    this.props.deleteNote(this.props.note.id, this.props.note.title);
+    this.props.deleteNote(this.props.note.guid, this.props.note.title);
   }
   render() {
     const created = Helpers.convertTimestamp(this.props.note.created);

@@ -35,7 +35,7 @@ export default class NotesList extends React.Component {
                     openNote={this.setCurrentNote.bind(this)}
                     deleteNote={this.onDeleteNote.bind(this)}
                     index={index}
-                    key={note.id}
+                    key={note.guid}
                   />
                 );
               }, this)}

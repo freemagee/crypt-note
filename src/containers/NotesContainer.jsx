@@ -159,7 +159,7 @@ export default class NotesContainer extends React.Component {
           />
           <EditNote
             appMode={this.state.appMode}
-            key={note.id}
+            key={note.guid}
             note={note}
             onTitleUpdate={this.setTitle.bind(this)}
             onContentUpdate={this.setContent.bind(this)}
