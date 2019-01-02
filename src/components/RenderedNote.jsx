@@ -21,11 +21,11 @@ export default class RenderedNote extends React.Component {
       typeof this.props.title !== "undefined" ? this.props.title : "";
 
     return (
-      <div className="MarkdownNote" data-edit-mode={this.props.mode}>
-        <div className="MarkdownNote__meta">
-          <p className="MarkdownNote__title">{title}</p>
+      <div className="RenderedNote" data-edit-mode={this.props.mode}>
+        <div className="RenderedNote__meta">
+          <p className="RenderedNote__title">{title}</p>
         </div>
-        <div className="MarkdownNote__content">{Parser(content)}</div>
+        <div className="Markdown">{Parser(content)}</div>
       </div>
     );
   }
