@@ -1,12 +1,18 @@
 import React from "react";
 
-import MarkdownIt from "markdown-it";
+import Remarkable from "remarkable";
 import Parser from "html-react-parser";
 
-const md = new MarkdownIt();
-
 export default class RenderedNote extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props.content !== nextProps.content) {
+      return true;
+    }
+
+    return false;
+  }
   render() {
+    const md = new Remarkable();
     const content =
       typeof this.props.content !== "undefined"
         ? md.render(this.props.content)

@@ -10,4 +10,19 @@
   &.isHidden {
     display: none;
   }
+
+  &__error {
+    padding: 1rem;
+    background-color: $CINNABAR;
+  }
+
+  &__errorTitle {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+  }
+
+  &__errorContent {
+    margin: 0;
+    color: #fff;
+  }
 }

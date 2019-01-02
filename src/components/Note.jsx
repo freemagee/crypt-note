@@ -1,5 +1,6 @@
 import React from "react";
 
+import NoteErrorBoundary from "./NoteErrorBoundary.jsx";
 import RenderedNote from "./RenderedNote.jsx";
 
 export default class Note extends React.Component {
@@ -14,7 +15,9 @@ export default class Note extends React.Component {
     if (this.props.appMode === "note" || this.props.appMode === "preview") {
       return (
         <div className="Note">
-          <RenderedNote title={title} content={content} />
+          <NoteErrorBoundary>
+            <RenderedNote title={title} content={content} />
+          </NoteErrorBoundary>
         </div>
       );
     } else {
