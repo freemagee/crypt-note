@@ -30,35 +30,39 @@ export default class EditNote extends React.Component {
   render() {
     const title =
       typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const titleClass =
+      this.props.note.title !== ""
+        ? "EditNote__title"
+        : "EditNote__title is-invalid";
     const content =
       typeof this.props.note.content !== "undefined"
         ? this.props.note.content
         : "";
+    const contentClass =
+      this.props.note.content !== ""
+        ? "EditNote__content"
+        : "EditNote__control is-invalid";
 
     if (this.props.appMode === "edit") {
       return (
         <div className="EditNote">
-          {title !== "" && (
-            <div className="EditNote__control">
-              <input
-                className="EditNote__title"
-                type="text"
-                value={title}
-                name="title"
-                onChange={this.handleChange}
-              />
-            </div>
-          )}
-          {content !== "" && (
-            <div className="EditNote__control">
-              <textarea
-                className="EditNote__content"
-                value={content}
-                name="content"
-                onChange={this.handleChange}
-              />
-            </div>
-          )}
+          <div className="EditNote__control">
+            <input
+              className={titleClass}
+              type="text"
+              value={title}
+              name="title"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="EditNote__control">
+            <textarea
+              className={contentClass}
+              value={content}
+              name="content"
+              onChange={this.handleChange}
+            />
+          </div>
         </div>
       );
     } else {

@@ -41,11 +41,20 @@ export default class NoteCreateEditor extends React.Component {
     });
   }
   render() {
+    const titleClass =
+      this.props.note.title !== ""
+        ? "NoteCreateEditor__title"
+        : "NoteCreateEditor__title is-invalid";
+    const contentClass =
+      this.props.note.content !== ""
+        ? "NoteCreateEditor__content"
+        : "NoteCreateEditor__content is-invalid";
+
     return (
       <div className="NoteCreateEditor">
         <div className="NoteCreateEditor__control">
           <input
-            className="NoteCreateEditor__title"
+            className={titleClass}
             type="text"
             value={this.state.title}
             name="title"
@@ -55,7 +64,7 @@ export default class NoteCreateEditor extends React.Component {
         </div>
         <div className="NoteCreateEditor__control">
           <textarea
-            className="NoteCreateEditor__content"
+            className={contentClass}
             name="content"
             value={this.state.content}
             placeholder="Type your new note here"

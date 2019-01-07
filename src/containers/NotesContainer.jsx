@@ -93,6 +93,11 @@ export default class NotesContainer extends React.Component {
   saveNote() {
     const note = Object.assign({}, this.state.note);
 
+    if (this.validateNote() === false) {
+      window.alert("Note must have title and content");
+      return;
+    }
+
     if (this.state.appMode === "create") {
       note.created = Helpers.generateTimestamp();
     }
@@ -112,6 +117,11 @@ export default class NotesContainer extends React.Component {
   }
   updateNote() {
     const note = Object.assign({}, this.state.note);
+
+    if (this.validateNote() === false) {
+      window.alert("Note must have title and content");
+      return;
+    }
 
     note.updated = Helpers.generateTimestamp();
     API.updateNote(note).then(result => {
@@ -137,6 +147,13 @@ export default class NotesContainer extends React.Component {
         }
       });
     }
+  }
+  validateNote() {
+    if (this.state.note.title === "" || this.state.note.content === "") {
+      return false;
+    }
+
+    return true;
   }
   returnToList() {
     this.getAllNotes();

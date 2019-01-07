@@ -182,4 +182,8 @@
       color: $color__light;
     }
   }
+
+  &.is-invalid {
+    border-color: $color__border-error;
+  }
 }
