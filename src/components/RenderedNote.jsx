@@ -25,6 +25,10 @@ export default class RenderedNote extends React.Component {
         <div className="RenderedNote__meta">
           <p className="RenderedNote__title">{title}</p>
         </div>
+        {/*<div
+          className="Markdown"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />*/}
         <div className="Markdown">{Parser(content)}</div>
       </div>
     );

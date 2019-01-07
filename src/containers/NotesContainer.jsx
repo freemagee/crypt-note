@@ -39,15 +39,31 @@ export default class NotesContainer extends React.Component {
       }
     });
   }
+  hasNotChanged() {
+    // This is intended to deal with editing notes
+    // When editing a note -> then cancelling that edit, the state.note could be different to it's pre edited state. But it needs "reseting" back.
+    // If the note has been edited and saved, then the state.note version will have a future updated value and therefore is different.
+    const archivedNoteUpdated = this.state.notes[this.state.index].updated;
+    const currentNoteUpdated = this.state.note.updated;
+
+    if (archivedNoteUpdated < currentNoteUpdated) {
+      // The state.note is different to it's equivalent in state.notes[state.index].
+      return this.state.note;
+    } else {
+      // The note has not been updated, so use the archived note
+      return this.state.notes[this.state.index];
+    }
+  }
   setAppMode(appMode, actions) {
+    // Used to determine appMode based differences
     switch (appMode) {
       case "list":
         this.returnToList();
         break;
       case "note":
-        // Note needs reset to unedited state
+        // Determine if not has changed
         this.setState({
-          note: Object.assign({}, this.state.notes[this.state.index]),
+          note: Object.assign({}, this.hasNotChanged()),
           appMode,
           actions
         });
@@ -98,16 +114,17 @@ export default class NotesContainer extends React.Component {
     const note = Object.assign({}, this.state.note);
 
     note.updated = Helpers.generateTimestamp();
-    this.setState({ note }, () => {
-      API.updateNote(note).then(result => {
-        if (result !== null) {
-          window.alert("Successfully updated note");
+    API.updateNote(note).then(result => {
+      if (result !== null) {
+        window.alert("Successfully updated note");
+        this.setState({ note }, () => {
           this.setAppMode("note", ["return", "edit"]);
-        } else {
-          window.alert("Error updating note");
-        }
-      });
+        });
+      } else {
+        window.alert("Error updating note");
+      }
     });
+
   }
   deleteNote(id, title) {
     if (window.confirm(`Do you want to delete note ${title}?`)) {
