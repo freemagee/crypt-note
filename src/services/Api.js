@@ -90,7 +90,7 @@ const Api = {
   },
   updateNote(data) {
     return fetch(
-      new Request(`${URL}${data.id}`, {
+      new Request(`${URL}${data.guid}`, {
         method: "PUT",
         mode: "cors",
         headers: new Headers({
