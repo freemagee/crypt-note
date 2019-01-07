@@ -96,15 +96,15 @@ export default class NotesContainer extends React.Component {
     if (this.state.appMode === "create") {
       note.created = Helpers.generateTimestamp();
     }
+
     note.updated = Helpers.generateTimestamp();
-    this.setState({ note }, () => {
-      API.saveNote(note).then(result => {
-        if (result !== null) {
-          window.alert("Successfully saved new note");
-        } else {
-          window.alert("Error saving note");
-        }
-      });
+    API.saveNote(note).then(result => {
+      if (result !== null) {
+        window.alert("Successfully saved new note");
+        this.setState({ note });
+      } else {
+        window.alert("Error saving note");
+      }
     });
   }
   updateNoteState(note) {
