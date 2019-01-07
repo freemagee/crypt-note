@@ -96,11 +96,9 @@ export default class NotesContainer extends React.Component {
   }
   updateNote() {
     const note = Object.assign({}, this.state.note);
-    const notes = this.state.notes;
 
     note.updated = Helpers.generateTimestamp();
-    notes[this.state.index] = Object.assign({}, note);
-    this.setState({ note, notes }, () => {
+    this.setState({ note }, () => {
       API.updateNote(note).then(result => {
         if (result !== null) {
           window.alert("Successfully updated note");

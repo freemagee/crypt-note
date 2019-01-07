@@ -14,16 +14,16 @@ export default class NotesList extends React.Component {
       return true;
     }
 
-    if (this.props.notes.length !== nextProps.notes.length) {
+    if (this.props.notes !== nextProps.notes) {
       return true;
     }
 
     return false;
   }
   render() {
-    if (this.props.appMode === "list") {
-      const notesCount = this.props.notes.length;
+    const notesCount = this.props.notes.length;
 
+    if (this.props.appMode === "list") {
       return (
         <div className="Notes">
           {notesCount !== 0 && (
@@ -41,9 +41,10 @@ export default class NotesList extends React.Component {
               }, this)}
             </ul>
           )}
-          {notesCount === 0 && <p>Currently no notes available</p>}
         </div>
       );
+    } else if (this.props.appMode === "list" && notesCount === 0) {
+      return <p>Currently no notes available</p>;
     } else {
       return <div className="Notes isHidden" />;
     }
