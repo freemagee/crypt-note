@@ -2,7 +2,7 @@ import React from "react";
 
 import Helpers from "../helpers/Helpers.js";
 
-export default class NoteItem extends React.Component {
+export default class NoteItem extends React.PureComponent {
   openNote() {
     this.props.openNote(this.props.note.guid, this.props.index);
   }

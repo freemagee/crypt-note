@@ -3,14 +3,7 @@ import React from "react";
 import Remarkable from "remarkable";
 import Parser from "html-react-parser";
 
-export default class RenderedNote extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    if (this.props.content !== nextProps.content) {
-      return true;
-    }
-
-    return false;
-  }
+export default class RenderedNote extends React.PureComponent {
   render() {
     const md = new Remarkable();
     const content =
@@ -25,10 +18,6 @@ export default class RenderedNote extends React.Component {
         <div className="RenderedNote__meta">
           <p className="RenderedNote__title">{title}</p>
         </div>
-        {/*<div
-          className="Markdown"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />*/}
         <div className="Markdown">{Parser(content)}</div>
       </div>
     );
