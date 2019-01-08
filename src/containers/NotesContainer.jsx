@@ -4,7 +4,7 @@ import NoteActions from "../components/NoteActions.jsx";
 import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
 import CreateNote from "../components/CreateNote.jsx";
-import EditNote from "../components/EditNote.jsx";
+// import EditNote from "../components/EditNote.jsx";
 import Helpers from "../helpers/Helpers.js";
 
 export default class NotesContainer extends React.Component {
@@ -14,6 +14,7 @@ export default class NotesContainer extends React.Component {
       actions: ["create"],
       notes: [],
       note: {},
+      draft: {},
       appMode: "list",
       index: null
     };
@@ -79,20 +80,28 @@ export default class NotesContainer extends React.Component {
       this.setAppMode("note", ["return", "edit"]);
     });
   }
-  setTitle(title) {
-    const note = Object.assign({}, this.state.note);
+  setDraft(obj) {
+    const { title, content } = obj;
+    const draft = Object.assign({}, this.state.draft);
 
-    note.title = title;
-    this.updateNoteState(note);
+    draft.title = title;
+    draft.content = content;
+    this.updateDraftState(draft);
   }
-  setContent(content) {
-    const note = Object.assign({}, this.state.note);
+  // setTitle(title) {
+  //   const note = Object.assign({}, this.state.note);
 
-    note.content = content;
-    this.updateNoteState(note);
-  }
+  //   note.title = title;
+  //   this.updateNoteState(note);
+  // }
+  // setContent(content) {
+  //   const note = Object.assign({}, this.state.note);
+
+  //   note.content = content;
+  //   this.updateNoteState(note);
+  // }
   saveNote() {
-    const note = Object.assign({}, this.state.note);
+    const note = Object.assign({}, this.state.draft);
 
     if (this.validateNote() === false) {
       window.alert("Note must have title and content");
@@ -107,11 +116,19 @@ export default class NotesContainer extends React.Component {
     API.saveNote(note).then(result => {
       if (result !== null) {
         window.alert("Successfully saved new note");
-        this.setState({ note });
+        this.setState(
+          {
+            draft: {}
+          },
+          () => this.props.setAppMode("list")
+        );
       } else {
         window.alert("Error saving note");
       }
     });
+  }
+  updateDraftState(draft) {
+    this.setState({ draft });
   }
   updateNoteState(note) {
     this.setState({ note });
@@ -135,7 +152,6 @@ export default class NotesContainer extends React.Component {
         window.alert("Error updating note");
       }
     });
-
   }
   deleteNote(id, title) {
     if (window.confirm(`Do you want to delete note ${title}?`)) {
@@ -161,12 +177,20 @@ export default class NotesContainer extends React.Component {
     this.setState({
       actions: ["create"],
       note: {},
+      draft: {},
       appMode: "list",
       index: null
     });
   }
   render() {
     const note = this.state.note;
+    const draft = this.state.draft;
+    let activeNote = note;
+
+    // The Note component is used to render a note from the notes list, or a preview of a new note in create mode. Therefore the note source for it's props can vary dependent on appMode
+    if (this.state.appMode === "preview") {
+      activeNote = draft;
+    }
 
     return (
       <div className="NotesContainer">
@@ -186,18 +210,17 @@ export default class NotesContainer extends React.Component {
           />
           <CreateNote
             appMode={this.state.appMode}
-            note={note}
-            onTitleChange={this.setTitle.bind(this)}
-            onContentChange={this.setContent.bind(this)}
+            note={draft}
+            onDraftChange={this.setDraft.bind(this)}
           />
-          <EditNote
+          {/*<EditNote
             appMode={this.state.appMode}
             key={note.guid}
             note={note}
             onTitleUpdate={this.setTitle.bind(this)}
             onContentUpdate={this.setContent.bind(this)}
-          />
-          <Note appMode={this.state.appMode} note={note} />
+          />*/}
+          <Note appMode={this.state.appMode} note={activeNote} />
         </div>
       </div>
     );

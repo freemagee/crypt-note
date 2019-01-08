@@ -13,13 +13,21 @@ export default class RenderedNote extends React.PureComponent {
     const title =
       typeof this.props.title !== "undefined" ? this.props.title : "";
 
-    return (
-      <div className="RenderedNote" data-edit-mode={this.props.mode}>
-        <div className="RenderedNote__meta">
-          <p className="RenderedNote__title">{title}</p>
+    if (title === "" && content === "") {
+      return (
+        <div className="RenderedNote">
+          <p>No Note Content</p>
         </div>
-        <div className="Markdown">{Parser(content)}</div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="RenderedNote">
+          <div className="RenderedNote__meta">
+            <p className="RenderedNote__title">{title}</p>
+          </div>
+          <div className="Markdown">{Parser(content)}</div>
+        </div>
+      );
+    }
   }
 }

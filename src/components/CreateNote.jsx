@@ -3,11 +3,8 @@ import React from "react";
 import NoteCreateEditor from "../components/NoteCreateEditor.jsx";
 
 export default class CreateNote extends React.Component {
-  onTitleChange(newVal) {
-    this.props.onTitleChange(newVal);
-  }
-  onContentChange(newVal) {
-    this.props.onContentChange(newVal);
+  onDraftChange(newObj) {
+    this.props.onDraftChange(newObj);
   }
   render() {
     if (this.props.appMode === "create") {
@@ -15,8 +12,7 @@ export default class CreateNote extends React.Component {
         <div className="CreateNote">
           <NoteCreateEditor
             note={this.props.note}
-            onTitleChange={this.onTitleChange.bind(this)}
-            onContentChange={this.onContentChange.bind(this)}
+            onDraftChange={this.onDraftChange.bind(this)}
           />
         </div>
       );

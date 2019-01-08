@@ -21,17 +21,21 @@ export default class NoteCreateEditor extends React.Component {
     const value = target.value;
     const name = target.name;
 
-    this.setState({
-      [name]: value
-    });
+    // Update internal state and then push state to parent component
+    this.setState(
+      {
+        [name]: value
+      },
+      () => this.props.onDraftChange(this.state)
+    );
 
-    if (name === "title") {
-      this.props.onTitleChange(value);
-    }
+    // if (name === "title") {
+    //   this.props.onTitleChange(value);
+    // }
 
-    if (name === "content") {
-      this.props.onContentChange(value);
-    }
+    // if (name === "content") {
+    //   this.props.onContentChange(value);
+    // }
   }
   render() {
     const titleClass =
