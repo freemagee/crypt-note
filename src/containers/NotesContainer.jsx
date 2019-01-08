@@ -39,13 +39,14 @@ export default class NotesContainer extends React.Component {
       }
     });
   }
-  hasNotChanged() {
+  hasNoteChanged() {
     // This is intended to deal with editing notes
     // When editing a note -> then cancelling that edit, the state.note could be different to it's pre edited state. But it needs "reseting" back.
     // If the note has been edited and saved, then the state.note version will have a future updated value and therefore is different.
     const archivedNoteUpdated = this.state.notes[this.state.index].updated;
     const currentNoteUpdated = this.state.note.updated;
 
+    // TODO: This logic breaks if a note is updated and then re-edited as the note will have a new "updated" value. Going to try to fix this in a branch
     if (archivedNoteUpdated < currentNoteUpdated) {
       // The state.note is different to it's equivalent in state.notes[state.index].
       return this.state.note;
@@ -63,7 +64,7 @@ export default class NotesContainer extends React.Component {
       case "note":
         // Determine if not has changed
         this.setState({
-          note: Object.assign({}, this.hasNotChanged()),
+          note: Object.assign({}, this.hasNoteChanged()),
           appMode,
           actions
         });

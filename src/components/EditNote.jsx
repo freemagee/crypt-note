@@ -4,11 +4,26 @@ export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      content: ""
+      title: this.props.note.title,
+      content: this.props.note.content
     };
 
     this.handleChange = this.handleChange.bind(this);
+  }
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (
+      nextProps.note.title !== nextState.title ||
+      nextProps.note.content !== nextState.content
+    ) {
+      // The props have changed. So update state accordingly.
+      return {
+        title: nextProps.note.title,
+        content: nextProps.note.content
+      };
+    }
+
+    // Return null to indicate no change to state.
+    return null;
   }
   handleChange(event) {
     const target = event.target;
@@ -19,6 +34,7 @@ export default class EditNote extends React.Component {
       [name]: value
     });
 
+    // The following update the data in a parent component, which will eventually come back to this component via props.
     if (name === "title") {
       this.props.onTitleUpdate(value);
     }
@@ -28,20 +44,14 @@ export default class EditNote extends React.Component {
     }
   }
   render() {
-    const title =
-      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
     const titleClass =
       this.props.note.title !== ""
         ? "EditNote__title"
         : "EditNote__title is-invalid";
-    const content =
-      typeof this.props.note.content !== "undefined"
-        ? this.props.note.content
-        : "";
     const contentClass =
       this.props.note.content !== ""
         ? "EditNote__content"
-        : "EditNote__control is-invalid";
+        : "EditNote__content is-invalid";
 
     if (this.props.appMode === "edit") {
       return (
@@ -50,7 +60,7 @@ export default class EditNote extends React.Component {
             <input
               className={titleClass}
               type="text"
-              value={title}
+              value={this.state.title}
               name="title"
               onChange={this.handleChange}
             />
@@ -58,7 +68,7 @@ export default class EditNote extends React.Component {
           <div className="EditNote__control">
             <textarea
               className={contentClass}
-              value={content}
+              value={this.state.content}
               name="content"
               onChange={this.handleChange}
             />

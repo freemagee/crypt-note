@@ -3,9 +3,15 @@ import React from "react";
 export default class NoteCreateEditor extends React.Component {
   constructor(props) {
     super(props);
+    const title =
+      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content =
+      typeof this.props.note.content !== "undefined"
+        ? this.props.note.content
+        : "";
     this.state = {
-      title: "",
-      content: ""
+      title: title,
+      content: content
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,19 +32,6 @@ export default class NoteCreateEditor extends React.Component {
     if (name === "content") {
       this.props.onContentChange(value);
     }
-  }
-  componentDidMount() {
-    const title =
-      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
-    const content =
-      typeof this.props.note.content !== "undefined"
-        ? this.props.note.content
-        : "";
-
-    this.setState({
-      title,
-      content
-    });
   }
   render() {
     const titleClass =
