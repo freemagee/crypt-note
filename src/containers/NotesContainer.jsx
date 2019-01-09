@@ -115,7 +115,7 @@ export default class NotesContainer extends React.Component {
           {
             draft: {}
           },
-          () => this.props.setAppMode("list")
+          () => this.setAppMode("list")
         );
       } else {
         window.alert("Error saving note");
