@@ -1,24 +1,10 @@
 .EditNote {
-  display: grid;
   height: calc(100% - 60px);// Header height plus 20px padding
   padding: 10px;
-  grid-template-columns: auto;
-  grid-template-rows: 40px auto;
-  grid-gap: 20px;
 
   @include respond-to(small) {
     height: calc(100% - 80px);// Header height plus 20px padding
     padding: 20px;
-  }
-
-  &__title,
-  &__content {
-    @include basic-control;
-  }
-
-  &__content {
-    height: 100%;
-    resize: none;
   }
 
   &.isHidden {

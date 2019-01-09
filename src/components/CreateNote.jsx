@@ -1,6 +1,6 @@
 import React from "react";
 
-import NoteCreateEditor from "../components/NoteCreateEditor.jsx";
+import NoteEditor from "../components/NoteEditor.jsx";
 
 export default class CreateNote extends React.Component {
   onDraftChange(newObj) {
@@ -10,7 +10,7 @@ export default class CreateNote extends React.Component {
     if (this.props.appMode === "create") {
       return (
         <div className="CreateNote">
-          <NoteCreateEditor
+          <NoteEditor
             note={this.props.note}
             onDraftChange={this.onDraftChange.bind(this)}
           />

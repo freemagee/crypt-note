@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class NoteCreateEditor extends React.Component {
+export default class NoteEditor extends React.Component {
   constructor(props) {
     super(props);
 
@@ -31,18 +31,19 @@ export default class NoteCreateEditor extends React.Component {
       typeof this.props.note.content !== "undefined"
         ? this.props.note.content
         : "";
+    // TODO: The invalid classes are applied on a new note straight away, they should wait until a user has started to input data/ or when they click an action
     const titleClass =
       title !== ""
-        ? "NoteCreateEditor__title"
-        : "NoteCreateEditor__title isInvalid";
+        ? "NoteEditor__title"
+        : "NoteEditor__title isInvalid";
     const contentClass =
       content !== ""
-        ? "NoteCreateEditor__content"
-        : "NoteCreateEditor__content isInvalid";
+        ? "NoteEditor__content"
+        : "NoteEditor__content isInvalid";
 
     return (
-      <div className="NoteCreateEditor">
-        <div className="NoteCreateEditor__control">
+      <div className="NoteEditor">
+        <div className="NoteEditor__control">
           <input
             className={titleClass}
             type="text"
@@ -52,7 +53,7 @@ export default class NoteCreateEditor extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <div className="NoteCreateEditor__control">
+        <div className="NoteEditor__control">
           <textarea
             className={contentClass}
             name="content"
