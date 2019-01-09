@@ -3,16 +3,6 @@ import React from "react";
 export default class NoteCreateEditor extends React.Component {
   constructor(props) {
     super(props);
-    const title =
-      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
-    const content =
-      typeof this.props.note.content !== "undefined"
-        ? this.props.note.content
-        : "";
-    this.state = {
-      title: title,
-      content: content
-    };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -20,24 +10,27 @@ export default class NoteCreateEditor extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+    const stateOfValues = {
+      title: this.props.note.title,
+      content: this.props.note.content
+    };
+    const newValue = {
+      [name]: value
+    };
+    // Use spread operator for object merge.
+    // In the case of a key collision, the right-most (last) object's value wins out.
+    const merged = { ...stateOfValues, ...newValue };
 
-    // Update internal state and then push state to parent component
-    this.setState(
-      {
-        [name]: value
-      },
-      () => this.props.onDraftChange(this.state)
-    );
-
-    // if (name === "title") {
-    //   this.props.onTitleChange(value);
-    // }
-
-    // if (name === "content") {
-    //   this.props.onContentChange(value);
-    // }
+    this.props.onDraftChange(merged);
   }
   render() {
+    // Inititally the incoming notes props will be undefined, so handle that.
+    const title =
+      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content =
+      typeof this.props.note.content !== "undefined"
+        ? this.props.note.content
+        : "";
     const titleClass =
       this.props.note.title !== ""
         ? "NoteCreateEditor__title"
@@ -53,7 +46,7 @@ export default class NoteCreateEditor extends React.Component {
           <input
             className={titleClass}
             type="text"
-            value={this.state.title}
+            value={title}
             name="title"
             placeholder="Please enter a title"
             onChange={this.handleChange}
@@ -63,7 +56,7 @@ export default class NoteCreateEditor extends React.Component {
           <textarea
             className={contentClass}
             name="content"
-            value={this.state.content}
+            value={content}
             placeholder="Type your new note here"
             onChange={this.handleChange}
           />
