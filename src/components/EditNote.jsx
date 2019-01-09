@@ -32,13 +32,13 @@ export default class EditNote extends React.Component {
         ? this.props.note.content
         : "";
     const titleClass =
-      this.props.note.title !== ""
+      title !== ""
         ? "EditNote__title"
-        : "EditNote__title is-invalid";
+        : "EditNote__title isInvalid";
     const contentClass =
-      this.props.note.content !== ""
+      content !== ""
         ? "EditNote__content"
-        : "EditNote__content is-invalid";
+        : "EditNote__content isInvalid";
 
     if (this.props.appMode === "edit") {
       return (
@@ -49,14 +49,16 @@ export default class EditNote extends React.Component {
               type="text"
               value={title}
               name="title"
+              placeholder="Please enter a title"
               onChange={this.handleChange}
             />
           </div>
           <div className="EditNote__control">
             <textarea
               className={contentClass}
-              value={content}
               name="content"
+              value={content}
+              placeholder="Type your new note here"
               onChange={this.handleChange}
             />
           </div>

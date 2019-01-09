@@ -32,13 +32,13 @@ export default class NoteCreateEditor extends React.Component {
         ? this.props.note.content
         : "";
     const titleClass =
-      this.props.note.title !== ""
+      title !== ""
         ? "NoteCreateEditor__title"
-        : "NoteCreateEditor__title is-invalid";
+        : "NoteCreateEditor__title isInvalid";
     const contentClass =
-      this.props.note.content !== ""
+      content !== ""
         ? "NoteCreateEditor__content"
-        : "NoteCreateEditor__content is-invalid";
+        : "NoteCreateEditor__content isInvalid";
 
     return (
       <div className="NoteCreateEditor">
