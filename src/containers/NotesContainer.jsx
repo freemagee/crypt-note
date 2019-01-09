@@ -40,22 +40,6 @@ export default class NotesContainer extends React.Component {
       }
     });
   }
-  hasNoteChanged() {
-    // This is intended to deal with editing notes
-    // When editing a note -> then cancelling that edit, the state.note could be different to it's pre edited state. But it needs "reseting" back.
-    // If the note has been edited and saved, then the state.note version will have a future updated value and therefore is different.
-    const archivedNoteUpdated = this.state.notes[this.state.index].updated;
-    const currentNoteUpdated = this.state.note.updated;
-
-    // TODO: This logic breaks if a note is updated and then re-edited as the note will have a new "updated" value. Going to try to fix this in a branch
-    if (archivedNoteUpdated < currentNoteUpdated) {
-      // The state.note is different to it's equivalent in state.notes[state.index].
-      return this.state.note;
-    } else {
-      // The note has not been updated, so use the archived note
-      return this.state.notes[this.state.index];
-    }
-  }
   setAppMode(appMode, actions) {
     // Used to determine appMode based differences
     switch (appMode) {
@@ -70,9 +54,8 @@ export default class NotesContainer extends React.Component {
         });
         break;
       case "note":
-        // Determine if note has changed
         this.setState({
-          note: Object.assign({}, this.hasNoteChanged()),
+          note: Object.assign({}, this.state.note),
           appMode,
           actions
         });
