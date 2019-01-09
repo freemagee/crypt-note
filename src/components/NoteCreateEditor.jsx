@@ -24,7 +24,7 @@ export default class NoteCreateEditor extends React.Component {
     this.props.onDraftChange(merged);
   }
   render() {
-    // Inititally the incoming notes props will be undefined, so handle that.
+    // Initially the incoming notes props will be undefined, so handle that.
     const title =
       typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
     const content =

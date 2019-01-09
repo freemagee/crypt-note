@@ -4,7 +4,7 @@ import NoteActions from "../components/NoteActions.jsx";
 import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
 import CreateNote from "../components/CreateNote.jsx";
-// import EditNote from "../components/EditNote.jsx";
+import EditNote from "../components/EditNote.jsx";
 import Helpers from "../helpers/Helpers.js";
 
 export default class NotesContainer extends React.Component {
@@ -62,8 +62,15 @@ export default class NotesContainer extends React.Component {
       case "list":
         this.returnToList();
         break;
+      case "edit":
+        this.setState({
+          draft: Object.assign({}, this.state.note),
+          appMode,
+          actions
+        });
+        break;
       case "note":
-        // Determine if not has changed
+        // Determine if note has changed
         this.setState({
           note: Object.assign({}, this.hasNoteChanged()),
           appMode,
@@ -88,18 +95,6 @@ export default class NotesContainer extends React.Component {
     draft.content = content;
     this.updateDraftState(draft);
   }
-  // setTitle(title) {
-  //   const note = Object.assign({}, this.state.note);
-
-  //   note.title = title;
-  //   this.updateNoteState(note);
-  // }
-  // setContent(content) {
-  //   const note = Object.assign({}, this.state.note);
-
-  //   note.content = content;
-  //   this.updateNoteState(note);
-  // }
   saveNote() {
     const note = Object.assign({}, this.state.draft);
 
@@ -134,7 +129,7 @@ export default class NotesContainer extends React.Component {
     this.setState({ note });
   }
   updateNote() {
-    const note = Object.assign({}, this.state.note);
+    const note = Object.assign({}, this.state.draft);
 
     if (this.validateNote() === false) {
       window.alert("Note must have title and content");
@@ -145,7 +140,7 @@ export default class NotesContainer extends React.Component {
     API.updateNote(note).then(result => {
       if (result !== null) {
         window.alert("Successfully updated note");
-        this.setState({ note }, () => {
+        this.setState({ note, draft: {} }, () => {
           this.setAppMode("note", ["return", "edit"]);
         });
       } else {
@@ -213,13 +208,11 @@ export default class NotesContainer extends React.Component {
             note={draft}
             onDraftChange={this.setDraft.bind(this)}
           />
-          {/*<EditNote
+          <EditNote
             appMode={this.state.appMode}
-            key={note.guid}
-            note={note}
-            onTitleUpdate={this.setTitle.bind(this)}
-            onContentUpdate={this.setContent.bind(this)}
-          />*/}
+            note={draft}
+            onDraftChange={this.setDraft.bind(this)}
+          />
           <Note appMode={this.state.appMode} note={activeNote} />
         </div>
       </div>

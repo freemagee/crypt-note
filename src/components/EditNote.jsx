@@ -3,47 +3,34 @@ import React from "react";
 export default class EditNote extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: this.props.note.title,
-      content: this.props.note.content
-    };
 
     this.handleChange = this.handleChange.bind(this);
-  }
-  static getDerivedStateFromProps(nextProps, nextState) {
-    if (
-      nextProps.note.title !== nextState.title ||
-      nextProps.note.content !== nextState.content
-    ) {
-      // The props have changed. So update state accordingly.
-      return {
-        title: nextProps.note.title,
-        content: nextProps.note.content
-      };
-    }
-
-    // Return null to indicate no change to state.
-    return null;
   }
   handleChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
-    this.setState({
+    const stateOfValues = {
+      title: this.props.note.title,
+      content: this.props.note.content
+    };
+    const newValue = {
       [name]: value
-    });
+    };
+    // Use spread operator for object merge.
+    // In the case of a key collision, the right-most (last) object's value wins out.
+    const merged = { ...stateOfValues, ...newValue };
 
-    // The following update the data in a parent component, which will eventually come back to this component via props.
-    if (name === "title") {
-      this.props.onTitleUpdate(value);
-    }
-
-    if (name === "content") {
-      this.props.onContentUpdate(value);
-    }
+    this.props.onDraftChange(merged);
   }
   render() {
+    // Initially the incoming notes props will be undefined, so handle that.
+    const title =
+      typeof this.props.note.title !== "undefined" ? this.props.note.title : "";
+    const content =
+      typeof this.props.note.content !== "undefined"
+        ? this.props.note.content
+        : "";
     const titleClass =
       this.props.note.title !== ""
         ? "EditNote__title"
@@ -60,7 +47,7 @@ export default class EditNote extends React.Component {
             <input
               className={titleClass}
               type="text"
-              value={this.state.title}
+              value={title}
               name="title"
               onChange={this.handleChange}
             />
@@ -68,7 +55,7 @@ export default class EditNote extends React.Component {
           <div className="EditNote__control">
             <textarea
               className={contentClass}
-              value={this.state.content}
+              value={content}
               name="content"
               onChange={this.handleChange}
             />
