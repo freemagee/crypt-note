@@ -98,7 +98,7 @@ export default class NotesContainer extends React.Component {
   saveNote() {
     const note = Object.assign({}, this.state.draft);
 
-    if (this.validateNote() === false) {
+    if (this.validateDraft() === false) {
       window.alert("Note must have title and content");
       return;
     }
@@ -131,7 +131,7 @@ export default class NotesContainer extends React.Component {
   updateNote() {
     const note = Object.assign({}, this.state.draft);
 
-    if (this.validateNote() === false) {
+    if (this.validateDraft() === false) {
       window.alert("Note must have title and content");
       return;
     }
@@ -160,8 +160,12 @@ export default class NotesContainer extends React.Component {
       });
     }
   }
-  validateNote() {
-    if (this.state.note.title === "" || this.state.note.content === "") {
+  validateDraft() {
+    if (typeof this.state.draft.title === "undefined" || typeof this.state.draft.content === "undefined") {
+      return false;
+    }
+
+    if (this.state.draft.title === "" || this.state.draft.content === "") {
       return false;
     }
 
