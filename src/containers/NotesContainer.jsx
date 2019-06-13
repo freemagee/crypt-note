@@ -20,7 +20,18 @@ export default class NotesContainer extends React.Component {
     };
   }
   componentDidMount() {
-    this.getAllNotes();
+    //this.getAllNotes();
+    this.getAuth();
+  }
+  getAuth() {
+    API.getAuth().then(result => {
+      if (result !== null) {
+        //this.setState({ note: result });
+        console.log(result);
+      } else {
+        window.alert("Error retrieving note");
+      }
+    });
   }
   getNote(id) {
     API.getNote(id).then(result => {

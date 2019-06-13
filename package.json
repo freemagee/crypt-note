@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://freemagee.github.io/crypt-note/",
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts": "2.1.8"

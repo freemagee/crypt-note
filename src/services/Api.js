@@ -1,7 +1,61 @@
-const URL = process.env.REACT_APP_APIURL;
-const KEY = process.env.REACT_APP_APIKEY;
+import CryptoJS from "crypto-js";
+// ! This is hard coded, and would not be in production.
+const USERNAME = "root";
+const BASE = process.env.REACT_APP_API_BASE;
+const AUTH = process.env.REACT_APP_API_AUTH;
+const NOTES = process.env.REACT_APP_API_NOTES;
+const APPSECRET = process.env.REACT_APP_SECRET;
+const KEY = "123456789";
+const URL = "http://example.org";
+
+function generateHMAC(method, route, microtime) {
+  const uint32 = new Uint32Array(8);
+  window.crypto.getRandomValues(uint32);
+  //const nonce = uint32.join('');
+  const nonce = '976b4cec288d0ee79ffec9fc64b21dc0';
+  const msgParts = [method, route, microtime, nonce];
+  const msg = msgParts.join("+");
+  //const msg = 'GET+/api/v1/auth/+1554912560+976b4cec288d0ee79ffec9fc64b21dc0';
+  const signature = CryptoJS.HmacSHA512(msg, APPSECRET);
+  console.log(signature.toString());
+  const digest = btoa(`${USERNAME}:${nonce}:${signature.toString()}`);
+
+  return digest;
+}
 
 const Api = {
+  getAuth() {
+    const microtime = Math.floor(new Date() / 1000);
+    const hmac = generateHMAC("GET", AUTH, microtime);
+
+    return fetch(
+      new Request(`${BASE}${AUTH}`, {
+        method: "GET",
+        mode: "cors",
+        headers: new Headers({
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime
+        })
+      })
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("There has been a problem retrieving data");
+        }
+      })
+      .then(json => {
+        if (json.status === "success" && json.data !== null) {
+          return json.data;
+        } else {
+          throw new Error(json.message);
+        }
+      })
+      .catch(() => {
+        return null;
+      });
+  },
   getAllNotes() {
     return fetch(
       new Request(URL, {
@@ -145,7 +199,7 @@ const Api = {
       .catch(() => {
         return null;
       });
-  },
+  }
 };
 
 export default Api;
