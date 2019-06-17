@@ -11,13 +11,12 @@ const URL = "http://example.org";
 function generateHMAC(method, route, microtime) {
   const uint32 = new Uint32Array(8);
   window.crypto.getRandomValues(uint32);
-  //const nonce = uint32.join('');
-  const nonce = '976b4cec288d0ee79ffec9fc64b21dc0';
+  const nonce = uint32.join('');
   const msgParts = [method, route, microtime, nonce];
   const msg = msgParts.join("+");
-  //const msg = 'GET+/api/v1/auth/+1554912560+976b4cec288d0ee79ffec9fc64b21dc0';
+  // Hard coded test. API Application must use same strings and secret.
+  // const msg = "GET+/api/v1/auth/+1560787354+6d2f53a1c9a70cba5bf323823dc8677d";
   const signature = CryptoJS.HmacSHA512(msg, APPSECRET);
-  console.log(signature.toString());
   const digest = btoa(`${USERNAME}:${nonce}:${signature.toString()}`);
 
   return digest;
@@ -34,7 +33,7 @@ const Api = {
         mode: "cors",
         headers: new Headers({
           Authorization: `hmac ${hmac}`,
-          "X-Microtime": microtime
+          "X-MICROTIME": microtime
         })
       })
     )

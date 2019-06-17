@@ -27,9 +27,9 @@ export default class NotesContainer extends React.Component {
     API.getAuth().then(result => {
       if (result !== null) {
         //this.setState({ note: result });
-        console.log(result);
+        console.log(`token: ${result}`);
       } else {
-        window.alert("Error retrieving note");
+        window.alert("Error authenticating");
       }
     });
   }
