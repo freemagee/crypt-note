@@ -7,7 +7,8 @@ module.exports = {
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "rules": {
     "react/jsx-uses-react": 2,
