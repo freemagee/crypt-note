@@ -5,17 +5,27 @@ const BASE = process.env.REACT_APP_API_BASE;
 const AUTH = process.env.REACT_APP_API_AUTH;
 const NOTES = process.env.REACT_APP_API_NOTES;
 const APPSECRET = process.env.REACT_APP_SECRET;
-const KEY = "123456789";
 const URL = "http://example.org";
+let token = null;
+
+function getMicrotime(float) {
+  const now = new Date().getTime() / 1000;
+  const s = parseInt(now, 10);
+
+  return float ? now : Math.round((now - s) * 1000) / 1000 + " " + s;
+}
+
+function generateNonce(length) {
+  const uint32 = new Uint32Array(length);
+  window.crypto.getRandomValues(uint32);
+
+  return uint32.join("");
+}
 
 function generateHMAC(method, route, microtime) {
-  const uint32 = new Uint32Array(8);
-  window.crypto.getRandomValues(uint32);
-  const nonce = uint32.join('');
+  const nonce = generateNonce(8);
   const msgParts = [method, route, microtime, nonce];
   const msg = msgParts.join("+");
-  // Hard coded test. API Application must use same strings and secret.
-  // const msg = "GET+/api/v1/auth/+1560787354+6d2f53a1c9a70cba5bf323823dc8677d";
   const signature = CryptoJS.HmacSHA512(msg, APPSECRET);
   const digest = btoa(`${USERNAME}:${nonce}:${signature.toString()}`);
 
@@ -24,7 +34,7 @@ function generateHMAC(method, route, microtime) {
 
 const Api = {
   getAuth() {
-    const microtime = Math.floor(new Date() / 1000);
+    const microtime = getMicrotime(true);
     const hmac = generateHMAC("GET", AUTH, microtime);
 
     return fetch(
@@ -41,12 +51,13 @@ const Api = {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("There has been a problem retrieving data");
+          throw new Error("There has been a problem retrieving auth token");
         }
       })
       .then(json => {
         if (json.status === "success" && json.data !== null) {
-          return json.data;
+          token = json.data;
+          return json.status;
         } else {
           throw new Error(json.message);
         }
@@ -61,7 +72,7 @@ const Api = {
         method: "GET",
         mode: "cors",
         headers: new Headers({
-          "X-Api-Key": KEY
+          "X-TOKEN": token
         })
       })
     )
@@ -89,7 +100,7 @@ const Api = {
         method: "GET",
         mode: "cors",
         headers: new Headers({
-          "X-Api-Key": KEY
+          "X-TOKEN": token
         })
       })
     )
@@ -117,7 +128,7 @@ const Api = {
         method: "POST",
         mode: "cors",
         headers: new Headers({
-          "X-Api-Key": KEY,
+          "X-TOKEN": token,
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(data)
@@ -147,7 +158,7 @@ const Api = {
         method: "PUT",
         mode: "cors",
         headers: new Headers({
-          "X-Api-Key": KEY,
+          "X-TOKEN": token,
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(data)
@@ -177,7 +188,7 @@ const Api = {
         method: "DELETE",
         mode: "cors",
         headers: new Headers({
-          "X-Api-Key": KEY
+          "X-TOKEN": token
         })
       })
     )
