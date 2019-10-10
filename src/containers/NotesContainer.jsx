@@ -5,7 +5,7 @@ import NotesList from "../components/NotesList.jsx";
 import Note from "../components/Note.jsx";
 import CreateNote from "../components/CreateNote.jsx";
 import EditNote from "../components/EditNote.jsx";
-import Helpers from "../helpers/Helpers.js";
+import generateTimestamp from "../helpers/generateTimestamp";
 
 export default class NotesContainer extends React.Component {
   constructor(props) {
@@ -96,10 +96,10 @@ export default class NotesContainer extends React.Component {
     }
 
     if (this.state.appMode === "create") {
-      note.created = Helpers.generateTimestamp();
+      note.created = generateTimestamp();
     }
 
-    note.updated = Helpers.generateTimestamp();
+    note.updated = generateTimestamp();
     API.saveNote(note).then(result => {
       if (result !== null) {
         window.alert("Successfully saved new note");
@@ -128,7 +128,7 @@ export default class NotesContainer extends React.Component {
       return;
     }
 
-    note.updated = Helpers.generateTimestamp();
+    note.updated = generateTimestamp();
     API.updateNote(note).then(result => {
       if (result !== null) {
         window.alert("Successfully updated note");

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Helpers from "../helpers/Helpers.js";
+import convertTimestamp from "../helpers/convertTimestamp";
 
 export default class NoteItem extends React.PureComponent {
   openNote() {
@@ -10,8 +10,8 @@ export default class NoteItem extends React.PureComponent {
     this.props.deleteNote(this.props.note.guid, this.props.note.title);
   }
   render() {
-    const created = Helpers.convertTimestamp(this.props.note.created);
-    const updated = Helpers.convertTimestamp(this.props.note.updated);
+    const created = convertTimestamp(this.props.note.created);
+    const updated = convertTimestamp(this.props.note.updated);
 
     return (
       <li className="NoteItem">
