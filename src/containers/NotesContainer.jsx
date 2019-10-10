@@ -1,115 +1,86 @@
 import React from "react";
-// TODO: load data dynamically from a db. Just here as a data placeholder
+import ReactDOM from "react-dom";
+
+// TODO: load data dynamically from a db
 import NOTES from "../data.js";
-import NoteActions from "../components/NoteActions.jsx";
-import NotesList from "../components/NotesList.jsx";
-import Note from "../components/Note.jsx";
-import CreateNote from "../components/CreateNote.jsx";
-import EditNote from "../components/EditNote.jsx";
+
 import Helpers from "../helpers/Helpers.js";
+import NotesList from "../components/NotesList.jsx";
+import RenderedNote from "../components/RenderedNote.jsx";
+import CreateNote from "../components/CreateNote.jsx";
 
 export default class NotesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      actions: ["create"],
-      note: {},
+      currentNote: "",
+      currentNoteTitle: "",
+      editMode: false,
+      createMode: false,
       index: null,
       appMode: "list"
     };
-    // preserve the initial state in a new object
-    this.baseState = this.state;
   }
-  setAppMode(appMode, actions) {
-    if (appMode !== "list") {
-      this.setState({ appMode, actions });
-    } else {
-      this.returnToList();
-    }
+  setAppMode(appMode) {
+    this.setState({ appMode });
   }
-  returnToList() {
-    this.setState(this.baseState);
-  }
-  setCurrentNote(noteContent, index) {
-    const completeNote = Object.assign({}, NOTES[index]);
-    completeNote.content = noteContent;
-
-    this.setState(
-      {
-        note: completeNote,
-        index: index
-      },
-      () => {
-        NOTES[this.state.index] = completeNote;
-        this.setAppMode("note", ["return", "edit"]);
-      }
-    );
-  }
-  setEditMode(mode) {
-    this.setState({ appMode: mode });
-    if (mode !== "edit") {
-      const resetNote = Object.assign({}, NOTES[this.state.index]);
-
-      this.setState({ note: resetNote });
-    }
-  }
-  setTitle(title) {
-    const note = Object.assign({}, this.state.note);
-
-    note.title = title;
-    this.updateNoteState(note);
-  }
-  setContent(content) {
-    const note = Object.assign({}, this.state.note);
-
-    note.content = content;
-    this.updateNoteState(note);
-  }
-  saveNote() {
-    const note = Object.assign({}, this.state.note);
-
-    if (this.state.createMode) {
-      note.created = Helpers.generateTimestamp();
-    }
-    note.updated = Helpers.generateTimestamp();
-    this.setState({ note }, () => {
-      console.log("Saving the note...not really", this.state.note);
+  setCurrentNote(currentNote, index) {
+    this.setState({
+      currentNote: currentNote,
+      currentNoteTitle: NOTES[index].title,
+      index: index
     });
+    this.setAppMode("note");
   }
-  updateNoteState(note) {
-    this.setState({ note });
+  setEditMode(editMode) {
+    this.setState({ editMode });
+  }
+  setCreateMode(createMode) {
+    this.setState({ createMode });
+  }
+  createNewNote() {
+    this.setAppMode("create");
+  }
+  saveNote(val) {
+    let currentNote = val;
+    let changedTimestamp = Helpers.generateTimestamp();
+    this.setState({
+      currentNote: currentNote,
+      editMode: false
+    });
+    NOTES[this.state.index].updated = changedTimestamp;
+  }
+  saveNewNote(noteObj) {
+    noteObj.created = Helpers.generateTimestamp();
+    noteObj.updated = Helpers.generateTimestamp();
+    console.log("Saving a new note...not really", noteObj);
   }
   render() {
-    const note = this.state.note;
-
     return (
       <div className="NotesContainer">
         <div className="NotesContainer__inner">
-          <NoteActions
-            actions={this.state.actions}
-            setAppMode={this.setAppMode.bind(this)}
-            returnToList={this.returnToList.bind(this)}
-            onSaveNote={this.saveNote.bind(this)}
-            onUpdateNote={this.saveNote.bind(this)}
+          <CreateNote
+            mode={this.state.createMode}
+            appMode={this.state.appMode}
+            returnToList={this.setAppMode.bind(this)}
+            setCreateMode={this.setCreateMode.bind(this)}
+            createNewNote={this.createNewNote.bind(this)}
+            saveNewNote={this.saveNewNote.bind(this)}
           />
           <NotesList
             notes={NOTES}
             appMode={this.state.appMode}
             setCurrentNote={this.setCurrentNote.bind(this)}
           />
-          <CreateNote
+          <RenderedNote
+            mode={this.state.editMode}
             appMode={this.state.appMode}
-            onTitleChange={this.setTitle.bind(this)}
-            onContentChange={this.setContent.bind(this)}
+            title={this.state.currentNoteTitle}
+            source={this.state.currentNote}
+            returnToList={this.setAppMode.bind(this)}
+            setEditMode={this.setEditMode.bind(this)}
+            saveNote={this.saveNote.bind(this)}
           />
-          <EditNote
-            appMode={this.state.appMode}
-            key={this.state.index}
-            note={note}
-            onTitleUpdate={this.setTitle.bind(this)}
-            onContentUpdate={this.setContent.bind(this)}
-          />
-          <Note appMode={this.state.appMode} note={note} />
         </div>
       </div>
     );

@@ -1,9 +1,0 @@
-.CreateNote {
-  display: none;
-  height: 100%;
-  padding: 0 20px 20px;
-
-  &[data-app-mode='create'] {
-    display: block;
-  }
-}

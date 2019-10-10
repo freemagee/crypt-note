@@ -1,5 +1,4 @@
 .Notes {
-  display: none;
   position: absolute;
   box-sizing: border-box;
   height: calc(100vh - 80px);
@@ -8,9 +7,16 @@
   overflow: auto;
 
   &[data-app-mode='list'] {
-    display: block;
     top: 80px;
     left: 0;
+  }
+
+  &[data-app-mode='create'] {
+    display: none;
+  }
+
+  &[data-app-mode='note'] {
+    display: none;
   }
 
   &__list {

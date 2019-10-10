@@ -10,11 +10,11 @@ module.exports = {
     "node": true
   },
   "rules": {
-    "quotes": [2, "double"],
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
-    "react/prop-types": 0
+    "react/react-in-jsx-scope": 2
   },
   "plugins": [
     "react"

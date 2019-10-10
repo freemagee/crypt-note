@@ -3,15 +3,12 @@
 // -----------------------------------------------------------------------------
 
 // Common/repeated color
-// Shades of black
-$color__off-white: #f5f5f5 !default;
-$color__lightest: #D6D6D6 !default;
-$color__lighter: #B7B7B7 !default;
-$color__light: #999 !default;
-$color__mid: #7A7A7A !default;
-$color__dark: #5B5B5B !default;
-$color__darker: #3D3D3D !default;
-$color__darkest: #1f1f1f !default;
+$color__off-white: #f8f8f8 !default;
+$color__lightest: #ebebeb !default;
+$color__light: #ccc !default;
+$color__mid: #4c4c4c !default;
+$color__dark: #333 !default;
+$color__darkest: #111 !default;
 
 $color__text-default: $color__mid !default;
 

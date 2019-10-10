@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 import Helpers from "../helpers/Helpers.js";
 
@@ -15,13 +16,13 @@ export default class NoteItem extends React.Component {
       .then(function(response) {
         return response.text();
       })
-      .then(function(noteContent) {
-        thisObj.props.openNote(noteContent, thisObj.props.index);
+      .then(function(markdown) {
+        thisObj.props.openNote(markdown, thisObj.props.index);
       });
   }
   render() {
-    const created = Helpers.convertTimestamp(this.props.note.created);
-    const updated = Helpers.convertTimestamp(this.props.note.updated);
+    let created = Helpers.convertTimestamp(this.props.note.created);
+    let updated = Helpers.convertTimestamp(this.props.note.updated);
 
     return (
       <li className="NoteItem">
@@ -36,11 +37,7 @@ export default class NoteItem extends React.Component {
             {updated}
           </p>
         </div>
-        <button
-          type="button"
-          className="NoteItem__open"
-          onClick={this.openNote.bind(this)}
-        >
+        <button className="NoteItem__open" onClick={this.openNote.bind(this)}>
           Open
         </button>
       </li>

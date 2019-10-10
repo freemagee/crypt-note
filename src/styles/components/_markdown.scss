@@ -2,8 +2,14 @@
   display: grid;
   height: 100%;
   grid-template-columns: auto;
-  grid-template-rows: 40px auto;
+  grid-template-rows: 40px 40px auto;
   grid-gap: 20px;
+
+  &[data-edit-mode='true'] {
+    display: none;
+  }
+
+  &__actions {}
 
   &__title {
     position: relative;
@@ -27,6 +33,15 @@
 
   &__content {
     overflow: auto;
+  }
+
+  &__return {
+    @include basic-button;
+  }
+
+  &__edit {
+    @include primary-button;
+    margin-left: 10px;
   }
 }
 
