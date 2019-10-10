@@ -5,9 +5,9 @@
   "homepage": "https://freemagee.github.io/crypt-note/",
   "dependencies": {
     "crypto-js": "^3.1.9-1",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-scripts": "2.1.8"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,9 +27,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "gh-pages": "^2.0.1",
-    "html-react-parser": "^0.4.7",
-    "node-sass": "^4.9.4",
-    "remarkable": "^1.7.1"
+    "gh-pages": "^2.1.1",
+    "html-react-parser": "^0.9.1",
+    "node-sass": "^4.12.0",
+    "remarkable": "^2.0.0"
   }
 }
