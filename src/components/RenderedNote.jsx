@@ -11,8 +11,8 @@ export default class RenderedNote extends React.Component {
   editMode(mode) {
     this.props.setEditMode(mode);
   }
-  saveNote(val) {
-    this.props.saveNote(val);
+  saveNote(newNoteObj) {
+    this.props.saveNote(newNoteObj);
   }
   render() {
     return (

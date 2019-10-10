@@ -13,6 +13,7 @@ export default class NotesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      notes: NOTES,
       currentNote: "",
       currentNoteTitle: "",
       editMode: false,
@@ -25,10 +26,11 @@ export default class NotesContainer extends React.Component {
     this.setState({ appMode });
   }
   setCurrentNote(currentNote, index) {
+    const currentNoteTitle = this.state.notes[index].title;
     this.setState({
-      currentNote: currentNote,
-      currentNoteTitle: NOTES[index].title,
-      index: index
+      currentNote,
+      currentNoteTitle,
+      index
     });
     this.setAppMode("note");
   }
@@ -41,14 +43,21 @@ export default class NotesContainer extends React.Component {
   createNewNote() {
     this.setAppMode("create");
   }
-  saveNote(val) {
-    let currentNote = val;
+  saveNote(newNoteObj) {
+    const {content, title} = newNoteObj;
     let changedTimestamp = Helpers.generateTimestamp();
+    const notesClone = [...this.state.notes];
+    notesClone[this.state.index] = {
+      ...notesClone[this.state.index],
+      title,
+      updated: changedTimestamp
+    };
     this.setState({
-      currentNote: currentNote,
-      editMode: false
+      currentNote: content,
+      currentNoteTitle: title,
+      editMode: false,
+      notes: notesClone
     });
-    NOTES[this.state.index].updated = changedTimestamp;
   }
   saveNewNote(noteObj) {
     noteObj.created = Helpers.generateTimestamp();
@@ -68,7 +77,7 @@ export default class NotesContainer extends React.Component {
             saveNewNote={this.saveNewNote.bind(this)}
           />
           <NotesList
-            notes={NOTES}
+            notes={this.state.notes}
             appMode={this.state.appMode}
             setCurrentNote={this.setCurrentNote.bind(this)}
           />

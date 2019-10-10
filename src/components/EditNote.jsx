@@ -30,13 +30,17 @@ export default class EditNote extends React.Component {
     });
   }
   handleSubmit(event) {
-    if (this.state.content !== this.props.content) {
-      this.saveNote(this.state.content);
+    if (this.state.content !== this.props.content || this.state.title !== this.props.title) {
+      this.saveNote({
+        title: this.state.title,
+        content: this.state.content
+      });
     }
+
     event.preventDefault();
   }
-  saveNote(newVal) {
-    this.props.saveNote(newVal);
+  saveNote(newNoteObj) {
+    this.props.saveNote(newNoteObj);
   }
   cancelEdit() {
     this.props.editMode(false);
