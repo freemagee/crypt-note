@@ -5,7 +5,7 @@ const BASE = process.env.REACT_APP_API_BASE;
 const AUTH = process.env.REACT_APP_API_AUTH;
 const NOTES = process.env.REACT_APP_API_NOTES;
 const APPSECRET = process.env.REACT_APP_SECRET;
-const URL = "http://example.org";
+// The token is a global. After Auth, the token will contain a GUID provided from the API which will allow access.
 let token = null;
 
 function getMicrotime(float) {
@@ -43,7 +43,8 @@ const Api = {
         mode: "cors",
         headers: new Headers({
           Authorization: `hmac ${hmac}`,
-          "X-MICROTIME": microtime
+          "X-Microtime": microtime,
+          "X-Token": null
         })
       })
     )
@@ -62,17 +63,22 @@ const Api = {
           throw new Error(json.message);
         }
       })
-      .catch(() => {
+      .catch(error => {
         return null;
       });
   },
   getAllNotes() {
+    const microtime = getMicrotime(true);
+    const hmac = generateHMAC("GET", NOTES, microtime);
+
     return fetch(
-      new Request(URL, {
+      new Request(`${BASE}${NOTES}`, {
         method: "GET",
         mode: "cors",
         headers: new Headers({
-          "X-TOKEN": token
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime,
+          "X-Token": token
         })
       })
     )
@@ -90,17 +96,23 @@ const Api = {
           throw new Error(json.message);
         }
       })
-      .catch(() => {
+      .catch(error => {
         return null;
       });
   },
   getNote(id) {
+    const route = `${NOTES}${id}`;
+    const microtime = getMicrotime(true);
+    const hmac = generateHMAC("GET", route, microtime);
+
     return fetch(
-      new Request(`${URL}${id}`, {
+      new Request(`${BASE}${route}`, {
         method: "GET",
         mode: "cors",
         headers: new Headers({
-          "X-TOKEN": token
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime,
+          "X-Token": token
         })
       })
     )
@@ -118,17 +130,22 @@ const Api = {
           throw new Error(json.message);
         }
       })
-      .catch(() => {
+      .catch(error => {
         return null;
       });
   },
   saveNote(data) {
+    const microtime = getMicrotime(true);
+    const hmac = generateHMAC("POST", NOTES, microtime);
+
     return fetch(
-      new Request(URL, {
+      new Request(`${BASE}${NOTES}`, {
         method: "POST",
         mode: "cors",
         headers: new Headers({
-          "X-TOKEN": token,
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime,
+          "X-Token": token,
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(data)
@@ -153,12 +170,18 @@ const Api = {
       });
   },
   updateNote(data) {
+    const route = `${NOTES}${data.guid}`;
+    const microtime = getMicrotime(true);
+    const hmac = generateHMAC("PUT", route, microtime);
+
     return fetch(
-      new Request(`${URL}${data.guid}`, {
+      new Request(`${BASE}${route}`, {
         method: "PUT",
         mode: "cors",
         headers: new Headers({
-          "X-TOKEN": token,
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime,
+          "X-Token": token,
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(data)
@@ -168,7 +191,7 @@ const Api = {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("There has been a problem saving the data");
+          throw new Error("There has been a problem updating the note");
         }
       })
       .then(json => {
@@ -178,17 +201,23 @@ const Api = {
           throw new Error(json.message);
         }
       })
-      .catch(() => {
+      .catch(error => {
         return null;
       });
   },
   deleteNote(id) {
+    const route = `${NOTES}${id}`;
+    const microtime = getMicrotime(true);
+    const hmac = generateHMAC("DELETE", route, microtime);
+
     return fetch(
-      new Request(`${URL}${id}`, {
+      new Request(`${BASE}${route}`, {
         method: "DELETE",
         mode: "cors",
         headers: new Headers({
-          "X-TOKEN": token
+          Authorization: `hmac ${hmac}`,
+          "X-Microtime": microtime,
+          "X-Token": token
         })
       })
     )
@@ -206,7 +235,7 @@ const Api = {
           throw new Error(json.message);
         }
       })
-      .catch(() => {
+      .catch(error => {
         return null;
       });
   }
