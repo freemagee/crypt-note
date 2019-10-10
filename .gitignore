@@ -64,3 +64,4 @@ jspm_packages
 # Local
 backup
 dist/*
+.env.local
