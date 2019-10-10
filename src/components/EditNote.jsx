@@ -30,8 +30,8 @@ export default class EditNote extends React.Component {
     });
   }
   handleSubmit(event) {
-    if (this.state.value !== this.props.content) {
-      this.saveNote(this.state.value);
+    if (this.state.content !== this.props.content) {
+      this.saveNote(this.state.content);
     }
     event.preventDefault();
   }

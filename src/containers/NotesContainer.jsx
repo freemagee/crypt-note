@@ -46,7 +46,7 @@ export default class NotesContainer extends React.Component {
     let changedTimestamp = Helpers.generateTimestamp();
     this.setState({
       currentNote: currentNote,
-      editMode: true
+      editMode: false
     });
     NOTES[this.state.index].updated = changedTimestamp;
   }
